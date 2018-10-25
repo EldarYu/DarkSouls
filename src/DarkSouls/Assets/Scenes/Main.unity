@@ -206,8 +206,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 308635700}
+  - component: {fileID: 308635701}
   m_Layer: 0
-  m_Name: CamPos
+  m_Name: CamRig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -226,6 +227,22 @@ Transform:
   m_Father: {fileID: 362884363}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &308635701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 308635699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77e80dc9dd1258d499ddcc3b87bf8690, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraDampValue: 0.2
+  horizontalSpeed: 100
+  verticalSpeed: 50
+  maxEulerX: 30
+  minEulerX: -40
 --- !u!1 &362884362
 GameObject:
   m_ObjectHideFlags: 0
@@ -285,9 +302,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1da26c06420f1741ac00db19516086e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocityFloat: Forward
+  velocityFloat: velocity
   walkSpeed: 1.7
   runMulti: 2
+  model: {fileID: 0}
 --- !u!114 &633443582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,15 +323,15 @@ MonoBehaviour:
   Run: 0
   Jup: 0
   Jright: 0
-  moveForward: 119
-  moveBack: 115
-  moveLeft: 97
-  moveRight: 100
+  forward: 119
+  back: 115
+  left: 97
+  right: 100
   run: 304
-  up: 273
-  down: 274
-  left: 276
-  right: 275
+  upArrow: 273
+  downArrow: 274
+  leftArrow: 276
+  rightArrow: 275
 --- !u!4 &633443583
 Transform:
   m_ObjectHideFlags: 0
@@ -342,7 +360,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &633443585
 CapsuleCollider:
@@ -367,7 +385,6 @@ GameObject:
   - component: {fileID: 791234316}
   - component: {fileID: 791234315}
   - component: {fileID: 791234314}
-  - component: {fileID: 791234317}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -435,27 +452,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &791234317
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 791234313}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77e80dc9dd1258d499ddcc3b87bf8690, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cameraDampSpeed: 0.1
-  horizontalSpeed: 50
-  verticalSpeed: 50
-  maxEulerX: 40
-  minEulerX: -30
-  playerInput: {fileID: 633443582}
-  camPos: {fileID: 308635700}
-  camPivot: {fileID: 362884363}
-  playerTrans: {fileID: 633443583}
-  modelTrans: {fileID: 2117258735}
 --- !u!1 &1138347383
 GameObject:
   m_ObjectHideFlags: 0

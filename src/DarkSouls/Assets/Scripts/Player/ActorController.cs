@@ -11,31 +11,33 @@ public class ActorController : MonoBehaviour
     public float walkSpeed;
     public float runMulti;
 
-    private Transform model;
+    public GameObject model;
+
     private Animator animator;
     private Vector3 movingVec;
     private Rigidbody rigid;
-    private IPlayerInput playerInput;
+    private IPlayerInput pi;
 
     void Awake()
     {
         rigid = GetComponent<Rigidbody>();
-        playerInput = GetComponent<IPlayerInput>();
+        pi = GetComponent<IPlayerInput>();
 
-        model = transform.GetChild(0).transform;
+        model = transform.GetChild(0).gameObject;
         animator = model.GetComponent<Animator>();
 
-        if (animator == null || rigid == null || playerInput == null)
+        if (animator == null || rigid == null || pi == null)
             this.enabled = false;
     }
 
     private void Update()
     {
-        animator.SetFloat(velocityFloat, playerInput.Dmag * Mathf.Lerp(animator.GetFloat(velocityFloat), (playerInput.Run ? 2.0f : 1.0f), 0.5f));
+        animator.SetFloat(velocityFloat, pi.Dmag * Mathf.Lerp(animator.GetFloat(velocityFloat), (pi.Run ? 2.0f : 1.0f), 0.5f));
 
-        if (playerInput.Dmag > 0.1f)
-            model.transform.forward = Vector3.Slerp(model.transform.forward, playerInput.Dvec, 0.3f);
-        movingVec = playerInput.Dmag * model.transform.forward * walkSpeed * (playerInput.Run ? runMulti : 1.0f);
+        if (pi.Dmag > 0.1f)
+            model.transform.forward = Vector3.Slerp(model.transform.forward, pi.Dvec, 0.3f);
+
+        movingVec = pi.Dmag * model.transform.forward * walkSpeed * (pi.Run ? runMulti : 1.0f);
 
     }
 

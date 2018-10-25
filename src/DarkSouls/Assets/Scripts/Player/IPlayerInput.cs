@@ -22,9 +22,12 @@ public class IPlayerInput : MonoBehaviour
     protected float velovityDup;
     protected float velovityDright;
 
-    protected void SquareToCircle(ref float dup, ref float dright)
+    protected Vector2 SquareToCircle(Vector2 axis)
     {
-        dup = dup * Mathf.Sqrt(1 - (dright * dright) / 2.0f);
-        dright = dright * Mathf.Sqrt(1 - (dup * dup) / 2.0f);
+        Vector2 output = Vector2.zero;
+        output.x = axis.x * Mathf.Sqrt(1 - (axis.y * axis.y) / 2.0f);
+        output.y = axis.y * Mathf.Sqrt(1 - (axis.x * axis.x) / 2.0f);
+
+        return output;
     }
 }
