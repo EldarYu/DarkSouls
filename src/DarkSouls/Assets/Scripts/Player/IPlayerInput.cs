@@ -12,6 +12,7 @@ public class IPlayerInput : MonoBehaviour
 
     public bool Run;
     public bool Jump;
+    public bool Attack;
 
     public float Jup;
     public float Jright;

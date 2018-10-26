@@ -191,13 +191,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 8763162}
-  m_LocalRotation: {x: -0.28572538, y: -0, z: -0, w: 0.95831156}
-  m_LocalPosition: {x: 0.073125124, y: 0.913001, z: 6.07}
-  m_LocalScale: {x: 5, y: 1, z: 5}
+  m_LocalRotation: {x: -0.17364825, y: 0, z: 0, w: 0.9848078}
+  m_LocalPosition: {x: 0, y: 0, z: 6}
+  m_LocalScale: {x: 5, y: 1, z: 12.21}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: -33.204002, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -20, y: 0, z: 0}
 --- !u!1 &308635699
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,7 +238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77e80dc9dd1258d499ddcc3b87bf8690, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraDampValue: 0.1
+  cameraDampValue: 0.05
   horizontalSpeed: 100
   verticalSpeed: 50
   maxEulerX: 30
@@ -305,9 +305,14 @@ MonoBehaviour:
   velocityFloat: velocity
   jumpTrigger: jump
   isGroundBool: isGround
+  rollTrigger: roll
+  attackTrigger: attack
+  jabVelocity: jabVelocity
+  attackLayer: Attack Layer
   walkSpeed: 1.7
   runMulti: 2
-  model: {fileID: 0}
+  jumpVelocity: 4
+  rollVelocity: 3
 --- !u!114 &633443582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -324,6 +329,7 @@ MonoBehaviour:
   Dvec: {x: 0, y: 0, z: 0}
   Run: 0
   Jump: 0
+  Attack: 0
   Jup: 0
   Jright: 0
   forward: 119
@@ -336,6 +342,7 @@ MonoBehaviour:
   leftArrow: 276
   rightArrow: 275
   jump: 32
+  attack: 102
 --- !u!4 &633443583
 Transform:
   m_ObjectHideFlags: 0
@@ -376,10 +383,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.40486878
-  m_Height: 1.8120226
+  m_Radius: 0.5
+  m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0.008256316, y: 0.913001, z: 0.0682497}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &791234313
 GameObject:
   m_ObjectHideFlags: 0
@@ -584,11 +591,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8718e152b2abb5a48a72e9a6c26169d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  capcol: {fileID: 633443585}
-  offset: 0.1
+  offset: 0.3
   checkLayer:
     serializedVersion: 2
     m_Bits: 512
+  isGroundMethodName: IsGround
+  isNotGroundMethodName: IsNotGround
 --- !u!1 &1535396569
 GameObject:
   m_ObjectHideFlags: 0

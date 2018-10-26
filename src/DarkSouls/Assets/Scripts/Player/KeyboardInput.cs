@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class KeyboardInput : IPlayerInput
 {
+    [Header("Key Setting")]
     public KeyCode forward;
     public KeyCode back;
     public KeyCode left;
@@ -14,13 +15,13 @@ public class KeyboardInput : IPlayerInput
     public KeyCode leftArrow;
     public KeyCode rightArrow;
     public KeyCode jump;
+    public KeyCode attack;
 
     private bool lastJump;
+    private bool lastAttack;
 
     void Update()
     {
-
-
         Jup = (Input.GetKey(upArrow) ? 1.0f : 0) - (Input.GetKey(downArrow) ? 1.0f : 0);
         Jright = (Input.GetKey(rightArrow) ? 1.0f : 0) - (Input.GetKey(leftArrow) ? 1.0f : 0);
 
@@ -42,13 +43,23 @@ public class KeyboardInput : IPlayerInput
 
         Run = Input.GetKey(run);
 
-        bool temp = Input.GetKeyDown(jump);
+        bool jumpTemp = Input.GetKeyDown(jump);
 
-        if (temp != lastJump && temp)
+        if (jumpTemp != lastJump && jumpTemp)
             Jump = true;
         else
             Jump = false;
 
-        lastJump = temp;
+        lastJump = jumpTemp;
+
+        bool attackTemp = Input.GetKeyDown(attack);
+
+        if (attackTemp != lastAttack && attackTemp)
+            Attack = true;
+        else
+            Attack = false;
+
+        lastAttack = attackTemp;
+
     }
 }
