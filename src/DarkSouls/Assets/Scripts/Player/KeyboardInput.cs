@@ -13,6 +13,9 @@ public class KeyboardInput : IPlayerInput
     public KeyCode downArrow;
     public KeyCode leftArrow;
     public KeyCode rightArrow;
+    public KeyCode jump;
+
+    private bool lastJump;
 
     void Update()
     {
@@ -38,5 +41,14 @@ public class KeyboardInput : IPlayerInput
         Dvec = axis.x * transform.right + axis.y * transform.forward;
 
         Run = Input.GetKey(run);
+
+        bool temp = Input.GetKeyDown(jump);
+
+        if (temp != lastJump && temp)
+            Jump = true;
+        else
+            Jump = false;
+
+        lastJump = temp;
     }
 }

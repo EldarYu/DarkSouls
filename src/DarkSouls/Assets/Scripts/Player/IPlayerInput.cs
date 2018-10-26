@@ -9,7 +9,9 @@ public class IPlayerInput : MonoBehaviour
     [Header("Output Signals")]
     public float Dmag;
     public Vector3 Dvec;
+
     public bool Run;
+    public bool Jump;
 
     public float Jup;
     public float Jright;

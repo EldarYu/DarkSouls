@@ -6,6 +6,9 @@ public class ActorController : MonoBehaviour
 {
     [Header("Animator Field")]
     public string velocityFloat;
+    public string jumpTrigger;
+    public string isGroundBool;
+
 
     [Header("Move Options")]
     public float walkSpeed;
@@ -39,10 +42,26 @@ public class ActorController : MonoBehaviour
 
         movingVec = pi.Dmag * model.transform.forward * walkSpeed * (pi.Run ? runMulti : 1.0f);
 
+        if (pi.Jump)
+            animator.SetTrigger(jumpTrigger);
+
     }
 
     private void FixedUpdate()
     {
         rigid.velocity = new Vector3(movingVec.x, rigid.velocity.y, movingVec.z);
+    }
+
+
+    //
+    //
+    void IsGround()
+    {
+        animator.SetBool(isGroundBool, true);
+    }
+
+    void IsNotGround()
+    {
+        animator.SetBool(isGroundBool, false);
     }
 }
