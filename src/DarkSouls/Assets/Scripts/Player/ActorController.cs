@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[DisallowMultipleComponent]
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(CapsuleCollider))]
 public class ActorController : MonoBehaviour
 {
     [Header("Animator Field")]
@@ -10,6 +13,7 @@ public class ActorController : MonoBehaviour
     public string isGroundBool;
     public string rollTrigger;
     public string attackTrigger;
+    public string defenseBool;
 
     [Header("Animator Curves")]
     public string jabVelocity;
@@ -29,12 +33,15 @@ public class ActorController : MonoBehaviour
     public float runMulti;
     public float jumpVelocity;
     public float rollVelocity;
+    public float rollVelocityThreshold;
 
     [Header("Physic")]
     public PhysicMaterial fricitionOne;
     public PhysicMaterial fricitionZero;
 
+    [HideInInspector]
     public IPlayerInput pi;
+    [HideInInspector]
     public GameObject model;
 
     private Animator animator;
@@ -65,14 +72,19 @@ public class ActorController : MonoBehaviour
     {
         animator.SetFloat(velocityFloat, pi.Dmag * Mathf.Lerp(animator.GetFloat(velocityFloat), (pi.Run ? 2.0f : 1.0f), 0.5f));
 
+        animator.SetBool(defenseBool, pi.Defense);
+
         if (pi.Jump)
         {
-            canAttack = false;
             animator.SetTrigger(jumpTrigger);
+            canAttack = false;
         }
 
-        if (rigid.velocity.magnitude > 1.0f)
+        if (pi.Roll || rigid.velocity.magnitude > rollVelocityThreshold)
+        {
             animator.SetTrigger(rollTrigger);
+            canAttack = false;
+        }
 
         if (pi.Attack && canAttack)
             animator.SetTrigger(attackTrigger);

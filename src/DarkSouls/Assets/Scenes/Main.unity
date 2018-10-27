@@ -313,6 +313,7 @@ MonoBehaviour:
   isGroundBool: isGround
   rollTrigger: roll
   attackTrigger: attack
+  defenseBool: defense
   jabVelocity: jabVelocity
   attack1hAVelocity: attack1hAVelocity
   attackLayer: Attack Layer
@@ -322,6 +323,7 @@ MonoBehaviour:
   runMulti: 2
   jumpVelocity: 4
   rollVelocity: 3
+  rollVelocityThreshold: 7
   fricitionOne: {fileID: 13400000, guid: 324006f305f457d438de1e4ba6ddb9ed, type: 2}
   fricitionZero: {fileID: 13400000, guid: e464596ebf8599d479b29573a7c6f952, type: 2}
   pi: {fileID: 0}
@@ -338,24 +340,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputEnabled: 1
-  Dmag: 0
-  Dvec: {x: 0, y: 0, z: 0}
-  Run: 0
-  Jump: 0
-  Attack: 0
-  Jup: 0
-  Jright: 0
-  forward: 119
-  back: 115
-  left: 97
-  right: 100
-  run: 304
-  upArrow: 273
-  downArrow: 274
-  leftArrow: 276
-  rightArrow: 275
-  jump: 32
-  attack: 102
+  runBtn:
+    extendingDuration: 0.15
+    delayingDuration: 0.15
+  attackBtn:
+    extendingDuration: 0.15
+    delayingDuration: 0.15
+  defenseBtn:
+    extendingDuration: 0.15
+    delayingDuration: 0.15
+  jumpBtn:
+    extendingDuration: 0.15
+    delayingDuration: 0.3
+  forwardKey: 119
+  backKey: 115
+  leftKey: 97
+  rightKey: 100
+  upArrowKey: 273
+  downArrowKey: 274
+  leftArrowKey: 276
+  rightArrowKey: 275
+  runKey: 304
+  jumpKey: 32
+  attackKey: 102
+  defenseKey: 118
 --- !u!4 &633443583
 Transform:
   m_ObjectHideFlags: 0
@@ -412,13 +420,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputEnabled: 1
-  Dmag: 0
-  Dvec: {x: 0, y: 0, z: 0}
-  Run: 0
-  Jump: 0
-  Attack: 0
-  Jup: 0
-  Jright: 0
+  runBtn:
+    extendingDuration: 0.15
+    delayingDuration: 0.15
+  attackBtn:
+    extendingDuration: 0.15
+    delayingDuration: 0.15
+  defenseBtn:
+    extendingDuration: 0.15
+    delayingDuration: 0.15
 --- !u!1 &761821026
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,13 +650,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1112001154}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.66364634, y: 0.49559233, z: 0.06277151}
+  m_LocalRotation: {x: 0.028331192, y: -0, z: 0.0000000018626454, w: 0.9995986}
+  m_LocalPosition: {x: -0.00000010376, y: 0.000010598, z: 0.00000026623}
+  m_LocalScale: {x: 0.49722376, y: 0.64258856, z: 0.06277151}
   m_Children: []
   m_Father: {fileID: 1654492348}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 3.2470002, y: 0, z: 0}
 --- !u!65 &1112001156
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -826,7 +836,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c80064c8259a624d84434497feb49b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  euler: {x: -50, y: -20, z: 10}
+  boolFields:
+  - defense
+  eulers:
+  - {x: 0, y: 30, z: 20}
 --- !u!1 &1520691436
 GameObject:
   m_ObjectHideFlags: 0
@@ -836,7 +849,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1520691437}
   - component: {fileID: 1520691438}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Sensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -922,8 +935,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1654492347}
-  m_LocalRotation: {x: 0.4439101, y: 0.049727432, z: -0.021436676, w: 0.8944337}
-  m_LocalPosition: {x: -0.175, y: 0.092, z: -0.069}
+  m_LocalRotation: {x: 0.44391006, y: 0.04972743, z: -0.021436676, w: 0.8944336}
+  m_LocalPosition: {x: -0.172, y: 0.058, z: -0.044}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1112001155}
@@ -1046,6 +1059,10 @@ Prefab:
     - target: {fileID: 9500000, guid: 2f9d958fbcd96e44ca35a77a15e3187a, type: 3}
       propertyPath: m_UpdateMode
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400018, guid: 2f9d958fbcd96e44ca35a77a15e3187a, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f9d958fbcd96e44ca35a77a15e3187a, type: 3}
