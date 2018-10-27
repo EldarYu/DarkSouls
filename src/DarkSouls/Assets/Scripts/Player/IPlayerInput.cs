@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IPlayerInput : MonoBehaviour
+public abstract class IPlayerInput : MonoBehaviour
 {
     public bool inputEnabled = true;
 
@@ -16,6 +16,9 @@ public class IPlayerInput : MonoBehaviour
 
     public float Jup;
     public float Jright;
+
+    protected bool lastJump;
+    protected bool lastAttack;
 
     protected float Dup;
     protected float targetDup;

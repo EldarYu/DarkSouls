@@ -21,12 +21,15 @@ public class CameraController : MonoBehaviour
     private float eulerX;
     private Vector3 currentVelocity;
 
-    void Awake()
+    void Start()
     {
         camPivot = transform.parent.gameObject;
         player = camPivot.transform.parent.gameObject;
-        model = player.transform.GetChild(0).gameObject;
-        pi = player.GetComponent<IPlayerInput>();
+
+        ActorController ac = player.GetComponent<ActorController>();
+        model = ac.model;
+        pi = ac.pi;
+
         mainCamera = Camera.main.gameObject;
 
         if (camPivot == null || player == null || model == null || pi == null || mainCamera == null)
@@ -45,7 +48,12 @@ public class CameraController : MonoBehaviour
         model.transform.eulerAngles = temp;
 
         mainCamera.transform.position = Vector3.SmoothDamp(mainCamera.transform.position, transform.position, ref currentVelocity, cameraDampValue);
-        mainCamera.transform.eulerAngles = transform.eulerAngles;
+        mainCamera.transform.LookAt(camPivot.transform);
+    }
+
+    public void ResetInputDevice(IPlayerInput playerInput)
+    {
+        pi = playerInput;
     }
 
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class KeyboardInput : IPlayerInput
 {
-    [Header("Key Setting")]
+    [Header("Key Settings")]
     public KeyCode forward;
     public KeyCode back;
     public KeyCode left;
@@ -16,9 +16,6 @@ public class KeyboardInput : IPlayerInput
     public KeyCode rightArrow;
     public KeyCode jump;
     public KeyCode attack;
-
-    private bool lastJump;
-    private bool lastAttack;
 
     void Update()
     {

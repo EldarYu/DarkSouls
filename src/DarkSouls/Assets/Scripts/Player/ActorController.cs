@@ -13,9 +13,16 @@ public class ActorController : MonoBehaviour
 
     [Header("Animator Curves")]
     public string jabVelocity;
+    public string attack1hAVelocity;
 
     [Header("Animator Layer Name")]
     public string attackLayer;
+
+    [Header("Animator State Name")]
+    public string threeStageAttack1h;
+
+    [Header("Animator State Option")]
+    public string mirror;
 
     [Header("Move Options")]
     public float walkSpeed;
@@ -23,19 +30,29 @@ public class ActorController : MonoBehaviour
     public float jumpVelocity;
     public float rollVelocity;
 
-    private GameObject model;
+    [Header("Physic")]
+    public PhysicMaterial fricitionOne;
+    public PhysicMaterial fricitionZero;
+
+    public IPlayerInput pi;
+    public GameObject model;
+
     private Animator animator;
     private Rigidbody rigid;
-    private IPlayerInput pi;
+    private CapsuleCollider col;
 
+    private float layerLerpTarget;
     private Vector3 planarVec;
-    private bool lockPlanar = false;
+    private Vector3 deltaPos;
     private Vector3 thrushVec;
+    private bool lockPlanar = false;
+    private bool canAttack;
 
     void Awake()
     {
         rigid = GetComponent<Rigidbody>();
-        pi = GetComponent<IPlayerInput>();
+        pi = GetInputDevice();
+        col = GetComponent<CapsuleCollider>();
 
         model = transform.GetChild(0).gameObject;
         animator = model.GetComponent<Animator>();
@@ -49,12 +66,15 @@ public class ActorController : MonoBehaviour
         animator.SetFloat(velocityFloat, pi.Dmag * Mathf.Lerp(animator.GetFloat(velocityFloat), (pi.Run ? 2.0f : 1.0f), 0.5f));
 
         if (pi.Jump)
+        {
+            canAttack = false;
             animator.SetTrigger(jumpTrigger);
+        }
 
         if (rigid.velocity.magnitude > 1.0f)
             animator.SetTrigger(rollTrigger);
 
-        if (pi.Attack)
+        if (pi.Attack && canAttack)
             animator.SetTrigger(attackTrigger);
 
         if (pi.Dmag > 0.1f)
@@ -62,14 +82,43 @@ public class ActorController : MonoBehaviour
 
         if (!lockPlanar)
             planarVec = pi.Dmag * model.transform.forward * walkSpeed * (pi.Run ? runMulti : 1.0f);
-
-
     }
 
     private void FixedUpdate()
     {
+        rigid.position += deltaPos;
         rigid.velocity = new Vector3(planarVec.x, rigid.velocity.y, planarVec.z) + thrushVec;
         thrushVec = Vector3.zero;
+        deltaPos = Vector3.zero;
+    }
+
+    private bool CheckAnimatorState(string stateName, int layerIndex = 0)
+    {
+        return animator.GetCurrentAnimatorStateInfo(layerIndex).IsName(stateName);
+    }
+
+    public void ResetInputDevice(IPlayerInput playerInput)
+    {
+        pi = playerInput;
+    }
+
+    public IPlayerInput GetInputDevice(bool isActive = true)
+    {
+        IPlayerInput[] devices = GetComponents<IPlayerInput>();
+        foreach (var device in devices)
+        {
+            if (isActive)
+            {
+                if (device.enabled)
+                    return device;
+            }
+            else
+            {
+                if (!device.enabled)
+                    return device;
+            }
+        }
+        return null;
     }
 
 
@@ -107,12 +156,15 @@ public class ActorController : MonoBehaviour
 
     void OnGroundEnter()
     {
+        col.material = fricitionOne;
+        canAttack = true;
         pi.inputEnabled = true;
         lockPlanar = false;
     }
 
     void OnGroundExit()
     {
+        col.material = fricitionZero;
         pi.inputEnabled = false;
         lockPlanar = true;
     }
@@ -121,11 +173,34 @@ public class ActorController : MonoBehaviour
     //attack layer 动画层消息
     void OnAttackIdleEnter()
     {
-        animator.SetLayerWeight(animator.GetLayerIndex(attackLayer), 0);
+        pi.inputEnabled = true;
+        layerLerpTarget = 0;
+    }
+
+    void OnAttackIdleUpdate()
+    {
+        animator.SetLayerWeight(animator.GetLayerIndex(attackLayer),
+         Mathf.Lerp(animator.GetLayerWeight(animator.GetLayerIndex(attackLayer)), layerLerpTarget, 0.4f));
     }
 
     void OnAttack1hAEnter()
     {
-        animator.SetLayerWeight(animator.GetLayerIndex(attackLayer), 1.0f);
+        pi.inputEnabled = false;
+        layerLerpTarget = 1.0f;
+    }
+
+    void OnAttack1hAUpdate()
+    {
+        thrushVec = model.transform.forward * animator.GetFloat(attack1hAVelocity);
+        animator.SetLayerWeight(animator.GetLayerIndex(attackLayer),
+            Mathf.Lerp(animator.GetLayerWeight(animator.GetLayerIndex(attackLayer)), layerLerpTarget, 0.4f));
+    }
+
+
+    //root motion值处理
+    void OnUpdateRM(object _deltaPos)
+    {
+        if (CheckAnimatorState(threeStageAttack1h, animator.GetLayerIndex(attackLayer)))
+            deltaPos += 0.8f * deltaPos + 0.2f * (Vector3)_deltaPos;
     }
 }
