@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class TriggerControl : MonoBehaviour
 {
-    private Animator animator;
+    private Animator anim;
 
     void Awake()
     {
-        animator = GetComponent<Animator>();
+        anim = GetComponent<Animator>();
     }
 
     public void ResetTrigger(string triggerName)
     {
-        animator.ResetTrigger(triggerName);
+        anim.ResetTrigger(triggerName);
     }
 }

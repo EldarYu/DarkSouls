@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -44,7 +45,7 @@ public class ActorController : MonoBehaviour
     [HideInInspector]
     public GameObject model;
 
-    private Animator animator;
+    private Animator anim;
     private Rigidbody rigid;
     private CapsuleCollider col;
 
@@ -62,32 +63,32 @@ public class ActorController : MonoBehaviour
         col = GetComponent<CapsuleCollider>();
 
         model = transform.GetChild(0).gameObject;
-        animator = model.GetComponent<Animator>();
+        anim = model.GetComponent<Animator>();
 
-        if (animator == null || rigid == null || pi == null)
+        if (anim == null || rigid == null || pi == null)
             this.enabled = false;
     }
 
     private void Update()
     {
-        animator.SetFloat(velocityFloat, pi.Dmag * Mathf.Lerp(animator.GetFloat(velocityFloat), (pi.Run ? 2.0f : 1.0f), 0.5f));
+        anim.SetFloat(velocityFloat, pi.Dmag * Mathf.Lerp(anim.GetFloat(velocityFloat), (pi.Run ? 2.0f : 1.0f), 0.5f));
 
-        animator.SetBool(defenseBool, pi.Defense);
+        anim.SetBool(defenseBool, pi.Defense);
 
         if (pi.Jump)
         {
-            animator.SetTrigger(jumpTrigger);
+            anim.SetTrigger(jumpTrigger);
             canAttack = false;
         }
 
         if (pi.Roll || rigid.velocity.magnitude > rollVelocityThreshold)
         {
-            animator.SetTrigger(rollTrigger);
+            anim.SetTrigger(rollTrigger);
             canAttack = false;
         }
 
         if (pi.Attack && canAttack)
-            animator.SetTrigger(attackTrigger);
+            anim.SetTrigger(attackTrigger);
 
         if (pi.Dmag > 0.1f)
             model.transform.forward = Vector3.Slerp(model.transform.forward, pi.Dvec, 0.3f);
@@ -106,7 +107,7 @@ public class ActorController : MonoBehaviour
 
     private bool CheckAnimatorState(string stateName, int layerIndex = 0)
     {
-        return animator.GetCurrentAnimatorStateInfo(layerIndex).IsName(stateName);
+        return anim.GetCurrentAnimatorStateInfo(layerIndex).IsName(stateName);
     }
 
     public void ResetInputDevice(IPlayerInput playerInput)
@@ -133,18 +134,20 @@ public class ActorController : MonoBehaviour
         return null;
     }
 
+    //Sensor 消息
+    public void OnGroundSensor(bool isGround)
+    {
+        anim.SetBool(isGroundBool, isGround);
+    }
+
+    //root motion值处理
+    public void OnUpdateRM(Vector3 _deltaPos)
+    {
+        if (CheckAnimatorState(threeStageAttack1h, anim.GetLayerIndex(attackLayer)))
+            deltaPos += 0.8f * deltaPos + 0.2f * _deltaPos;
+    }
 
     //base layer 动画层消息
-    void IsGround()
-    {
-        animator.SetBool(isGroundBool, true);
-    }
-
-    void IsNotGround()
-    {
-        animator.SetBool(isGroundBool, false);
-    }
-
     void OnJumpEnter()
     {
         thrushVec.y = jumpVelocity;
@@ -163,7 +166,7 @@ public class ActorController : MonoBehaviour
 
     void OnJabUpdate()
     {
-        thrushVec = model.transform.forward * animator.GetFloat(jabVelocity);
+        thrushVec = model.transform.forward * anim.GetFloat(jabVelocity);
     }
 
     void OnGroundEnter()
@@ -191,8 +194,8 @@ public class ActorController : MonoBehaviour
 
     void OnAttackIdleUpdate()
     {
-        animator.SetLayerWeight(animator.GetLayerIndex(attackLayer),
-         Mathf.Lerp(animator.GetLayerWeight(animator.GetLayerIndex(attackLayer)), layerLerpTarget, 0.4f));
+        anim.SetLayerWeight(anim.GetLayerIndex(attackLayer),
+         Mathf.Lerp(anim.GetLayerWeight(anim.GetLayerIndex(attackLayer)), layerLerpTarget, 0.4f));
     }
 
     void OnAttack1hAEnter()
@@ -203,16 +206,10 @@ public class ActorController : MonoBehaviour
 
     void OnAttack1hAUpdate()
     {
-        thrushVec = model.transform.forward * animator.GetFloat(attack1hAVelocity);
-        animator.SetLayerWeight(animator.GetLayerIndex(attackLayer),
-            Mathf.Lerp(animator.GetLayerWeight(animator.GetLayerIndex(attackLayer)), layerLerpTarget, 0.4f));
+        thrushVec = model.transform.forward * anim.GetFloat(attack1hAVelocity);
+        anim.SetLayerWeight(anim.GetLayerIndex(attackLayer),
+            Mathf.Lerp(anim.GetLayerWeight(anim.GetLayerIndex(attackLayer)), layerLerpTarget, 0.4f));
     }
 
 
-    //root motion值处理
-    void OnUpdateRM(object _deltaPos)
-    {
-        if (CheckAnimatorState(threeStageAttack1h, animator.GetLayerIndex(attackLayer)))
-            deltaPos += 0.8f * deltaPos + 0.2f * (Vector3)_deltaPos;
-    }
 }

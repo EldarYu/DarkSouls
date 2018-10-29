@@ -352,18 +352,16 @@ MonoBehaviour:
   jumpBtn:
     extendingDuration: 0.15
     delayingDuration: 0.3
+  mouseSensitivityX: 0.3
+  mouseSensitivityY: 0.3
   forwardKey: 119
   backKey: 115
   leftKey: 97
   rightKey: 100
-  upArrowKey: 273
-  downArrowKey: 274
-  leftArrowKey: 276
-  rightArrowKey: 275
   runKey: 304
   jumpKey: 32
-  attackKey: 102
-  defenseKey: 118
+  attackKey: 323
+  defenseKey: 324
 --- !u!4 &633443583
 Transform:
   m_ObjectHideFlags: 0
@@ -884,8 +882,6 @@ MonoBehaviour:
   checkLayer:
     serializedVersion: 2
     m_Bits: 512
-  isGroundMethodName: IsGround
-  isNotGroundMethodName: IsNotGround
 --- !u!1 &1535396569
 GameObject:
   m_ObjectHideFlags: 0

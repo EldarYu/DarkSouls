@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7469016f54e05bd4aa110aaabc5dfece
+guid: 40ce02e0d860f8a4384b1978b8028a15
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -154,7 +154,8 @@ ModelImporter:
     resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
-    rigImportErrors: 
+    rigImportErrors: "Copied Avatar Rig Configuration mis-match. Transform hierarchy
+      does not match:\n\tTransform 'root hips' for human bone 'Hips' not found\n"
     rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 

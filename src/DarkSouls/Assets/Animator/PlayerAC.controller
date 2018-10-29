@@ -125,6 +125,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onEnterMessages:
   - OnAttack1hAEnter
+  onUpdateMessages:
+  - OnAttack1hAUpdate
+  onExitMessages: []
 --- !u!114 &114432549816952302
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -138,19 +141,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onEnterMessages:
   - OnRollEnter
---- !u!114 &114450228762293798
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 281fc530559d22f4d89cf07f753f2c34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onUpdateMessages:
-  - OnJabUpdate
+  onUpdateMessages: []
+  onExitMessages: []
 --- !u!114 &114644096959327464
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -179,6 +171,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onEnterMessages:
   - OnJabEnter
+  onUpdateMessages:
+  - OnJabUpdate
+  onExitMessages: []
 --- !u!114 &114758040035889210
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -192,6 +187,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onEnterMessages:
   - OnAttackIdleEnter
+  onUpdateMessages: []
+  onExitMessages: []
 --- !u!114 &114794126885921196
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -219,6 +216,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onEnterMessages:
   - OnGroundEnter
+  onUpdateMessages: []
+  onExitMessages:
+  - OnGroundExit
 --- !u!114 &114847939093460970
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -232,32 +232,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onEnterMessages:
   - OnJumpEnter
---- !u!114 &114911855714725826
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9998dc50c7ecc34c848afa39cb05112, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onExitMessages:
-  - OnGroundExit
---- !u!114 &114939410814633384
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 281fc530559d22f4d89cf07f753f2c34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onUpdateMessages:
-  - OnAttack1hAUpdate
+  onUpdateMessages: []
+  onExitMessages: []
 --- !u!206 &206331390089633316
 BlendTree:
   m_ObjectHideFlags: 1
@@ -916,7 +892,6 @@ AnimatorState:
   - {fileID: 1101705654424319232}
   m_StateMachineBehaviours:
   - {fileID: 114408621426063252}
-  - {fileID: 114939410814633384}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -944,7 +919,6 @@ AnimatorState:
   - {fileID: 1101370701033190104}
   m_StateMachineBehaviours:
   - {fileID: 114737639777967036}
-  - {fileID: 114450228762293798}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -976,7 +950,6 @@ AnimatorState:
   m_StateMachineBehaviours:
   - {fileID: 114644096959327464}
   - {fileID: 114804261714157830}
-  - {fileID: 114911855714725826}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1

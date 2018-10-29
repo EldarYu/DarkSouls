@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class RootMotionControl : MonoBehaviour
 {
-    private Animator animator;
+    private Animator anim;
+    private ActorController ac;
 
     void Awake()
     {
-        animator = GetComponent<Animator>();
+        anim = GetComponent<Animator>();
+        ac = transform.parent.GetComponent<ActorController>();
     }
 
     private void OnAnimatorMove()
     {
-        gameObject.SendMessageUpwards("OnUpdateRM", animator.deltaPosition);
+        ac.OnUpdateRM(anim.deltaPosition);
     }
 }

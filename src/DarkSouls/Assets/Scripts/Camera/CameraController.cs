@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public class LockTarget
+{
+    public GameObject target;
+
+}
+
 [DisallowMultipleComponent]
 public class CameraController : MonoBehaviour
 {
@@ -32,6 +38,8 @@ public class CameraController : MonoBehaviour
         pi = ac.pi;
 
         mainCamera = Camera.main.gameObject;
+
+        Cursor.lockState = CursorLockMode.Locked;
 
         if (camPivot == null || player == null || model == null || pi == null || mainCamera == null)
             this.enabled = false;
