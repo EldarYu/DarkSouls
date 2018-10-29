@@ -7,13 +7,14 @@ public abstract class IPlayerInput : MonoBehaviour
     public bool inputEnabled = true;
     public float Dmag { get; protected set; }
     public Vector3 Dvec { get; protected set; }
+    public float Jup { get; protected set; }
+    public float Jright { get; protected set; }
     public bool Run { get; protected set; }
     public bool Jump { get; protected set; }
     public bool Attack { get; protected set; }
     public bool Roll { get; protected set; }
     public bool Defense { get; protected set; }
-    public float Jup { get; protected set; }
-    public float Jright { get; protected set; }
+    public bool LockOn { get; protected set; }
 
     [Header("Button Settings")]
     [SerializeField]
@@ -22,12 +23,13 @@ public abstract class IPlayerInput : MonoBehaviour
     protected Button attackBtn = new Button();
     [SerializeField]
     protected Button defenseBtn = new Button();
+    [SerializeField]
+    protected Button lockBtn = new Button();
 
     protected float Dup;
     protected float targetDup;
     protected float Dright;
     protected float targetDright;
-
     protected float velovityDup;
     protected float velovityDright;
 

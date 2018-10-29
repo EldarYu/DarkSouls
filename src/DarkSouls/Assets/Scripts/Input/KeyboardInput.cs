@@ -10,9 +10,9 @@ public class KeyboardInput : IPlayerInput
 
     [Header("Mouse Settings")]
     [Range(0, 1)]
-    public float mouseSensitivityX;
+    public float mouseSensitivityX = 0.3f;
     [Range(0, 1)]
-    public float mouseSensitivityY;
+    public float mouseSensitivityY = 0.3f;
 
     [Header("Key Settings")]
     public KeyCode forwardKey;
@@ -23,6 +23,7 @@ public class KeyboardInput : IPlayerInput
     public KeyCode jumpKey;
     public KeyCode attackKey;
     public KeyCode defenseKey;
+    public KeyCode lockKey;
 
     void Update()
     {
@@ -30,6 +31,7 @@ public class KeyboardInput : IPlayerInput
         jumpBtn.Tick(Input.GetKey(jumpKey), Time.deltaTime);
         attackBtn.Tick(Input.GetKey(attackKey), Time.deltaTime);
         defenseBtn.Tick(Input.GetKey(defenseKey), Time.deltaTime);
+        lockBtn.Tick(Input.GetKey(lockKey), Time.deltaTime);
 
         Jup = Input.GetAxis("Mouse Y") * 10.0f * mouseSensitivityY;
         Jright = Input.GetAxis("Mouse X") * 10.0f * mouseSensitivityX;
@@ -55,5 +57,6 @@ public class KeyboardInput : IPlayerInput
         Roll = jumpBtn.OnReleased && jumpBtn.IsDelaying;
         Attack = attackBtn.OnPressed;
         Defense = defenseBtn.IsPressing;
+        LockOn = lockBtn.OnPressed;
     }
 }
