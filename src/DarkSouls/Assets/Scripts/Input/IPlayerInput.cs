@@ -11,20 +11,11 @@ public abstract class IPlayerInput : MonoBehaviour
     public float Jright { get; protected set; }
     public bool Run { get; protected set; }
     public bool Jump { get; protected set; }
-    public bool Attack { get; protected set; }
     public bool Roll { get; protected set; }
-    public bool Defense { get; protected set; }
     public bool LockOn { get; protected set; }
-
-    [Header("Button Settings")]
-    [SerializeField]
-    protected Button runBtn = new Button();
-    [SerializeField]
-    protected Button attackBtn = new Button();
-    [SerializeField]
-    protected Button defenseBtn = new Button();
-    [SerializeField]
-    protected Button lockBtn = new Button();
+    public bool LeftAttack { get; protected set; }
+    public bool RightAttack { get; protected set; }
+    public bool Defense { get; protected set; }
 
     protected float Dup;
     protected float targetDup;
@@ -40,5 +31,12 @@ public abstract class IPlayerInput : MonoBehaviour
         output.y = axis.y * Mathf.Sqrt(1 - (axis.x * axis.x) / 2.0f);
 
         return output;
+    }
+
+    protected void UpdateDmagDvec(float dup, float dright)
+    {
+        Vector2 axis = SquareToCircle(new Vector2(dright, dup));
+        Dmag = Mathf.Sqrt(axis.y * axis.y + axis.x * axis.x);
+        Dvec = axis.x * transform.right + axis.y * transform.forward;
     }
 }

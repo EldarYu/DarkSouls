@@ -248,6 +248,7 @@ MonoBehaviour:
   verticalSpeed: 50
   maxEulerX: 30
   minEulerX: -40
+  maxLockDistance: 10
   lockOnLayer:
     serializedVersion: 2
     m_Bits: 2048
@@ -320,11 +321,14 @@ MonoBehaviour:
   rollTrigger: roll
   attackTrigger: attack
   defenseBool: defense
+  leftHAttackBool: leftHandAttack
   jabVelocity: jabVelocity
   attack1hAVelocity: attack1hAVelocity
   attackLayer: Attack Layer
+  defenseLayer: Defense Layer
   threeStageAttack1h: attack1hC
-  mirror: mirror
+  groundState: ground
+  attackTag: attack
   walkSpeed: 1.7
   runMulti: 2
   jumpVelocity: 4
@@ -334,6 +338,7 @@ MonoBehaviour:
   fricitionZero: {fileID: 13400000, guid: e464596ebf8599d479b29573a7c6f952, type: 2}
   pi: {fileID: 0}
   model: {fileID: 0}
+  leftIsShield: 1
 --- !u!114 &633443582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,21 +351,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputEnabled: 1
+  jumpBtn:
+    extendingDuration: 0.15
+    delayingDuration: 0.3
   runBtn:
     extendingDuration: 0.15
     delayingDuration: 0.15
-  attackBtn:
+  rightAttackBtn:
     extendingDuration: 0.15
     delayingDuration: 0.15
-  defenseBtn:
+  leftAttackBtn:
     extendingDuration: 0.15
     delayingDuration: 0.15
   lockBtn:
     extendingDuration: 0.15
     delayingDuration: 0.15
-  jumpBtn:
-    extendingDuration: 0.15
-    delayingDuration: 0.3
   mouseSensitivityX: 0.3
   mouseSensitivityY: 0.3
   forwardKey: 119
@@ -369,8 +374,8 @@ MonoBehaviour:
   rightKey: 100
   runKey: 304
   jumpKey: 32
-  attackKey: 323
-  defenseKey: 324
+  rightAttackKey: 323
+  leftAttackKey: 324
   lockKey: 102
 --- !u!4 &633443583
 Transform:
@@ -428,18 +433,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputEnabled: 1
-  runBtn:
-    extendingDuration: 0.15
-    delayingDuration: 0.15
-  attackBtn:
-    extendingDuration: 0.15
-    delayingDuration: 0.15
-  defenseBtn:
-    extendingDuration: 0.15
-    delayingDuration: 0.15
-  lockBtn:
-    extendingDuration: 0
-    delayingDuration: 0
 --- !u!1 &761821026
 GameObject:
   m_ObjectHideFlags: 0

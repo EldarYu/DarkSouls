@@ -5,8 +5,17 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class KeyboardInput : IPlayerInput
 {
+    [Header("Button Settings")]
     [SerializeField]
     private Button jumpBtn = new Button();
+    [SerializeField]
+    protected Button runBtn = new Button();
+    [SerializeField]
+    protected Button rightAttackBtn = new Button();
+    [SerializeField]
+    protected Button leftAttackBtn = new Button();
+    [SerializeField]
+    protected Button lockBtn = new Button();
 
     [Header("Mouse Settings")]
     [Range(0, 1)]
@@ -21,16 +30,16 @@ public class KeyboardInput : IPlayerInput
     public KeyCode rightKey;
     public KeyCode runKey;
     public KeyCode jumpKey;
-    public KeyCode attackKey;
-    public KeyCode defenseKey;
+    public KeyCode rightAttackKey;
+    public KeyCode leftAttackKey;
     public KeyCode lockKey;
 
     void Update()
     {
         runBtn.Tick(Input.GetKey(runKey), Time.deltaTime);
         jumpBtn.Tick(Input.GetKey(jumpKey), Time.deltaTime);
-        attackBtn.Tick(Input.GetKey(attackKey), Time.deltaTime);
-        defenseBtn.Tick(Input.GetKey(defenseKey), Time.deltaTime);
+        leftAttackBtn.Tick(Input.GetKey(leftAttackKey), Time.deltaTime);
+        rightAttackBtn.Tick(Input.GetKey(rightAttackKey), Time.deltaTime);
         lockBtn.Tick(Input.GetKey(lockKey), Time.deltaTime);
 
         Jup = Input.GetAxis("Mouse Y") * 10.0f * mouseSensitivityY;
@@ -48,15 +57,14 @@ public class KeyboardInput : IPlayerInput
         Dup = Mathf.SmoothDamp(Dup, targetDup, ref velovityDup, 0.1f);
         Dright = Mathf.SmoothDamp(Dright, targetDright, ref velovityDright, 0.1f);
 
-        Vector2 axis = SquareToCircle(new Vector2(Dright, Dup));
-        Dmag = Mathf.Sqrt(axis.y * axis.y + axis.x * axis.x);
-        Dvec = axis.x * transform.right + axis.y * transform.forward;
+        UpdateDmagDvec(Dup, Dright);
 
         Run = runBtn.IsPressing;
         Jump = jumpBtn.OnPressed && (runBtn.IsPressing || runBtn.IsExtending);
         Roll = jumpBtn.OnReleased && jumpBtn.IsDelaying;
-        Attack = attackBtn.OnPressed;
-        Defense = defenseBtn.IsPressing;
+        LeftAttack = leftAttackBtn.OnPressed;
+        RightAttack = rightAttackBtn.OnPressed;
+        Defense = leftAttackBtn.IsPressing;
         LockOn = lockBtn.OnPressed;
     }
 }

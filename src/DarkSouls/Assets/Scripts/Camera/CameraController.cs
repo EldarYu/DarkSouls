@@ -29,6 +29,7 @@ public class CameraController : MonoBehaviour
     public LayerMask lockOnLayer;
     public Image lockDot;
     public bool lockState = false;
+    public bool isAI = false;
 
     private GameObject player;
     private GameObject camPivot;
@@ -49,11 +50,13 @@ public class CameraController : MonoBehaviour
         model = ac.model;
         pi = ac.pi;
 
-        mainCamera = Camera.main.gameObject;
+        if (!isAI)
+        {
+            mainCamera = Camera.main.gameObject;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
 
-        Cursor.lockState = CursorLockMode.Locked;
-
-        if (camPivot == null || player == null || model == null || pi == null || mainCamera == null)
+        if (camPivot == null || player == null || model == null || pi == null)
             this.enabled = false;
     }
 
@@ -65,16 +68,23 @@ public class CameraController : MonoBehaviour
         if (lockTarget.target != null)
         {
             lockState = true;
-            lockDot.enabled = true;
-            Vector3 woldPos = lockTarget.target.transform.position + Vector3.up * lockTarget.halfHeight;
-            lockDot.transform.position = Camera.main.WorldToScreenPoint(woldPos);
+
+            if (!isAI)
+            {
+                lockDot.enabled = true;
+                Vector3 woldPos = lockTarget.target.transform.position + Vector3.up * lockTarget.halfHeight;
+                lockDot.transform.position = Camera.main.WorldToScreenPoint(woldPos);
+            }
+
             if (Vector3.Distance(model.transform.position, lockTarget.target.transform.position) >= maxLockDistance)
                 lockTarget.target = null;
         }
         else
         {
             lockState = false;
-            lockDot.enabled = false;
+
+            if (!isAI)
+                lockDot.enabled = false;
         }
     }
 
@@ -98,11 +108,11 @@ public class CameraController : MonoBehaviour
             player.transform.forward = tempForward;
         }
 
-
-
-        mainCamera.transform.position = Vector3.SmoothDamp(mainCamera.transform.position, transform.position, ref currentVelocity, cameraDampValue);
-        mainCamera.transform.LookAt(camPivot.transform);
-
+        if (!isAI)
+        {
+            mainCamera.transform.position = Vector3.SmoothDamp(mainCamera.transform.position, transform.position, ref currentVelocity, cameraDampValue);
+            mainCamera.transform.LookAt(camPivot.transform);
+        }
     }
 
     public void LockOnLock()

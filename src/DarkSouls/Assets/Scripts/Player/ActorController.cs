@@ -16,6 +16,7 @@ public class ActorController : MonoBehaviour
     public string rollTrigger;
     public string attackTrigger;
     public string defenseBool;
+    public string leftHAttackBool;
 
     [Header("Animator Curves")]
     public string jabVelocity;
@@ -23,14 +24,12 @@ public class ActorController : MonoBehaviour
 
     [Header("Animator Layer Name")]
     public string attackLayer;
+    public string defenseLayer;
 
     [Header("Animator State or Tag Name")]
     public string threeStageAttack1h;
     public string groundState;
     public string attackTag;
-
-    [Header("Animator State Option")]
-    public string mirror;
 
     [Header("Move Options")]
     public float walkSpeed = 1.7f;
@@ -47,6 +46,7 @@ public class ActorController : MonoBehaviour
     public IPlayerInput pi;
     [HideInInspector]
     public GameObject model;
+    public bool leftIsShield = true;
 
     private Animator anim;
     private Rigidbody rigid;
@@ -113,10 +113,36 @@ public class ActorController : MonoBehaviour
             canAttack = false;
         }
 
-        if (pi.Attack && canAttack && (CheckAnimatorStateWithName(groundState) || CheckAnimatorStateWithTag(attackTag)))
-            anim.SetTrigger(attackTrigger);
+        if ((pi.LeftAttack || pi.RightAttack) && canAttack && (CheckAnimatorStateWithName(groundState) || CheckAnimatorStateWithTag(attackTag)))
+        {
+            if (pi.LeftAttack && !leftIsShield)
+            {
+                anim.SetBool(leftHAttackBool, true);
+                anim.SetTrigger(attackTrigger);
+            }
+            else if (pi.RightAttack)
+            {
+                anim.SetBool(leftHAttackBool, false);
+                anim.SetTrigger(attackTrigger);
+            }
+        }
 
-        anim.SetBool(defenseBool, pi.Defense);
+        if (leftIsShield)
+        {
+            anim.SetLayerWeight(anim.GetLayerIndex(defenseLayer), 1.0f);
+            if (CheckAnimatorStateWithName(groundState))
+            {
+                anim.SetBool(defenseBool, pi.Defense);
+            }
+            else
+            {
+                anim.SetBool(defenseBool, false);
+            }
+        }
+        else
+        {
+            anim.SetLayerWeight(anim.GetLayerIndex(defenseLayer), 0);
+        }
     }
 
     private void FixedUpdate()
