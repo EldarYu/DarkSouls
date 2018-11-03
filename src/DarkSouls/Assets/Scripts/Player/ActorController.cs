@@ -17,6 +17,7 @@ public class ActorController : MonoBehaviour
     public string attackTrigger;
     public string defenseBool;
     public string leftHAttackBool;
+    public string hiTrigger;
 
     [Header("Animator Curves")]
     public string jabVelocity;
@@ -163,6 +164,11 @@ public class ActorController : MonoBehaviour
         return anim.GetCurrentAnimatorStateInfo(layerIndex).IsTag(tagName);
     }
 
+    public void SetHitTirgger()
+    {
+        anim.SetTrigger(hiTrigger);
+    }
+
     public void ResetInputDevice(IPlayerInput playerInput)
     {
         pi = playerInput;
@@ -231,6 +237,11 @@ public class ActorController : MonoBehaviour
         col.material = fricitionZero;
         pi.inputEnabled = false;
         lockPlanar = true;
+    }
+
+    void OnHitEnter()
+    {
+        pi.inputEnabled = false;
     }
 
     //attack layer 动画子状态消息

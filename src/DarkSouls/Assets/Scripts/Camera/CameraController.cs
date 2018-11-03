@@ -117,8 +117,8 @@ public class CameraController : MonoBehaviour
 
     public void LockOnLock()
     {
-        Vector3 boxCenter = model.transform.position + Vector3.up + mainCamera.transform.forward * 5.0f;
-        Collider[] cols = Physics.OverlapBox(boxCenter, new Vector3(0.5f, 0.5f, 5f), mainCamera.transform.rotation, lockOnLayer);
+        Vector3 boxCenter = model.transform.position + Vector3.up + model.transform.forward * 5.0f;
+        Collider[] cols = Physics.OverlapBox(boxCenter, new Vector3(0.5f, 0.5f, 5f), model.transform.rotation, lockOnLayer);
 
         if (cols.Length == 0)
         {
