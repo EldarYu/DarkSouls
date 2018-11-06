@@ -8,30 +8,6 @@ using UnityEngine;
 [RequireComponent(typeof(CapsuleCollider))]
 public class ActorController : MonoBehaviour
 {
-    [Header("Animator Field")]
-    public string forwardFloat;
-    public string rightFloat;
-    public string jumpTrigger;
-    public string isGroundBool;
-    public string rollTrigger;
-    public string attackTrigger;
-    public string defenseBool;
-    public string leftHAttackBool;
-    public string hiTrigger;
-
-    [Header("Animator Curves")]
-    public string jabVelocity;
-    public string attack1hAVelocity;
-
-    [Header("Animator Layer Name")]
-    public string attackLayer;
-    public string defenseLayer;
-
-    [Header("Animator State or Tag Name")]
-    public string threeStageAttack1h;
-    public string groundState;
-    public string attackTag;
-
     [Header("Move Options")]
     public float walkSpeed = 1.7f;
     public float runMulti = 2.0f;
@@ -47,12 +23,13 @@ public class ActorController : MonoBehaviour
     public IPlayerInput pi;
     [HideInInspector]
     public GameObject model;
+    [HideInInspector]
+    public CameraController camcon;
     public bool leftIsShield = true;
 
     private Animator anim;
     private Rigidbody rigid;
     private CapsuleCollider col;
-    private CameraController camcon;
     private Vector3 planarVec;
     private Vector3 deltaPos;
     private Vector3 thrushVec;
@@ -79,8 +56,8 @@ public class ActorController : MonoBehaviour
         if (camcon.lockState)
         {
             Vector3 localDevc = transform.InverseTransformVector(pi.Dvec);
-            anim.SetFloat(forwardFloat, localDevc.z * (pi.Run ? 2.0f : 1.0f));
-            anim.SetFloat(rightFloat, localDevc.x * (pi.Run ? 2.0f : 1.0f));
+            anim.SetFloat("forward", localDevc.z * (pi.Run ? 2.0f : 1.0f));
+            anim.SetFloat("right", localDevc.x * (pi.Run ? 2.0f : 1.0f));
 
             if (trackDirection)
                 model.transform.forward = planarVec.normalized;
@@ -92,8 +69,8 @@ public class ActorController : MonoBehaviour
         }
         else
         {
-            anim.SetFloat(rightFloat, 0);
-            anim.SetFloat(forwardFloat, pi.Dmag * Mathf.Lerp(anim.GetFloat(forwardFloat), (pi.Run ? 2.0f : 1.0f), 0.5f));
+            anim.SetFloat("right", 0);
+            anim.SetFloat("forward", pi.Dmag * Mathf.Lerp(anim.GetFloat("forward"), (pi.Run ? 2.0f : 1.0f), 0.5f));
 
             if (pi.Dmag > 0.1f)
                 model.transform.forward = Vector3.Slerp(model.transform.forward, pi.Dvec, 0.3f);
@@ -104,45 +81,46 @@ public class ActorController : MonoBehaviour
 
         if (pi.Jump)
         {
-            anim.SetTrigger(jumpTrigger);
+            anim.SetTrigger("jump");
             canAttack = false;
         }
 
         if (pi.Roll || rigid.velocity.magnitude > rollVelocityThreshold)
         {
-            anim.SetTrigger(rollTrigger);
+            anim.SetTrigger("roll");
             canAttack = false;
         }
 
-        if ((pi.LeftAttack || pi.RightAttack) && canAttack && (CheckAnimatorStateWithName(groundState) || CheckAnimatorStateWithTag(attackTag)))
+        if ((pi.LeftAttack || pi.RightAttack) && canAttack &&
+            (CheckAnimatorStateWithName("ground") || CheckAnimatorStateWithTag("attackL") || CheckAnimatorStateWithTag("attackR")))
         {
             if (pi.LeftAttack && !leftIsShield)
             {
-                anim.SetBool(leftHAttackBool, true);
-                anim.SetTrigger(attackTrigger);
+                anim.SetBool("leftHandAttack", true);
+                anim.SetTrigger("attack");
             }
             else if (pi.RightAttack)
             {
-                anim.SetBool(leftHAttackBool, false);
-                anim.SetTrigger(attackTrigger);
+                anim.SetBool("leftHandAttack", false);
+                anim.SetTrigger("attack");
             }
         }
 
         if (leftIsShield)
         {
-            anim.SetLayerWeight(anim.GetLayerIndex(defenseLayer), 1.0f);
-            if (CheckAnimatorStateWithName(groundState))
+            anim.SetLayerWeight(anim.GetLayerIndex("Defense"), 1.0f);
+            if (CheckAnimatorStateWithName("ground"))
             {
-                anim.SetBool(defenseBool, pi.Defense);
+                anim.SetBool("defense", pi.Defense);
             }
             else
             {
-                anim.SetBool(defenseBool, false);
+                anim.SetBool("defense", false);
             }
         }
         else
         {
-            anim.SetLayerWeight(anim.GetLayerIndex(defenseLayer), 0);
+            anim.SetLayerWeight(anim.GetLayerIndex("Defense"), 0);
         }
     }
 
@@ -154,19 +132,19 @@ public class ActorController : MonoBehaviour
         deltaPos = Vector3.zero;
     }
 
-    private bool CheckAnimatorStateWithName(string stateName, int layerIndex = 0)
+    public bool CheckAnimatorStateWithName(string stateName, string layerName = "Base")
     {
-        return anim.GetCurrentAnimatorStateInfo(layerIndex).IsName(stateName);
+        return anim.GetCurrentAnimatorStateInfo(anim.GetLayerIndex(layerName)).IsName(stateName);
     }
 
-    private bool CheckAnimatorStateWithTag(string tagName, int layerIndex = 0)
+    public bool CheckAnimatorStateWithTag(string tagName, string layerName = "Base")
     {
-        return anim.GetCurrentAnimatorStateInfo(layerIndex).IsTag(tagName);
+        return anim.GetCurrentAnimatorStateInfo(anim.GetLayerIndex(layerName)).IsTag(tagName);
     }
 
-    public void SetHitTirgger()
+    public void IssueTrigger(string triggerName)
     {
-        anim.SetTrigger(hiTrigger);
+        anim.SetTrigger(triggerName);
     }
 
     public void ResetInputDevice(IPlayerInput playerInput)
@@ -196,7 +174,7 @@ public class ActorController : MonoBehaviour
     //Sensor 消息
     public void OnGroundSensor(bool isGround)
     {
-        anim.SetBool(isGroundBool, isGround);
+        anim.SetBool("isGround", isGround);
     }
 
     //base layer 动画层消息
@@ -220,7 +198,7 @@ public class ActorController : MonoBehaviour
 
     void OnJabUpdate()
     {
-        thrushVec = model.transform.forward * anim.GetFloat(jabVelocity);
+        thrushVec = model.transform.forward * anim.GetFloat("jabVelocity");
     }
 
     void OnGroundEnter()
@@ -244,6 +222,12 @@ public class ActorController : MonoBehaviour
         pi.inputEnabled = false;
     }
 
+    //发往WeaponManager
+    void OnAttackExit()
+    {
+        model.SendMessage("OnAttackExit");
+    }
+
     //attack layer 动画子状态消息
     void OnAttack1hAEnter()
     {
@@ -252,13 +236,13 @@ public class ActorController : MonoBehaviour
 
     void OnAttack1hAUpdate()
     {
-        thrushVec = model.transform.forward * anim.GetFloat(attack1hAVelocity);
+        thrushVec = model.transform.forward * anim.GetFloat("attack1hAVelocity");
     }
 
     //root motion值处理
     public void OnUpdateRM(Vector3 _deltaPos)
     {
-        if (CheckAnimatorStateWithName(threeStageAttack1h))
+        if (CheckAnimatorStateWithName("attack1hC"))
             deltaPos += 0.8f * deltaPos + 0.2f * _deltaPos;
     }
 

@@ -5,7 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(CapsuleCollider))]
 public class BattleManager : MonoBehaviour
 {
-    public string checkTag = "Weapon";
     private ActorManager am;
     private void Awake()
     {
@@ -14,9 +13,9 @@ public class BattleManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(checkTag))
+        if (other.CompareTag("Weapon"))
         {
-            am.DoDamage();
+            am.TryDoDamage();
         }
     }
 }

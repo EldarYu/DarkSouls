@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class LockTarget
 {
-    public GameObject target;
+    public UnityEngine.GameObject target;
     public float halfHeight;
-    public LockTarget(GameObject target = null, float halfHeight = 0)
+    public LockTarget(UnityEngine.GameObject target = null, float halfHeight = 0)
     {
         this.target = target;
         this.halfHeight = halfHeight;
@@ -31,10 +31,10 @@ public class CameraController : MonoBehaviour
     public bool lockState = false;
     public bool isAI = false;
 
-    private GameObject player;
-    private GameObject camPivot;
-    private GameObject model;
-    private GameObject mainCamera;
+    private UnityEngine.GameObject player;
+    private UnityEngine.GameObject camPivot;
+    private UnityEngine.GameObject model;
+    private UnityEngine.GameObject mainCamera;
     private IPlayerInput pi;
 
     private float eulerX;
