@@ -9,13 +9,15 @@ public class KeyboardInput : IPlayerInput
     [SerializeField]
     private Button jumpBtn = new Button();
     [SerializeField]
-    protected Button runBtn = new Button();
+    private Button runBtn = new Button();
     [SerializeField]
-    protected Button rightAttackBtn = new Button();
+    private Button rightAtkBtn = new Button();
     [SerializeField]
-    protected Button leftAttackBtn = new Button();
+    private Button leftAtkBtn = new Button();
     [SerializeField]
-    protected Button lockBtn = new Button();
+    private Button defenseBtn = new Button();
+    [SerializeField]
+    private Button lockBtn = new Button();
 
     [Header("Mouse Settings")]
     [Range(0, 1)]
@@ -32,15 +34,17 @@ public class KeyboardInput : IPlayerInput
     public KeyCode jumpKey;
     public KeyCode rightAttackKey;
     public KeyCode leftAttackKey;
+    public KeyCode defenseKey;
     public KeyCode lockKey;
 
     void Update()
     {
         runBtn.Tick(Input.GetKey(runKey), Time.deltaTime);
         jumpBtn.Tick(Input.GetKey(jumpKey), Time.deltaTime);
-        leftAttackBtn.Tick(Input.GetKey(leftAttackKey), Time.deltaTime);
-        rightAttackBtn.Tick(Input.GetKey(rightAttackKey), Time.deltaTime);
+        leftAtkBtn.Tick(Input.GetKey(leftAttackKey), Time.deltaTime);
+        rightAtkBtn.Tick(Input.GetKey(rightAttackKey), Time.deltaTime);
         lockBtn.Tick(Input.GetKey(lockKey), Time.deltaTime);
+        defenseBtn.Tick(Input.GetKey(defenseKey), Time.deltaTime);
 
         Jup = Input.GetAxis("Mouse Y") * 10.0f * mouseSensitivityY;
         Jright = Input.GetAxis("Mouse X") * 10.0f * mouseSensitivityX;
@@ -62,9 +66,11 @@ public class KeyboardInput : IPlayerInput
         Run = runBtn.IsPressing;
         Jump = jumpBtn.OnPressed && (runBtn.IsPressing || runBtn.IsExtending);
         Roll = jumpBtn.OnReleased && jumpBtn.IsDelaying;
-        LeftAttack = leftAttackBtn.OnPressed;
-        RightAttack = rightAttackBtn.OnPressed;
-        Defense = leftAttackBtn.IsPressing;
+        LeftAttack = leftAtkBtn.OnReleased && leftAtkBtn.IsDelaying;
+        RightAttack = rightAtkBtn.OnReleased && rightAtkBtn.IsDelaying;
+        LeftHeavyAttack = leftAtkBtn.IsPressing && !leftAtkBtn.IsDelaying;
+        RightHeavyAttack = rightAtkBtn.IsPressing && !rightAtkBtn.IsDelaying;
+        Defense = defenseBtn.IsPressing;
         LockOn = lockBtn.OnPressed;
     }
 }

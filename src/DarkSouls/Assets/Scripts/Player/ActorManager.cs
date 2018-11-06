@@ -19,18 +19,35 @@ public class ActorManager : MonoBehaviour
 
     public void TryDoDamage()
     {
-        if (sm.hp == 0)
-            return;
-
-        sm.CountHp(-5);
-        if (sm.hp > 0)
+        if (sm.isImmortal)
         {
-            Hit();
+
+        }
+        else if (sm.isDefense)
+        {
+            Blocked();
+        }
+        else if (sm.hp <= 0)
+        {
+
         }
         else
         {
-            Die();
+            sm.CountHp(-5);
+            if (sm.hp > 0)
+            {
+                Hit();
+            }
+            else
+            {
+                Die();
+            }
         }
+    }
+
+    private void Blocked()
+    {
+        ac.IssueTrigger("blocked");
     }
 
     private void Hit()
@@ -43,7 +60,10 @@ public class ActorManager : MonoBehaviour
         ac.IssueTrigger("die");
         ac.pi.inputEnabled = false;
         if (ac.camcon.lockState)
+        {
             ac.camcon.LockOnLock();
+            ac.camcon.lockDot.enabled = false;
+        }
         ac.camcon.enabled = false;
     }
 }

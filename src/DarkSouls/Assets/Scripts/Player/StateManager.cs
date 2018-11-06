@@ -7,6 +7,7 @@ public class StateManager : MonoBehaviour
     public float maxHp;
     public float hp;
 
+    [Header("1st order state flag")]
     public bool isGround;
     public bool isJump;
     public bool isRoll;
@@ -16,9 +17,14 @@ public class StateManager : MonoBehaviour
     public bool isHit;
     public bool isDefense;
     public bool isBlocked;
+    public bool isDie;
+
+    [Header("2nd order state flag")]
+    public bool isAllowDefense;
+    public bool isImmortal;
 
     private ActorManager am;
-    void Start()
+    void Awake()
     {
         am = GetComponent<ActorManager>();
         hp = maxHp;
@@ -33,8 +39,12 @@ public class StateManager : MonoBehaviour
         isFall = am.ac.CheckAnimatorStateWithName("fall");
         isAttack = am.ac.CheckAnimatorStateWithTag("attackL") || am.ac.CheckAnimatorStateWithTag("attackR");
         isHit = am.ac.CheckAnimatorStateWithName("hit");
-        isDefense = am.ac.CheckAnimatorStateWithName("defense1h", "Defense");
         isBlocked = am.ac.CheckAnimatorStateWithName("blocked");
+        isDie = am.ac.CheckAnimatorStateWithName("die");
+
+        isAllowDefense = isGround || isBlocked;
+        isDefense = isAllowDefense && am.ac.CheckAnimatorStateWithName("defense1h", "Defense");
+        isImmortal = isRoll || isJab;
     }
 
 

@@ -31,10 +31,10 @@ public class CameraController : MonoBehaviour
     public bool lockState = false;
     public bool isAI = false;
 
-    private UnityEngine.GameObject player;
-    private UnityEngine.GameObject camPivot;
-    private UnityEngine.GameObject model;
-    private UnityEngine.GameObject mainCamera;
+    private GameObject player;
+    private GameObject camPivot;
+    private GameObject model;
+    private GameObject mainCamera;
     private IPlayerInput pi;
 
     private float eulerX;
@@ -71,20 +71,16 @@ public class CameraController : MonoBehaviour
 
             if (!isAI)
             {
-                lockDot.enabled = true;
                 Vector3 woldPos = lockTarget.target.transform.position + Vector3.up * lockTarget.halfHeight;
                 lockDot.transform.position = Camera.main.WorldToScreenPoint(woldPos);
             }
 
             if (Vector3.Distance(model.transform.position, lockTarget.target.transform.position) >= maxLockDistance)
-                lockTarget.target = null;
+                LockOnLock(null);
         }
         else
         {
             lockState = false;
-
-            if (!isAI)
-                lockDot.enabled = false;
         }
     }
 
@@ -122,24 +118,31 @@ public class CameraController : MonoBehaviour
 
         if (cols.Length == 0)
         {
-            lockTarget.target = null;
+            LockOnLock(null);
         }
         else
         {
             Collider temp = cols[0];
             if (lockTarget.target == temp.gameObject)
             {
-                lockTarget.target = null;
+                LockOnLock(null);
                 return;
             }
 
-            lockTarget = new LockTarget(temp.gameObject, temp.bounds.extents.y);
+            LockOnLock(temp.gameObject, temp.bounds.extents.y, true);
         }
+    }
+
+    private void LockOnLock(GameObject target, float halfHeight = 0, bool lookDotEnable = false)
+    {
+        lockTarget.target = target;
+        lockTarget.halfHeight = halfHeight;
+        if (!isAI)
+            lockDot.enabled = lookDotEnable;
     }
 
     public void ResetInputDevice(IPlayerInput playerInput)
     {
         pi = playerInput;
     }
-
 }

@@ -106,16 +106,38 @@ public class ActorController : MonoBehaviour
             }
         }
 
+
+        if ((pi.LeftHeavyAttack || pi.RightHeavyAttack) && canAttack &&
+           (CheckAnimatorStateWithName("ground") || CheckAnimatorStateWithTag("attackL") || CheckAnimatorStateWithTag("attackR")))
+        {
+            if (pi.RightHeavyAttack)
+            {
+                //right heavy attack
+            }
+            else
+            {
+                if (!leftIsShield)
+                {
+                    //left heavy attack
+                }
+                else
+                {
+                    anim.SetTrigger("counterBack");
+                }
+            }
+        }
+
         if (leftIsShield)
         {
-            anim.SetLayerWeight(anim.GetLayerIndex("Defense"), 1.0f);
-            if (CheckAnimatorStateWithName("ground"))
+            if (CheckAnimatorStateWithName("ground") || CheckAnimatorStateWithName("blocked"))
             {
                 anim.SetBool("defense", pi.Defense);
+                anim.SetLayerWeight(anim.GetLayerIndex("Defense"), 1.0f);
             }
             else
             {
                 anim.SetBool("defense", false);
+                anim.SetLayerWeight(anim.GetLayerIndex("Defense"), 0);
             }
         }
         else
@@ -193,6 +215,7 @@ public class ActorController : MonoBehaviour
     void OnJabEnter()
     {
         pi.inputEnabled = false;
+        planarVec = Vector3.zero;
         lockPlanar = true;
     }
 
@@ -220,6 +243,30 @@ public class ActorController : MonoBehaviour
     void OnHitEnter()
     {
         pi.inputEnabled = false;
+        planarVec = Vector3.zero;
+    }
+
+    void OnBlockedEnter()
+    {
+        pi.inputEnabled = false;
+    }
+
+    void OnDieEnter()
+    {
+        pi.inputEnabled = false;
+        planarVec = Vector3.zero;
+    }
+
+    void OnStunnedEnter()
+    {
+        pi.inputEnabled = false;
+        planarVec = Vector3.zero;
+    }
+
+    void OnCounterBackEnter()
+    {
+        pi.inputEnabled = false;
+        planarVec = Vector3.zero;
     }
 
     //发往WeaponManager
