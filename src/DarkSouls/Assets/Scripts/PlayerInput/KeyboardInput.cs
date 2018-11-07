@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[DisallowMultipleComponent]
 public class KeyboardInput : IPlayerInput
 {
     [Header("Button Settings")]

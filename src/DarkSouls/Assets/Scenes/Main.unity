@@ -261,8 +261,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e1e36bd4e145334cac17ef9ef2cf6ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftWeaponHandleName: LeftWeaponHandle
-  rightWeaponHandleName: RightWeaponHandle
+  leftWHName: LeftWeaponHandle
+  rightWHName: RightWeaponHandle
+  am: {fileID: 0}
 --- !u!1 &289217968
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,8 +397,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e1e36bd4e145334cac17ef9ef2cf6ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftWeaponHandleName: LeftWeaponHandle
-  rightWeaponHandleName: RightWeaponHandle
+  leftWHName: LeftWeaponHandle
+  rightWHName: RightWeaponHandle
+  am: {fileID: 0}
 --- !u!114 &394602641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -589,6 +591,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ac: {fileID: 0}
+  sm: {fileID: 0}
 --- !u!114 &633443588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -612,8 +615,12 @@ MonoBehaviour:
   isDefense: 0
   isBlocked: 0
   isDie: 0
+  isCounterBack: 0
+  isCounterBackEnable: 0
   isAllowDefense: 0
   isImmortal: 0
+  isCounterBackSuccess: 0
+  isCounterBackFailure: 0
 --- !u!1 &761821026
 GameObject:
   m_ObjectHideFlags: 0
@@ -1091,7 +1098,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 4b9ce2cc0afb4ce49ab5b6233d58cae5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1373,10 +1380,9 @@ GameObject:
   - component: {fileID: 1444899823}
   - component: {fileID: 1444899822}
   - component: {fileID: 1444899821}
-  - component: {fileID: 1444899820}
-  - component: {fileID: 1444899819}
-  - component: {fileID: 1444899818}
   - component: {fileID: 1444899817}
+  - component: {fileID: 1444899820}
+  - component: {fileID: 1444899818}
   - component: {fileID: 1444899824}
   m_Layer: 11
   m_Name: EnemyHandle
@@ -1420,20 +1426,12 @@ MonoBehaviour:
   isDefense: 0
   isBlocked: 0
   isDie: 0
+  isCounterBack: 0
+  isCounterBackEnable: 0
   isAllowDefense: 0
   isImmortal: 0
---- !u!114 &1444899819
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1444899816}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e8d4df98b7a24042b023c2a50c4e55f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ac: {fileID: 0}
+  isCounterBackSuccess: 0
+  isCounterBackFailure: 0
 --- !u!114 &1444899820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1512,6 +1510,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ac: {fileID: 0}
+  sm: {fileID: 0}
 --- !u!1 &1520691436
 GameObject:
   m_ObjectHideFlags: 0
@@ -1921,6 +1920,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 7da3ba4874354d14594c7976a74c382f, type: 2}
+    - target: {fileID: 100138, guid: 2f9d958fbcd96e44ca35a77a15e3187a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2f9d958fbcd96e44ca35a77a15e3187a, type: 3}
   m_IsPrefabParent: 0

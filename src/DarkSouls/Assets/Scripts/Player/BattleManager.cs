@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(CapsuleCollider))]
 public class BattleManager : MonoBehaviour
 {
     private ActorManager am;
@@ -15,7 +14,7 @@ public class BattleManager : MonoBehaviour
     {
         if (other.CompareTag("Weapon"))
         {
-            am.TryDoDamage();
+            am.TryDoDamage(other.gameObject.GetComponentInParent<WeaponController>());
         }
     }
 }

@@ -6,9 +6,11 @@ public class ActorManager : MonoBehaviour
 {
     [HideInInspector]
     public ActorController ac;
+    [HideInInspector]
+    public StateManager sm;
     private BattleManager bm;
     private WeaponManager wm;
-    private StateManager sm;
+
     private void Awake()
     {
         bm = GetComponentInChildren<BattleManager>();
@@ -17,9 +19,13 @@ public class ActorManager : MonoBehaviour
         sm = GetComponent<StateManager>();
     }
 
-    public void TryDoDamage()
+    public void TryDoDamage(WeaponController targetWC)
     {
-        if (sm.isImmortal)
+        if (sm.isCounterBackSuccess)
+        {
+            targetWC.wm.am.Stunned();
+        }
+        else if (sm.isImmortal)
         {
 
         }
@@ -43,6 +49,16 @@ public class ActorManager : MonoBehaviour
                 Die();
             }
         }
+    }
+
+    public void SetCounterBackEnable(bool enable)
+    {
+        sm.isCounterBackEnable = enable;
+    }
+
+    private void Stunned()
+    {
+        ac.IssueTrigger("stunned");
     }
 
     private void Blocked()

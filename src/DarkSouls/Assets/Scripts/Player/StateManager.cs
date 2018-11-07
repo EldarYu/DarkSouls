@@ -18,10 +18,14 @@ public class StateManager : MonoBehaviour
     public bool isDefense;
     public bool isBlocked;
     public bool isDie;
+    public bool isCounterBack;
+    public bool isCounterBackEnable;
 
     [Header("2nd order state flag")]
     public bool isAllowDefense;
     public bool isImmortal;
+    public bool isCounterBackSuccess;
+    public bool isCounterBackFailure;
 
     private ActorManager am;
     void Awake()
@@ -41,6 +45,10 @@ public class StateManager : MonoBehaviour
         isHit = am.ac.CheckAnimatorStateWithName("hit");
         isBlocked = am.ac.CheckAnimatorStateWithName("blocked");
         isDie = am.ac.CheckAnimatorStateWithName("die");
+        isCounterBack = am.ac.CheckAnimatorStateWithName("counterBack");
+
+        isCounterBackSuccess = isCounterBackEnable;
+        isCounterBackFailure = isCounterBack && !isCounterBackEnable;
 
         isAllowDefense = isGround || isBlocked;
         isDefense = isAllowDefense && am.ac.CheckAnimatorStateWithName("defense1h", "Defense");

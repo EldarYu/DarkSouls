@@ -5,18 +5,15 @@ using UnityEngine.UI;
 
 public class LockTarget
 {
-    public UnityEngine.GameObject target;
+    public GameObject target;
     public float halfHeight;
-    public LockTarget(UnityEngine.GameObject target = null, float halfHeight = 0)
-    {
-        this.target = target;
-        this.halfHeight = halfHeight;
-    }
+    public ActorManager am;
 }
 
-[DisallowMultipleComponent]
 public class CameraController : MonoBehaviour
 {
+    public bool isAI = false;
+    [Header("Camera Settings")]
     public float cameraDampValue;
     public float horizontalSpeed;
     public float verticalSpeed;
@@ -25,18 +22,18 @@ public class CameraController : MonoBehaviour
     [Range(-60.0f, 100.0f)]
     public float minEulerX;
 
+    [Header("Lock On Settings")]
     public float maxLockDistance = 10.0f;
     public LayerMask lockOnLayer;
     public Image lockDot;
-    public bool lockState = false;
-    public bool isAI = false;
 
+    [HideInInspector]
+    public bool lockState = false;
     private GameObject player;
     private GameObject camPivot;
     private GameObject model;
     private GameObject mainCamera;
     private IPlayerInput pi;
-
     private float eulerX;
     private Vector3 currentVelocity;
     private LockTarget lockTarget = new LockTarget();
@@ -76,6 +73,11 @@ public class CameraController : MonoBehaviour
             }
 
             if (Vector3.Distance(model.transform.position, lockTarget.target.transform.position) >= maxLockDistance)
+                LockOnLock(null);
+
+            print(lockTarget.am.sm.isDie);
+
+            if (lockTarget.am != null && lockTarget.am.sm.isDie)
                 LockOnLock(null);
         }
         else
@@ -129,14 +131,15 @@ public class CameraController : MonoBehaviour
                 return;
             }
 
-            LockOnLock(temp.gameObject, temp.bounds.extents.y, true);
+            LockOnLock(temp.gameObject, temp.bounds.extents.y, temp.gameObject.GetComponent<ActorManager>(), true);
         }
     }
 
-    private void LockOnLock(GameObject target, float halfHeight = 0, bool lookDotEnable = false)
+    private void LockOnLock(GameObject target, float halfHeight = 0, ActorManager am = null, bool lookDotEnable = false)
     {
         lockTarget.target = target;
         lockTarget.halfHeight = halfHeight;
+        lockTarget.am = null;
         if (!isAI)
             lockDot.enabled = lookDotEnable;
     }

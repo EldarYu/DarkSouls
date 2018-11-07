@@ -4,36 +4,49 @@ using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
 {
-    public string leftWeaponHandleName;
-    public string rightWeaponHandleName;
+    public string leftWHName;
+    public string rightWHName;
 
-    private GameObject leftWeaponHandle;
-    private GameObject rightWeaponHandle;
-    private Collider leftWeaponCol;
-    private Collider rightWeaponCol;
-    private ActorManager am;
+    private WeaponController leftWC;
+    private WeaponController rightWC;
+    private Collider LeftWCol;
+    private Collider rightWcol;
+    [HideInInspector]
+    public ActorManager am;
+
     private void Awake()
     {
         am = GetComponentInParent<ActorManager>();
-        transform.DeepFind(leftWeaponHandleName);
-        leftWeaponHandle = transform.DeepFind(leftWeaponHandleName).gameObject;
-        rightWeaponHandle = transform.DeepFind(rightWeaponHandleName).gameObject;
-        leftWeaponCol = leftWeaponHandle.GetComponentInChildren<Collider>();
-        rightWeaponCol = rightWeaponHandle.GetComponentInChildren<Collider>();
+        leftWC = gameObject.AddComponentInChildren<WeaponController>(leftWHName);
+        leftWC.wm = this;
+        rightWC = gameObject.AddComponentInChildren<WeaponController>(rightWHName);
+        rightWC.wm = this;
+        LeftWCol = leftWC.GetComponentInChildren<Collider>();
+        rightWcol = rightWC.GetComponentInChildren<Collider>();
     }
 
+    //Animation Event
     void WeaponEnable()
     {
         if (am.ac.CheckAnimatorStateWithTag("attackL"))
-            leftWeaponCol.enabled = true;
+            LeftWCol.enabled = true;
         else
-            rightWeaponCol.enabled = true;
+            rightWcol.enabled = true;
     }
 
     void WeaponDisable()
     {
-        leftWeaponCol.enabled = false;
-        rightWeaponCol.enabled = false;
+        LeftWCol.enabled = false;
+        rightWcol.enabled = false;
+    }
+
+    void CounterBackEnable()
+    {
+        am.SetCounterBackEnable(true);
+    }
+    void CounterBackDisable()
+    {
+        am.SetCounterBackEnable(false);
     }
 
     //来自ActorController的消息
