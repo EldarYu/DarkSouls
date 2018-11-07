@@ -4,5 +4,6 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
+    [HideInInspector]
     public WeaponManager wm;
 }

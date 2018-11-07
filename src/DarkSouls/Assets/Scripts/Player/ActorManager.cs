@@ -25,6 +25,10 @@ public class ActorManager : MonoBehaviour
         {
             targetWC.wm.am.Stunned();
         }
+        else if (sm.isCounterBackFailure)
+        {
+
+        }
         else if (sm.isImmortal)
         {
 
@@ -55,6 +59,8 @@ public class ActorManager : MonoBehaviour
     {
         sm.isCounterBackEnable = enable;
     }
+
+
 
     private void Stunned()
     {

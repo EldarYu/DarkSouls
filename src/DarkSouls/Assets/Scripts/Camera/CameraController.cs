@@ -75,8 +75,6 @@ public class CameraController : MonoBehaviour
             if (Vector3.Distance(model.transform.position, lockTarget.target.transform.position) >= maxLockDistance)
                 LockOnLock(null);
 
-            print(lockTarget.am.sm.isDie);
-
             if (lockTarget.am != null && lockTarget.am.sm.isDie)
                 LockOnLock(null);
         }
@@ -139,7 +137,7 @@ public class CameraController : MonoBehaviour
     {
         lockTarget.target = target;
         lockTarget.halfHeight = halfHeight;
-        lockTarget.am = null;
+        lockTarget.am = am;
         if (!isAI)
             lockDot.enabled = lookDotEnable;
     }

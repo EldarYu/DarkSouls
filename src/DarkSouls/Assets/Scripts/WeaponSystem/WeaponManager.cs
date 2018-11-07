@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
 {
-    public string leftWHName;
-    public string rightWHName;
-
     private WeaponController leftWC;
     private WeaponController rightWC;
     private Collider LeftWCol;
@@ -17,9 +14,9 @@ public class WeaponManager : MonoBehaviour
     private void Awake()
     {
         am = GetComponentInParent<ActorManager>();
-        leftWC = gameObject.AddComponentInChildren<WeaponController>(leftWHName);
+        leftWC = gameObject.AddComponentInChildren<WeaponController>("LeftWeaponHandle");
         leftWC.wm = this;
-        rightWC = gameObject.AddComponentInChildren<WeaponController>(rightWHName);
+        rightWC = gameObject.AddComponentInChildren<WeaponController>("RightWeaponHandle");
         rightWC.wm = this;
         LeftWCol = leftWC.GetComponentInChildren<Collider>();
         rightWcol = rightWC.GetComponentInChildren<Collider>();
