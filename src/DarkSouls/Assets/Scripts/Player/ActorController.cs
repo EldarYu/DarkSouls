@@ -88,42 +88,6 @@ public class ActorController : MonoBehaviour
             canAttack = false;
         }
 
-        if ((pi.LeftAttack || pi.RightAttack) && canAttack &&
-            (CheckAnimatorStateWithName("ground") || CheckAnimatorStateWithTag("attackL") || CheckAnimatorStateWithTag("attackR")))
-        {
-            if (pi.LeftAttack && !leftIsShield)
-            {
-                anim.SetBool("leftHandAttack", true);
-                anim.SetTrigger("attack");
-            }
-            else if (pi.RightAttack)
-            {
-                anim.SetBool("leftHandAttack", false);
-                anim.SetTrigger("attack");
-            }
-        }
-
-
-        if ((pi.LeftHeavyAttack || pi.RightHeavyAttack) && canAttack &&
-           (CheckAnimatorStateWithName("ground") || CheckAnimatorStateWithTag("attackL") || CheckAnimatorStateWithTag("attackR")))
-        {
-            if (pi.RightHeavyAttack)
-            {
-                //right heavy attack
-            }
-            else
-            {
-                if (!leftIsShield)
-                {
-                    //left heavy attack
-                }
-                else
-                {
-                    anim.SetTrigger("counterBack");
-                }
-            }
-        }
-
         if (leftIsShield)
         {
             if (CheckAnimatorStateWithName("ground") || CheckAnimatorStateWithName("blocked"))
@@ -140,6 +104,42 @@ public class ActorController : MonoBehaviour
         else
         {
             anim.SetLayerWeight(anim.GetLayerIndex("Defense"), 0);
+        }
+
+        if (canAttack && (CheckAnimatorStateWithName("ground") || CheckAnimatorStateWithTag("attackL") || CheckAnimatorStateWithTag("attackR")))
+        {
+            if (pi.LeftAttack || pi.RightAttack)
+            {
+                if (pi.LeftAttack && !leftIsShield)
+                {
+                    anim.SetBool("leftHandAttack", true);
+                    anim.SetTrigger("attack");
+                }
+                else if (pi.RightAttack)
+                {
+                    anim.SetBool("leftHandAttack", false);
+                    anim.SetTrigger("attack");
+                }
+            }
+
+            if (pi.LeftHeavyAttack || pi.RightHeavyAttack)
+            {
+                if (pi.RightHeavyAttack)
+                {
+                    //right heavy attack
+                }
+                else
+                {
+                    if (!leftIsShield)
+                    {
+                        //left heavy attack
+                    }
+                    else
+                    {
+                        anim.SetTrigger("counterBack");
+                    }
+                }
+            }
         }
     }
 
@@ -269,7 +269,7 @@ public class ActorController : MonoBehaviour
     //发往WeaponManager
     void OnAttackExit()
     {
-        model.SendMessage("OnAttackExit");
+        model.SendMessage("WeaponDisable");
     }
 
     //attack layer 动画子状态消息

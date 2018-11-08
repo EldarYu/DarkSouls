@@ -45,10 +45,4 @@ public class WeaponManager : MonoBehaviour
     {
         am.SetCounterBackEnable(false);
     }
-
-    //来自ActorController的消息
-    void OnAttackExit()
-    {
-        WeaponDisable();
-    }
 }

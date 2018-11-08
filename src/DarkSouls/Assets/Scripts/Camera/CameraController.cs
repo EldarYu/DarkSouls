@@ -60,7 +60,7 @@ public class CameraController : MonoBehaviour
     private void Update()
     {
         if (pi.LockOn)
-            LockOnLock();
+            LockUnlock();
 
         if (lockTarget.target != null)
         {
@@ -73,10 +73,10 @@ public class CameraController : MonoBehaviour
             }
 
             if (Vector3.Distance(model.transform.position, lockTarget.target.transform.position) >= maxLockDistance)
-                LockOnLock(null);
+                LockUnlock(null);
 
             if (lockTarget.am != null && lockTarget.am.sm.isDie)
-                LockOnLock(null);
+                LockUnlock(null);
         }
         else
         {
@@ -111,29 +111,29 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    public void LockOnLock()
+    public void LockUnlock()
     {
         Vector3 boxCenter = model.transform.position + Vector3.up + model.transform.forward * 5.0f;
         Collider[] cols = Physics.OverlapBox(boxCenter, new Vector3(0.5f, 0.5f, 5f), model.transform.rotation, lockOnLayer);
 
         if (cols.Length == 0)
         {
-            LockOnLock(null);
+            LockUnlock(null);
         }
         else
         {
             Collider temp = cols[0];
             if (lockTarget.target == temp.gameObject)
             {
-                LockOnLock(null);
+                LockUnlock(null);
                 return;
             }
 
-            LockOnLock(temp.gameObject, temp.bounds.extents.y, temp.gameObject.GetComponent<ActorManager>(), true);
+            LockUnlock(temp.gameObject, temp.bounds.extents.y, temp.gameObject.GetComponent<ActorManager>(), true);
         }
     }
 
-    private void LockOnLock(GameObject target, float halfHeight = 0, ActorManager am = null, bool lookDotEnable = false)
+    private void LockUnlock(GameObject target, float halfHeight = 0, ActorManager am = null, bool lookDotEnable = false)
     {
         lockTarget.target = target;
         lockTarget.halfHeight = halfHeight;

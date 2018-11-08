@@ -19,38 +19,29 @@ public class ActorManager : MonoBehaviour
         sm = GetComponent<StateManager>();
     }
 
-    public void TryDoDamage(WeaponController targetWC)
+    public void TryDoDamage(WeaponController targetWC, bool attackVaild, bool counterVaild)
     {
-        if (sm.isCounterBackSuccess)
+        if (attackVaild)
         {
-            targetWC.wm.am.Stunned();
-        }
-        else if (sm.isCounterBackFailure)
-        {
-
-        }
-        else if (sm.isImmortal)
-        {
-
-        }
-        else if (sm.isDefense)
-        {
-            Blocked();
-        }
-        else if (sm.hp <= 0)
-        {
-
-        }
-        else
-        {
-            sm.CountHp(-5);
-            if (sm.hp > 0)
+            if (sm.isCounterBackSuccess && counterVaild)
             {
-                Hit();
+                targetWC.wm.am.Stunned();
+            }
+            else if (sm.isCounterBackFailure)
+            {
+                HitOrDie(false);
+            }
+            else if (sm.isImmortal)
+            {
+                //无敌
+            }
+            else if (sm.isDefense)
+            {
+                Blocked();
             }
             else
             {
-                Die();
+                HitOrDie();
             }
         }
     }
@@ -60,7 +51,26 @@ public class ActorManager : MonoBehaviour
         sm.isCounterBackEnable = enable;
     }
 
+    private void HitOrDie(bool doHitAnimation = true)
+    {
+        if (sm.hp <= 0)
+        {
 
+        }
+        else
+        {
+            sm.CountHp(-5);
+            if (sm.hp > 0)
+            {
+                if (doHitAnimation)
+                    Hit();
+            }
+            else
+            {
+                Die();
+            }
+        }
+    }
 
     private void Stunned()
     {
@@ -83,7 +93,7 @@ public class ActorManager : MonoBehaviour
         ac.pi.inputEnabled = false;
         if (ac.camcon.lockState)
         {
-            ac.camcon.LockOnLock();
+            ac.camcon.LockUnlock();
             ac.camcon.lockDot.enabled = false;
         }
         ac.camcon.enabled = false;
