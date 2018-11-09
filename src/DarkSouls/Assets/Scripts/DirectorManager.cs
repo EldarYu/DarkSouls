@@ -16,9 +16,9 @@ public class DirectorManager : MonoBehaviour
         pd = GetComponent<PlayableDirector>();
     }
 
-    public void PlayFrontStab(string timelineName, ActorManager attacker, ActorManager victim)
+    public void PlayFrontStab(ActorManager attacker, ActorManager victim)
     {
-        if (pd.time != 0)
+        if (pd.state == PlayState.Playing)
             return;
 
         pd.playableAsset = Instantiate(stabFront);
@@ -26,11 +26,11 @@ public class DirectorManager : MonoBehaviour
 
         foreach (var track in timeline.GetOutputTracks())
         {
-            if (track.name == "Attacker Animator")
+            if (track.name == "Attacker Animation")
             {
                 pd.SetGenericBinding(track, attacker.ac.GetAnimator());
             }
-            else if (track.name == "Victim Animator")
+            else if (track.name == "Victim Animation")
             {
                 pd.SetGenericBinding(track, victim.ac.GetAnimator());
             }
@@ -57,6 +57,11 @@ public class DirectorManager : MonoBehaviour
         }
         pd.Evaluate();
         pd.Play();
+    }
+
+    public void PlayeOpenBox(ActorManager player)
+    {
+
     }
 
 }

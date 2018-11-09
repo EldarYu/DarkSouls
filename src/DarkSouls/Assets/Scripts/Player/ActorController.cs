@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ActorController : MonoBehaviour
 {
+    public bool isNotPlayer = false;
     [Header("Move Options")]
     public float walkSpeed = 1.7f;
     public float runMulti = 2.0f;

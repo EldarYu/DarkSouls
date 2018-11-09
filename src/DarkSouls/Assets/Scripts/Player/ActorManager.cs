@@ -27,12 +27,15 @@ public class ActorManager : MonoBehaviour
     {
         foreach (var ecastm in im.overlapEcastms)
         {
+            if (!ecastm.active)
+                continue;
             switch (ecastm.eventType)
             {
                 case EventType.OpenBox:
+
                     break;
                 case EventType.FrontStab:
-                    dm.PlayFrontStab("stabFront", this, ecastm.am);
+                    dm.PlayFrontStab(this, ecastm.am);
                     break;
                 default:
                     break;
