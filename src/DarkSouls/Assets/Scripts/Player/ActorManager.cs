@@ -10,13 +10,34 @@ public class ActorManager : MonoBehaviour
     public StateManager sm;
     private BattleManager bm;
     private WeaponManager wm;
-
+    private InteractionManager im;
+    private DirectorManager dm;
     private void Awake()
     {
         bm = GetComponentInChildren<BattleManager>();
         ac = GetComponent<ActorController>();
         wm = GetComponentInChildren<WeaponManager>();
         sm = GetComponent<StateManager>();
+        im = GetComponentInChildren<InteractionManager>();
+        dm = GetComponent<DirectorManager>();
+        ac.OnActionPressed += DoAction;
+    }
+
+    public void DoAction()
+    {
+        foreach (var ecastm in im.overlapEcastms)
+        {
+            switch (ecastm.eventType)
+            {
+                case EventType.OpenBox:
+                    break;
+                case EventType.FrontStab:
+                    dm.PlayFrontStab("stabFront", this, ecastm.am);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     public void TryDoDamage(WeaponController targetWC, bool attackVaild, bool counterVaild)
@@ -49,6 +70,11 @@ public class ActorManager : MonoBehaviour
     public void SetCounterBackEnable(bool enable)
     {
         sm.isCounterBackEnable = enable;
+    }
+
+    public void LockUnlockAnimator(bool value = true)
+    {
+        ac.SetAnimatorBool("lock", value);
     }
 
     private void HitOrDie(bool doHitAnimation = true)

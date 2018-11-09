@@ -18,6 +18,7 @@ public abstract class IPlayerInput : MonoBehaviour
     public bool LeftHeavyAttack { get; protected set; }
     public bool RightHeavyAttack { get; protected set; }
     public bool Defense { get; protected set; }
+    public bool Action { get; protected set; }
 
     protected float Dup;
     protected float targetDup;

@@ -1,8 +1,8 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomPropertyDrawer(typeof(LockAnimatorPlayableBehaviour))]
-public class LockAnimatorPlayableDrawer : PropertyDrawer
+[CustomPropertyDrawer(typeof(LockAnimatorBehaviour))]
+public class LockAnimatorDrawer : PropertyDrawer
 {
     public override float GetPropertyHeight (SerializedProperty property, GUIContent label)
     {

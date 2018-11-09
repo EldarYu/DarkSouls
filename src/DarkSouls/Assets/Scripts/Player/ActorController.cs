@@ -24,6 +24,9 @@ public class ActorController : MonoBehaviour
     public CameraController camcon;
     public bool leftIsShield = true;
 
+    public delegate void OnActionDelegate();
+    public event OnActionDelegate OnActionPressed;
+
     private Animator anim;
     private Rigidbody rigid;
     private CapsuleCollider col;
@@ -141,6 +144,9 @@ public class ActorController : MonoBehaviour
                 }
             }
         }
+
+        if (pi.Action)
+            OnActionPressed.Invoke();
     }
 
     private void FixedUpdate()
@@ -166,6 +172,11 @@ public class ActorController : MonoBehaviour
         anim.SetTrigger(triggerName);
     }
 
+    public void SetAnimatorBool(string fieldName, bool value)
+    {
+        anim.SetBool(fieldName, value);
+    }
+
     public void ResetInputDevice(IPlayerInput playerInput)
     {
         pi = playerInput;
@@ -188,6 +199,11 @@ public class ActorController : MonoBehaviour
             }
         }
         return null;
+    }
+
+    public Animator GetAnimator()
+    {
+        return anim;
     }
 
     //Sensor 消息
@@ -267,6 +283,19 @@ public class ActorController : MonoBehaviour
     }
 
     //发往WeaponManager
+    void OnLockEnter()
+    {
+        pi.inputEnabled = false;
+        planarVec = Vector3.zero;
+        model.SendMessage("CounterBackDisable");
+        model.SendMessage("WeaponDisable");
+    }
+
+    void OnCounterBackExit()
+    {
+        model.SendMessage("CounterBackDisable");
+    }
+
     void OnAttackExit()
     {
         model.SendMessage("WeaponDisable");

@@ -19,6 +19,8 @@ public class KeyboardInput : IPlayerInput
     private Button leftHAtkBtn = new Button();
     [SerializeField]
     private Button lockBtn = new Button();
+    [SerializeField]
+    private Button actionBtn = new Button();
 
     [Header("Key Settings")]
     public KeyCode forwardKey;
@@ -36,6 +38,7 @@ public class KeyboardInput : IPlayerInput
     public KeyCode rightHAtkKey;
     public KeyCode leftHAtkKey;
     public KeyCode lockKey;
+    public KeyCode actionKey;
 
     void Update()
     {
@@ -46,6 +49,7 @@ public class KeyboardInput : IPlayerInput
         leftHAtkBtn.Tick(Input.GetKey(leftHAtkKey), Time.deltaTime);
         rightHAtkBtn.Tick(Input.GetKey(rightHAtkKey), Time.deltaTime);
         lockBtn.Tick(Input.GetKey(lockKey), Time.deltaTime);
+        actionBtn.Tick(Input.GetKey(actionKey), Time.deltaTime);
 
         Jup = (Input.GetKey(upArrowKey) ? 1.0f : 0) - (Input.GetKey(downArrowKey) ? 1.0f : 0);
         Jright = (Input.GetKey(rightArrowKey) ? 1.0f : 0) - (Input.GetKey(leftArrowKey) ? 1.0f : 0);
@@ -73,5 +77,6 @@ public class KeyboardInput : IPlayerInput
         RightHeavyAttack = rightHAtkBtn.OnReleased;
         Defense = leftAtkBtn.IsPressing;
         LockOn = lockBtn.OnPressed;
+        Action = actionBtn.OnPressed;
     }
 }
