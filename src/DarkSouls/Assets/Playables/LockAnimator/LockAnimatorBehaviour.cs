@@ -6,7 +6,7 @@ using UnityEngine.Timeline;
 [Serializable]
 public class LockAnimatorBehaviour : PlayableBehaviour
 {
-    public ActorManager am;
+    public IActorManager am;
     public override void OnBehaviourPause(Playable playable, FrameData info)
     {
         am.LockUnlockAnimator(false);

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActorManager : MonoBehaviour
+public class ActorManager : IActorManager
 {
     [HideInInspector]
     public ActorController ac;
@@ -29,10 +29,17 @@ public class ActorManager : MonoBehaviour
         {
             if (!ecastm.active)
                 continue;
+
             switch (ecastm.eventType)
             {
                 case EventType.OpenBox:
-
+                    if (ac.model.transform.CheckAngleSelf(ecastm.am.transform, 30.0f))
+                    {
+                        transform.position = ecastm.transform.position + ecastm.transform.TransformVector(ecastm.offset);
+                        ac.model.transform.LookAt(ecastm.transform);
+                        ecastm.active = false;
+                        dm.PlayeOpenBox(this, ecastm.am);
+                    }
                     break;
                 case EventType.FrontStab:
                     dm.PlayFrontStab(this, ecastm.am);
@@ -75,9 +82,14 @@ public class ActorManager : MonoBehaviour
         sm.isCounterBackEnable = enable;
     }
 
-    public void LockUnlockAnimator(bool value = true)
+    public override void LockUnlockAnimator(bool value = true)
     {
         ac.SetAnimatorBool("lock", value);
+    }
+
+    public override Animator GetAnimator()
+    {
+        return ac.GetAnimator();
     }
 
     private void HitOrDie(bool doHitAnimation = true)

@@ -73,7 +73,7 @@ public class ActorController : MonoBehaviour
             anim.SetFloat("right", 0);
             anim.SetFloat("forward", pi.Dmag * Mathf.Lerp(anim.GetFloat("forward"), (pi.Run ? 2.0f : 1.0f), 0.5f));
 
-            if (pi.Dmag > 0.1f)
+            if (pi.Dmag > 0.1f && pi.inputEnabled)
                 model.transform.forward = Vector3.Slerp(model.transform.forward, pi.Dvec, 0.3f);
 
             if (!lockPlanar)

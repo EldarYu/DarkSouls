@@ -32,7 +32,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b4df563aa2ce50c47ae3b7748e931d65, type: 3}
-  m_Name: Attacker ActorManager
+  m_Name: Attacker Script
   m_EditorClassIdentifier: 
   m_Locked: 0
   m_Muted: 0
@@ -112,7 +112,7 @@ MonoBehaviour:
   template:
     am: {fileID: 0}
   am:
-    exposedName: 35605cf0-4770-4e1a-ad7b-9512e24b3aa9
+    exposedName: ab71bd24-1dd7-4889-9960-cdd115397e0f
     defaultValue: {fileID: 0}
 --- !u!114 &114416560747188238
 MonoBehaviour:
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1544527758, guid: 6a10b2909283487f913b00d94cd3faf5, type: 3}
-  m_Name: 
+  m_Name: test
   m_EditorClassIdentifier: 
   m_Locked: 0
   m_Muted: 0
@@ -180,7 +180,7 @@ MonoBehaviour:
   template:
     am: {fileID: 0}
   am:
-    exposedName: a5f83200-b957-4150-8694-5611851b1f1b
+    exposedName: 8e1ffe30-4c9c-41e6-9bfb-a10ddda36190
     defaultValue: {fileID: 0}
 --- !u!114 &114564570357224832
 MonoBehaviour:
@@ -191,7 +191,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b4df563aa2ce50c47ae3b7748e931d65, type: 3}
-  m_Name: Victim ActorManager
+  m_Name: Victim Script
   m_EditorClassIdentifier: 
   m_Locked: 0
   m_Muted: 0

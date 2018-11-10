@@ -34,5 +34,24 @@ public static class Helper
         }
         return temp;
     }
+
+    public static bool CheckAngleSelf(this Transform self, Transform target, float selfAngleLimit)
+    {
+        Vector3 dir = target.position - self.position;
+
+        float angle1 = Vector3.Angle(self.forward, dir);
+        float angle2 = Vector3.Angle(target.forward, self.forward);
+
+        return (angle1 < selfAngleLimit && Mathf.Abs(angle2 - 180) < selfAngleLimit);
+    }
+
+    public static bool CheckAngleTarget(this Transform self, Transform target, float targetAngleLimit)
+    {
+        Vector3 dir = self.position - target.position;
+
+        float angle = Vector3.Angle(target.forward, dir);
+
+        return angle < targetAngleLimit;
+    }
 }
 

@@ -16,6 +16,7 @@ MonoBehaviour:
   - {fileID: 114950299367139260}
   - {fileID: 114806528850160850}
   - {fileID: 114082417341823890}
+  - {fileID: 114395567475445590}
   m_FixedDuration: 0
   m_EditorSettings:
     m_Framerate: 60
@@ -29,13 +30,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b4df563aa2ce50c47ae3b7748e931d65, type: 3}
-  m_Name: Player ActorManager
+  m_Name: Player Script
   m_EditorClassIdentifier: 
   m_Locked: 0
   m_Muted: 0
   m_CustomPlayableFullTypename: 
   m_AnimClip: {fileID: 0}
-  m_Parent: {fileID: 11400000}
+  m_Parent: {fileID: 0}
   m_Children: []
   m_Clips:
   - m_Start: 0
@@ -109,8 +110,83 @@ MonoBehaviour:
   template:
     am: {fileID: 0}
   am:
-    exposedName: -6090
+    exposedName: b362a598-1818-46b9-bc8a-9d3b1282a4c6
     defaultValue: {fileID: 0}
+--- !u!114 &114395567475445590
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4df563aa2ce50c47ae3b7748e931d65, type: 3}
+  m_Name: Box Script
+  m_EditorClassIdentifier: 
+  m_Locked: 0
+  m_Muted: 0
+  m_CustomPlayableFullTypename: 
+  m_AnimClip: {fileID: 0}
+  m_Parent: {fileID: 0}
+  m_Children: []
+  m_Clips:
+  - m_Start: 0
+    m_ClipIn: 0
+    m_Asset: {fileID: 114621159768802542}
+    m_Duration: 1.64
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 114395567475445590}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 0
+    m_BlendOutDuration: 0
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: LockAnimatorClip
+    m_Version: 1
 --- !u!114 &114498077969535126
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -143,6 +219,22 @@ MonoBehaviour:
   am:
     exposedName: 13142
     defaultValue: {fileID: 0}
+--- !u!114 &114621159768802542
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55f805e280342a54c8483bd3e65da093, type: 3}
+  m_Name: LockAnimatorClip
+  m_EditorClassIdentifier: 
+  template:
+    am: {fileID: 0}
+  am:
+    exposedName: 5869403b-0895-46b1-b943-3d6232310dab
+    defaultValue: {fileID: 0}
 --- !u!114 &114633386261889276
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -174,7 +266,7 @@ MonoBehaviour:
   m_Muted: 0
   m_CustomPlayableFullTypename: 
   m_AnimClip: {fileID: 0}
-  m_Parent: {fileID: 11400000}
+  m_Parent: {fileID: 0}
   m_Children: []
   m_Clips:
   - m_Start: 0
@@ -310,7 +402,7 @@ MonoBehaviour:
   m_Muted: 0
   m_CustomPlayableFullTypename: 
   m_AnimClip: {fileID: 0}
-  m_Parent: {fileID: 11400000}
+  m_Parent: {fileID: 0}
   m_Children: []
   m_Clips:
   - m_Start: 0

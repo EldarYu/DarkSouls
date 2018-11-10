@@ -3,26 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum EventType
 {
-    OpenBox, FrontStab
+    OpenBox, FrontStab, LeverUp
 }
-
 
 public class EventCasterManager : MonoBehaviour
 {
-    public ActorManager am;
+    public IActorManager am;
     public bool active;
     public EventType eventType;
-
+    public Vector3 offset;
 
     private void Start()
     {
-        am = GetComponentInParent<ActorManager>();
-
+        am = GetComponentInParent<IActorManager>();
 
 #if UNITY_EDITOR
         MeshRenderer mr = gameObject.GetComponent<MeshRenderer>();
         mr.enabled = true;
 #endif
     }
-
 }

@@ -7,7 +7,7 @@ using UnityEngine.Timeline;
 public class LockAnimatorClip : PlayableAsset, ITimelineClipAsset
 {
     public LockAnimatorBehaviour template = new LockAnimatorBehaviour();
-    public ExposedReference<ActorManager> am;
+    public ExposedReference<IActorManager> am;
 
     public ClipCaps clipCaps
     {
