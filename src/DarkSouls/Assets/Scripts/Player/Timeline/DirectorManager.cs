@@ -8,6 +8,7 @@ public class DirectorManager : MonoBehaviour
 {
     public TimelineAsset stabFront;
     public TimelineAsset openBox;
+    public TimelineAsset leverUp;
 
     private ActorManager am;
     private PlayableDirector pd;
@@ -101,5 +102,53 @@ public class DirectorManager : MonoBehaviour
         }
         pd.Evaluate();
         pd.Play();
+    }
+
+    public void PlayLeverUp(IActorManager player, IActorManager lever)
+    {
+        if (pd.state == PlayState.Playing)
+            return;
+
+        pd.playableAsset = Instantiate(leverUp);
+        TimelineAsset timeline = (TimelineAsset)pd.playableAsset;
+
+        foreach (var track in timeline.GetOutputTracks())
+        {
+            if (track.name == "Player Animation")
+            {
+                pd.SetGenericBinding(track, player.GetAnimator());
+            }
+            else if (track.name == "Lever Animation")
+            {
+                pd.SetGenericBinding(track, lever.GetAnimator());
+            }
+            else if (track.name == "Player Script")
+            {
+                pd.SetGenericBinding(track, player);
+                foreach (var clip in track.GetClips())
+                {
+                    LockAnimatorClip lockClip = (LockAnimatorClip)clip.asset;
+                    lockClip.am.exposedName = System.Guid.NewGuid().ToString();
+                    pd.SetReferenceValue(lockClip.am.exposedName, player);
+                }
+            }
+            else if (track.name == "Lever Script")
+            {
+                pd.SetGenericBinding(track, lever);
+                foreach (var clip in track.GetClips())
+                {
+                    LockAnimatorClip lockClip = (LockAnimatorClip)clip.asset;
+                    lockClip.am.exposedName = System.Guid.NewGuid().ToString();
+                    pd.SetReferenceValue(lockClip.am.exposedName, lever);
+                }
+            }
+        }
+        pd.Evaluate();
+        pd.Play();
+    }
+
+    void Play()
+    {
+
     }
 }

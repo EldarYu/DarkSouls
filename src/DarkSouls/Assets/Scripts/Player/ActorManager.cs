@@ -41,8 +41,14 @@ public class ActorManager : IActorManager
                         dm.PlayeOpenBox(this, ecastm.am);
                     }
                     break;
+
                 case EventType.FrontStab:
                     dm.PlayFrontStab(this, ecastm.am);
+                    break;
+
+                case EventType.LeverUp:
+                    ecastm.active = false;
+                    dm.PlayLeverUp(this, ecastm.am);
                     break;
                 default:
                     break;
