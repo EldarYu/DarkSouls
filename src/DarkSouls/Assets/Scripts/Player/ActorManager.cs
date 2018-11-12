@@ -30,6 +30,14 @@ public class ActorManager : IActorManager
             if (!ecastm.active)
                 continue;
 
+            //if (ac.model.transform.CheckAngleSelf(ecastm.am.transform, 30.0f))
+            //{
+            //    transform.position = ecastm.transform.position + ecastm.transform.TransformVector(ecastm.offset);
+            //   // ac.model.transform.LookAt(ecastm.transform);
+            //    ecastm.active = false;
+            //    dm.Play(ecastm.eventType, this, ecastm.am);
+            //}
+
             switch (ecastm.eventType)
             {
                 case EventType.OpenBox:
@@ -38,19 +46,22 @@ public class ActorManager : IActorManager
                         transform.position = ecastm.transform.position + ecastm.transform.TransformVector(ecastm.offset);
                         ac.model.transform.LookAt(ecastm.transform);
                         ecastm.active = false;
-                        dm.PlayeOpenBox(this, ecastm.am);
+                        dm.Play(ecastm.eventType, this, ecastm.am);
                     }
                     break;
 
                 case EventType.FrontStab:
-                    dm.PlayFrontStab(this, ecastm.am);
+                    dm.Play(ecastm.eventType, this, ecastm.am);
                     break;
 
                 case EventType.LeverUp:
-                    ecastm.active = false;
-                    dm.PlayLeverUp(this, ecastm.am);
-                    break;
-                default:
+                    if (ac.model.transform.CheckAngleSelf(ecastm.am.transform, 30.0f))
+                    {
+                        transform.position = ecastm.transform.position + ecastm.transform.TransformVector(ecastm.offset);
+                        ac.model.transform.LookAt(ecastm.transform);
+                        ecastm.active = false;
+                        dm.Play(ecastm.eventType, this, ecastm.am);
+                    }
                     break;
             }
         }

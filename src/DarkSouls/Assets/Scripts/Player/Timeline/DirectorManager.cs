@@ -6,7 +6,7 @@ using UnityEngine.Timeline;
 
 public class DirectorManager : MonoBehaviour
 {
-    public TimelineAsset stabFront;
+    public TimelineAsset frontStab;
     public TimelineAsset openBox;
     public TimelineAsset leverUp;
 
@@ -18,55 +18,12 @@ public class DirectorManager : MonoBehaviour
         pd = GetComponent<PlayableDirector>();
     }
 
-    public void PlayFrontStab(IActorManager attacker, IActorManager victim)
+    public void Play(EventType eventType, IActorManager player, IActorManager opponent)
     {
         if (pd.state == PlayState.Playing)
             return;
 
-        pd.playableAsset = Instantiate(stabFront);
-        TimelineAsset timeline = (TimelineAsset)pd.playableAsset;
-
-        foreach (var track in timeline.GetOutputTracks())
-        {
-            if (track.name == "Attacker Animation")
-            {
-                pd.SetGenericBinding(track, attacker.GetAnimator());
-            }
-            else if (track.name == "Victim Animation")
-            {
-                pd.SetGenericBinding(track, victim.GetAnimator());
-            }
-            else if (track.name == "Attacker Script")
-            {
-                pd.SetGenericBinding(track, attacker);
-                foreach (var clip in track.GetClips())
-                {
-                    LockAnimatorClip lockClip = (LockAnimatorClip)clip.asset;
-                    lockClip.am.exposedName = System.Guid.NewGuid().ToString();
-                    pd.SetReferenceValue(lockClip.am.exposedName, attacker);
-                }
-            }
-            else if (track.name == "Victim Script")
-            {
-                pd.SetGenericBinding(track, victim);
-                foreach (var clip in track.GetClips())
-                {
-                    LockAnimatorClip lockClip = (LockAnimatorClip)clip.asset;
-                    lockClip.am.exposedName = System.Guid.NewGuid().ToString();
-                    pd.SetReferenceValue(lockClip.am.exposedName, victim);
-                }
-            }
-        }
-        pd.Evaluate();
-        pd.Play();
-    }
-
-    public void PlayeOpenBox(IActorManager player, IActorManager box)
-    {
-        if (pd.state == PlayState.Playing)
-            return;
-
-        pd.playableAsset = Instantiate(openBox);
+        pd.playableAsset = GetTimelineAsset(eventType);
         TimelineAsset timeline = (TimelineAsset)pd.playableAsset;
 
         foreach (var track in timeline.GetOutputTracks())
@@ -75,9 +32,9 @@ public class DirectorManager : MonoBehaviour
             {
                 pd.SetGenericBinding(track, player.GetAnimator());
             }
-            else if (track.name == "Box Animation")
+            else if (track.name == "Opponent Animation")
             {
-                pd.SetGenericBinding(track, box.GetAnimator());
+                pd.SetGenericBinding(track, opponent.GetAnimator());
             }
             else if (track.name == "Player Script")
             {
@@ -89,14 +46,14 @@ public class DirectorManager : MonoBehaviour
                     pd.SetReferenceValue(lockClip.am.exposedName, player);
                 }
             }
-            else if (track.name == "Box Script")
+            else if (track.name == "Opponent Script")
             {
-                pd.SetGenericBinding(track, box);
+                pd.SetGenericBinding(track, opponent);
                 foreach (var clip in track.GetClips())
                 {
                     LockAnimatorClip lockClip = (LockAnimatorClip)clip.asset;
                     lockClip.am.exposedName = System.Guid.NewGuid().ToString();
-                    pd.SetReferenceValue(lockClip.am.exposedName, box);
+                    pd.SetReferenceValue(lockClip.am.exposedName, opponent);
                 }
             }
         }
@@ -104,51 +61,19 @@ public class DirectorManager : MonoBehaviour
         pd.Play();
     }
 
-    public void PlayLeverUp(IActorManager player, IActorManager lever)
+    TimelineAsset GetTimelineAsset(EventType eventType)
     {
-        if (pd.state == PlayState.Playing)
-            return;
-
-        pd.playableAsset = Instantiate(leverUp);
-        TimelineAsset timeline = (TimelineAsset)pd.playableAsset;
-
-        foreach (var track in timeline.GetOutputTracks())
+        switch (eventType)
         {
-            if (track.name == "Player Animation")
-            {
-                pd.SetGenericBinding(track, player.GetAnimator());
-            }
-            else if (track.name == "Lever Animation")
-            {
-                pd.SetGenericBinding(track, lever.GetAnimator());
-            }
-            else if (track.name == "Player Script")
-            {
-                pd.SetGenericBinding(track, player);
-                foreach (var clip in track.GetClips())
-                {
-                    LockAnimatorClip lockClip = (LockAnimatorClip)clip.asset;
-                    lockClip.am.exposedName = System.Guid.NewGuid().ToString();
-                    pd.SetReferenceValue(lockClip.am.exposedName, player);
-                }
-            }
-            else if (track.name == "Lever Script")
-            {
-                pd.SetGenericBinding(track, lever);
-                foreach (var clip in track.GetClips())
-                {
-                    LockAnimatorClip lockClip = (LockAnimatorClip)clip.asset;
-                    lockClip.am.exposedName = System.Guid.NewGuid().ToString();
-                    pd.SetReferenceValue(lockClip.am.exposedName, lever);
-                }
-            }
+            case EventType.OpenBox:
+                return Instantiate(openBox);
+
+            case EventType.FrontStab:
+                return Instantiate(frontStab);
+
+            case EventType.LeverUp:
+                return Instantiate(leverUp);
         }
-        pd.Evaluate();
-        pd.Play();
-    }
-
-    void Play()
-    {
-
+        return null;
     }
 }
