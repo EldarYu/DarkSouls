@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class InteractionManager : MonoBehaviour
 {
-  
     public List<EventCasterManager> overlapEcastms = new List<EventCasterManager>();
     private ActorManager am;
     void Start()

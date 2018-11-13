@@ -30,39 +30,12 @@ public class ActorManager : IActorManager
             if (!ecastm.active)
                 continue;
 
-            //if (ac.model.transform.CheckAngleSelf(ecastm.am.transform, 30.0f))
-            //{
-            //    transform.position = ecastm.transform.position + ecastm.transform.TransformVector(ecastm.offset);
-            //   // ac.model.transform.LookAt(ecastm.transform);
-            //    ecastm.active = false;
-            //    dm.Play(ecastm.eventType, this, ecastm.am);
-            //}
-
-            switch (ecastm.eventType)
+            if (ac.model.transform.CheckAngleSelf(ecastm.am.transform, 30.0f))
             {
-                case EventType.OpenBox:
-                    if (ac.model.transform.CheckAngleSelf(ecastm.am.transform, 30.0f))
-                    {
-                        transform.position = ecastm.transform.position + ecastm.transform.TransformVector(ecastm.offset);
-                        ac.model.transform.LookAt(ecastm.transform);
-                        ecastm.active = false;
-                        dm.Play(ecastm.eventType, this, ecastm.am);
-                    }
-                    break;
-
-                case EventType.FrontStab:
-                    dm.Play(ecastm.eventType, this, ecastm.am);
-                    break;
-
-                case EventType.LeverUp:
-                    if (ac.model.transform.CheckAngleSelf(ecastm.am.transform, 30.0f))
-                    {
-                        transform.position = ecastm.transform.position + ecastm.transform.TransformVector(ecastm.offset);
-                        ac.model.transform.LookAt(ecastm.transform);
-                        ecastm.active = false;
-                        dm.Play(ecastm.eventType, this, ecastm.am);
-                    }
-                    break;
+                //transform.position = ecastm.transform.position + ecastm.am.transform.TransformVector(ecastm.offset);
+                ac.model.transform.forward -= ecastm.am.transform.forward;
+                ecastm.active = false;
+                dm.Play(ecastm.eventType, this, ecastm.am);
             }
         }
     }

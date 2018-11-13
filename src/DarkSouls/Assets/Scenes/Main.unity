@@ -624,7 +624,7 @@ MonoBehaviour:
   am: {fileID: 0}
   active: 1
   eventType: 2
-  offset: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 0, z: 0.7}
 --- !u!23 &175241355
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5254,7 +5254,7 @@ MonoBehaviour:
   am: {fileID: 0}
   active: 1
   eventType: 0
-  offset: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 0, z: 0.7}
 --- !u!23 &1126491013
 MeshRenderer:
   m_ObjectHideFlags: 0

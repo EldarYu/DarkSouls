@@ -2446,31 +2446,6 @@ AnimatorState:
   m_MirrorParameter: leftHandAttack
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1102 &1102598239548496676
-AnimatorState:
-  serializedVersion: 5
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: leverUp
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 55d028a8543d10b4a9a117713c2ae352, type: 2}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
 --- !u!1102 &1102620383846199588
 AnimatorState:
   serializedVersion: 5
@@ -2794,7 +2769,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: cb66b68c2cbbbb84aaff40d1d1a4a887, type: 3}
+  m_Motion: {fileID: 7400000, guid: 504d9d0fcc0cf8541a2bd1f5ba2d14c8, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -2948,9 +2923,6 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: 1102956573488807292}
     m_Position: {x: -120, y: 348, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: 1102598239548496676}
-    m_Position: {x: 239.76141, y: 587.86316, z: 0}
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: 1107138337157870390}
