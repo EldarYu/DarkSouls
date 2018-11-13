@@ -18,11 +18,13 @@ public class DirectorManager : MonoBehaviour
         pd = GetComponent<PlayableDirector>();
     }
 
+    public bool IsPlaying()
+    {
+        return pd.state == PlayState.Playing ? true : false;
+    }
+
     public void Play(EventType eventType, IActorManager player, IActorManager opponent)
     {
-        if (pd.state == PlayState.Playing)
-            return;
-
         pd.playableAsset = GetTimelineAsset(eventType);
         TimelineAsset timeline = (TimelineAsset)pd.playableAsset;
 

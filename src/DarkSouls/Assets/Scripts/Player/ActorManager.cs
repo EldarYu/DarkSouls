@@ -25,6 +25,9 @@ public class ActorManager : IActorManager
 
     public void DoAction()
     {
+        if (dm.IsPlaying())
+            return;
+
         foreach (var ecastm in im.overlapEcastms)
         {
             if (!ecastm.active)
@@ -34,6 +37,7 @@ public class ActorManager : IActorManager
             {
                 //transform.position = ecastm.transform.position + ecastm.am.transform.TransformVector(ecastm.offset);
                 ac.model.transform.forward -= ecastm.am.transform.forward;
+                //ac.model.transform.LookAt(ecastm.am.transform, Vector3.up);
                 ecastm.active = false;
                 dm.Play(ecastm.eventType, this, ecastm.am);
             }
