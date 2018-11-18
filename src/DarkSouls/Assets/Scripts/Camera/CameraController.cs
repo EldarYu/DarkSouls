@@ -43,7 +43,7 @@ public class CameraController : MonoBehaviour
         camPivot = transform.parent.gameObject;
         player = camPivot.transform.parent.gameObject;
 
-        ActorController ac = player.GetComponent<ActorController>();
+        IActorController ac = player.GetComponent<IActorController>();
         model = ac.model;
         pi = ac.pi;
 
