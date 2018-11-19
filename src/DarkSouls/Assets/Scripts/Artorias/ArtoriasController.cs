@@ -22,11 +22,36 @@ public class ArtoriasController : IActorController
             OnActionPressed.Invoke();
     }
 
+    void Roll()
+    {
+        if (pi.Roll)
+        {
+            anim.SetTrigger("roll");
+            canAttack = false;
+        }
+    }
+
     private void FixedUpdate()
     {
         rigid.position += deltaPos;
         rigid.velocity = new Vector3(planarVec.x, rigid.velocity.y, planarVec.z) + thrushVec;
         thrushVec = Vector3.zero;
         deltaPos = Vector3.zero;
+    }
+
+    //
+    void OnGroundEnter()
+    {
+        pi.enabled = true;
+    }
+
+    void OnGroundExit()
+    {
+        pi.enabled = false;
+    }
+
+    void OnRollUpdate()
+    {
+        thrushVec.y = 0.1f;
     }
 }

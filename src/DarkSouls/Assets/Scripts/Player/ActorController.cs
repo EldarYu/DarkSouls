@@ -41,6 +41,15 @@ public class ActorController : IActorController
 
     }
 
+    void Roll()
+    {
+        if (pi.Roll || rigid.velocity.magnitude > rollVelocityThreshold)
+        {
+            anim.SetTrigger("roll");
+            canAttack = false;
+        }
+    }
+
     void Attack()
     {
         if (leftIsShield)
@@ -248,5 +257,4 @@ public class ActorController : IActorController
         if (CheckAnimatorStateWithName("attack1hC"))
             deltaPos += 0.8f * deltaPos + 0.2f * _deltaPos;
     }
-
 }

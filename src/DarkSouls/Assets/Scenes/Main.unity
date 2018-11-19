@@ -8035,8 +8035,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1acde0c3ce4fd694b8cc176d059b6b99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 1.7
-  runMulti: 2
+  walkSpeed: 3
+  runMulti: 5
   jumpVelocity: 4
   rollVelocity: 3
   rollVelocityThreshold: 7
@@ -11854,7 +11854,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1733955941}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1.52}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 745954259}
@@ -11871,7 +11871,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77e80dc9dd1258d499ddcc3b87bf8690, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isAI: 1
+  isAI: 0
   cameraDampValue: 0.05
   horizontalSpeed: 100
   verticalSpeed: 50
@@ -11880,7 +11880,7 @@ MonoBehaviour:
   maxLockDistance: 10
   lockOnLayer:
     serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 6144
   lockDot: {fileID: 2006386823}
   lockState: 0
 --- !u!1 &1734060182

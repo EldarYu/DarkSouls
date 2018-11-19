@@ -67,15 +67,6 @@ public abstract class IActorController : MonoBehaviour
         }
     }
 
-    protected void Roll()
-    {
-        if (pi.Roll || rigid.velocity.magnitude > rollVelocityThreshold)
-        {
-            anim.SetTrigger("roll");
-            canAttack = false;
-        }
-    }
-
     public virtual bool CheckAnimatorStateWithName(string stateName, string layerName = "Base")
     {
         return anim.GetCurrentAnimatorStateInfo(anim.GetLayerIndex(layerName)).IsName(stateName);
