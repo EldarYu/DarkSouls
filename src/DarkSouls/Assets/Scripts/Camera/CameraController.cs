@@ -139,7 +139,7 @@ public class CameraController : MonoBehaviour
         lockTarget.halfHeight = halfHeight;
         lockTarget.am = am;
         if (!isAI)
-            lockDot.enabled = lookDotEnable;
+            lockDot.gameObject.SetActive(lookDotEnable);
     }
 
     public void ResetInputDevice(IPlayerInput playerInput)
