@@ -4,8 +4,57 @@ using UnityEngine;
 
 public class StateManager : MonoBehaviour
 {
-    public float maxHp;
-    public float hp;
+    [System.Serializable]
+    public class State
+    {
+        public float maxHp;
+        public float maxVigor;
+
+        public float hp;
+        public float vigor;
+
+        public void Init()
+        {
+            hp = maxHp;
+            vigor = maxVigor;
+        }
+
+        public void ReCalculate()
+        {
+
+        }
+    }
+    public State state;
+
+    public float runCost = 1.0f;
+    public float rollCost = 15.0f;
+    public float attackCost = 5.0f;
+    public float heavyAttackCost = 15.0f;
+
+    public float vigorRecoverAmount = 0.3f;
+
+    public float Hp
+    {
+        get
+        {
+            return state.hp;
+        }
+        private set
+        {
+            state.hp = Mathf.Clamp(value, 0, state.maxHp);
+        }
+    }
+    public float Vigor
+    {
+        get
+        {
+            return state.vigor;
+        }
+        private set
+        {
+            state.vigor = Mathf.Clamp(value, 0, state.maxVigor);
+        }
+    }
 
     [Header("1st order state flag")]
     public bool isGround;
@@ -27,11 +76,13 @@ public class StateManager : MonoBehaviour
     public bool isCounterBackSuccess;
     public bool isCounterBackFailure;
 
+    private bool recoverVigor = false;
+
     private ActorManager am;
     void Awake()
     {
         am = GetComponent<ActorManager>();
-        hp = maxHp;
+        state.Init();
     }
 
     private void Update()
@@ -55,10 +106,33 @@ public class StateManager : MonoBehaviour
         isImmortal = isRoll || isJab;
     }
 
+    private void FixedUpdate()
+    {
+        if (recoverVigor)
+        {
+            Vigor += vigorRecoverAmount;
+            if (Vigor >= state.maxVigor)
+            {
+                recoverVigor = false;
+            }
+        }
+    }
 
     public void CountHp(float amount)
     {
-        hp += amount;
-        hp = Mathf.Clamp(hp, 0, maxHp);
+        Hp += amount;
+    }
+
+    public void CountVigor(float amount)
+    {
+        Vigor += amount;
+        StartCoroutine(SetVigorRecover());
+    }
+
+    IEnumerator SetVigorRecover()
+    {
+        recoverVigor = false;
+        yield return new WaitForSeconds(1);
+        recoverVigor = true;
     }
 }

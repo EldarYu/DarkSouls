@@ -6,8 +6,6 @@ public class KeyboardInput : IPlayerInput
 {
     [Header("Button Settings")]
     [SerializeField]
-    private Button jumpBtn = new Button();
-    [SerializeField]
     private Button runBtn = new Button();
     [SerializeField]
     private Button rightAtkBtn = new Button();
@@ -28,7 +26,6 @@ public class KeyboardInput : IPlayerInput
     public KeyCode leftKey;
     public KeyCode rightKey;
     public KeyCode runKey;
-    public KeyCode jumpKey;
     public KeyCode upArrowKey;
     public KeyCode downArrowKey;
     public KeyCode leftArrowKey;
@@ -43,7 +40,6 @@ public class KeyboardInput : IPlayerInput
     void Update()
     {
         runBtn.Tick(Input.GetKey(runKey), Time.deltaTime);
-        jumpBtn.Tick(Input.GetKey(jumpKey), Time.deltaTime);
         leftAtkBtn.Tick(Input.GetKey(leftAtkKey), Time.deltaTime);
         rightAtkBtn.Tick(Input.GetKey(rightAtkKey), Time.deltaTime);
         leftHAtkBtn.Tick(Input.GetKey(leftHAtkKey), Time.deltaTime);
@@ -68,9 +64,9 @@ public class KeyboardInput : IPlayerInput
 
         UpdateDmagDvec(Dup, Dright);
 
-        Run = runBtn.IsPressing;
-        Jump = jumpBtn.OnPressed && (runBtn.IsPressing || runBtn.IsExtending);
-        Roll = jumpBtn.OnReleased;
+        Run = runBtn.IsPressing && !runBtn.IsDelaying;
+        Jump = runBtn.OnPressed && runBtn.IsExtending;
+        Roll = runBtn.OnReleased && runBtn.IsDelaying;
         LeftAttack = leftAtkBtn.OnReleased;
         RightAttack = rightAtkBtn.OnReleased;
         LeftHeavyAttack = leftHAtkBtn.OnReleased;

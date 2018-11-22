@@ -44,6 +44,26 @@ public class ActorManager : IActorManager
         }
     }
 
+    public bool TryDoRun()
+    {
+        return sm.Vigor > 0;
+    }
+
+    public bool TryDoRoll()
+    {
+        return sm.Vigor > sm.rollCost;
+    }
+
+    public bool TryDoAttack()
+    {
+        return sm.Vigor > sm.attackCost;
+    }
+
+    public bool TryDoHeavyAttack()
+    {
+        return sm.Vigor > sm.heavyAttackCost;
+    }
+
     public void TryDoDamage(WeaponController targetWC, bool attackVaild, bool counterVaild)
     {
         if (attackVaild)
@@ -88,14 +108,14 @@ public class ActorManager : IActorManager
 
     private void HitOrDie(bool doHitAnimation = true)
     {
-        if (sm.hp <= 0)
+        if (sm.Hp <= 0)
         {
 
         }
         else
         {
             sm.CountHp(-5);
-            if (sm.hp > 0)
+            if (sm.Hp > 0)
             {
                 if (doHitAnimation)
                     Hit();

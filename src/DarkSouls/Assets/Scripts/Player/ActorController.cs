@@ -15,8 +15,10 @@ public class ActorController : IActorController
     public event OnActionDelegate OnActionPressed;
 
     private CapsuleCollider col;
+    private ActorManager am;
     void Awake()
     {
+        am = GetComponent<ActorManager>();
         pi = GetInputDevice();
         col = GetComponent<CapsuleCollider>();
         this.enabled = !(pi == null || Init());
@@ -29,6 +31,9 @@ public class ActorController : IActorController
         Roll();
         Attack();
         Action();
+
+        if (anim.GetFloat("forward") > 1.9f)
+            am.sm.CountVigor(-am.sm.runCost);
     }
 
     void Jump()
@@ -38,12 +43,17 @@ public class ActorController : IActorController
             anim.SetTrigger("jump");
             canAttack = false;
         }
-
     }
 
     void Roll()
     {
-        if (pi.Roll || rigid.velocity.magnitude > rollVelocityThreshold)
+        if (pi.Roll && am.TryDoRoll())
+        {
+            anim.SetTrigger("roll");
+            canAttack = false;
+        }
+
+        if (rigid.velocity.magnitude > rollVelocityThreshold)
         {
             anim.SetTrigger("roll");
             canAttack = false;
@@ -74,12 +84,12 @@ public class ActorController : IActorController
         {
             if (pi.LeftAttack || pi.RightAttack)
             {
-                if (pi.LeftAttack && !leftIsShield)
+                if (pi.LeftAttack && !leftIsShield && am.TryDoAttack())
                 {
                     anim.SetBool("leftHandAttack", true);
                     anim.SetTrigger("attack");
                 }
-                else if (pi.RightAttack)
+                else if (pi.RightAttack && am.TryDoAttack())
                 {
                     anim.SetBool("leftHandAttack", false);
                     anim.SetTrigger("attack");
@@ -88,7 +98,7 @@ public class ActorController : IActorController
 
             if (pi.LeftHeavyAttack || pi.RightHeavyAttack)
             {
-                if (pi.RightHeavyAttack)
+                if (pi.RightHeavyAttack && am.TryDoHeavyAttack())
                 {
                     //right heavy attack
                 }
@@ -98,7 +108,7 @@ public class ActorController : IActorController
                     {
                         //left heavy attack
                     }
-                    else
+                    else if (am.TryDoHeavyAttack())
                     {
                         anim.SetTrigger("counterBack");
                     }
@@ -162,6 +172,7 @@ public class ActorController : IActorController
     {
         trackDirection = true;
         thrushVec.y = rollVelocity;
+        am.sm.CountVigor(-am.sm.rollCost);
     }
 
     void OnJabEnter()
@@ -249,6 +260,16 @@ public class ActorController : IActorController
     void OnAttack1hAUpdate()
     {
         thrushVec = model.transform.forward * anim.GetFloat("attack1hAVelocity");
+    }
+
+    void CountAttackVigorCost()
+    {
+        am.sm.CountVigor(-am.sm.attackCost);
+    }
+
+    void CountHeavyAttackVigorCost()
+    {
+        am.sm.CountVigor(-am.sm.attackCost);
     }
 
     //root motion值处理

@@ -144,6 +144,21 @@ MonoBehaviour:
   - OnBlockedEnter
   onUpdateMessages: []
   onExitMessages: []
+--- !u!114 &114034720886863144
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d29dfaec3a95924ba6344b83a055b36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnterMessages:
+  - CountAttackVigorCost
+  onUpdateMessages: []
+  onExitMessages: []
 --- !u!114 &114181410069971120
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -157,6 +172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onEnterMessages:
   - OnAttack1hAEnter
+  - CountAttackVigorCost
   onUpdateMessages:
   - OnAttack1hAUpdate
   onExitMessages: []
@@ -187,6 +203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onEnterMessages:
   - OnCounterBackEnter
+  - CountHeavyAttackVigorCost
   onUpdateMessages: []
   onExitMessages: []
 --- !u!114 &114415654110407408
@@ -233,6 +250,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onEnterMessages:
   - OnRollEnter
+  onUpdateMessages: []
+  onExitMessages: []
+--- !u!114 &114442815585665900
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d29dfaec3a95924ba6344b83a055b36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnterMessages:
+  - CountAttackVigorCost
   onUpdateMessages: []
   onExitMessages: []
 --- !u!114 &114483083872709138
@@ -328,6 +360,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onEnterMessages:
   - OnAttack1hAEnter
+  - CountAttackVigorCost
   onUpdateMessages:
   - OnAttack1hAUpdate
   onExitMessages: []
@@ -363,6 +396,21 @@ MonoBehaviour:
   onUpdateMessages: []
   onExitMessages:
   - OnGroundExit
+--- !u!114 &114808927340583616
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d29dfaec3a95924ba6344b83a055b36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnterMessages:
+  - CountAttackVigorCost
+  onUpdateMessages: []
+  onExitMessages: []
 --- !u!114 &114847939093460970
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -407,6 +455,21 @@ MonoBehaviour:
   clearAtEnter:
   - attack
   clearAtExit: []
+--- !u!114 &114923193942605276
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d29dfaec3a95924ba6344b83a055b36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnterMessages:
+  - CountAttackVigorCost
+  onUpdateMessages: []
+  onExitMessages: []
 --- !u!114 &114966142611885130
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2166,7 +2229,8 @@ AnimatorState:
   m_Transitions:
   - {fileID: 1101396485610827864}
   - {fileID: 1101563321660923634}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: 114808927340583616}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -2297,7 +2361,8 @@ AnimatorState:
   m_Transitions:
   - {fileID: 1101604008787228704}
   - {fileID: 1101900766033609952}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: 114442815585665900}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -2351,7 +2416,8 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101858014224251156}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: 114034720886863144}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -2431,7 +2497,8 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101717788316802366}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: 114923193942605276}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1

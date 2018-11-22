@@ -4570,9 +4570,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputEnabled: 1
-  jumpBtn:
-    extendingDuration: 0.15
-    delayingDuration: 0.3
   runBtn:
     extendingDuration: 0.15
     delayingDuration: 0.15
@@ -4598,8 +4595,7 @@ MonoBehaviour:
   backKey: 115
   leftKey: 97
   rightKey: 100
-  runKey: 303
-  jumpKey: 32
+  runKey: 32
   upArrowKey: 105
   downArrowKey: 107
   leftArrowKey: 106
@@ -4608,7 +4604,7 @@ MonoBehaviour:
   leftAtkKey: 304
   rightHAtkKey: 117
   leftHAtkKey: 9
-  lockKey: 118
+  lockKey: 32
   actionKey: 102
 --- !u!4 &633443583
 Transform:
@@ -4691,8 +4687,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6ff40796450b3040a348a68d6f95ae1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 2000
-  hp: 2000
+  state:
+    maxHp: 50
+    maxVigor: 50
+    hp: 0
+    vigor: 0
+  runCost: 0.2
+  rollCost: 15
+  attackCost: 5
+  heavyAttackCost: 15
+  vigorRecoverAmount: 0.3
   isGround: 0
   isJump: 0
   isRoll: 0
@@ -9263,9 +9267,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputEnabled: 1
-  jumpBtn:
-    extendingDuration: 0.15
-    delayingDuration: 0.3
   runBtn:
     extendingDuration: 0.15
     delayingDuration: 0.15
@@ -9292,7 +9293,6 @@ MonoBehaviour:
   leftKey: 97
   rightKey: 100
   runKey: 303
-  jumpKey: 32
   upArrowKey: 105
   downArrowKey: 107
   leftArrowKey: 106
@@ -11729,8 +11729,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6ff40796450b3040a348a68d6f95ae1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 20
-  hp: 20
+  state:
+    maxHp: 100
+    maxVigor: 50
+    hp: 0
+    vigor: 0
+  runCost: 0.2
+  rollCost: 10
+  attackCost: 5
+  heavyAttackCost: 15
+  vigorRecoverAmount: 0.3
   isGround: 0
   isJump: 0
   isRoll: 0
@@ -15432,6 +15440,8 @@ GameObject:
   - component: {fileID: 2025523224}
   - component: {fileID: 2025523223}
   - component: {fileID: 2025523222}
+  - component: {fileID: 2025523227}
+  - component: {fileID: 2025523226}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -15516,6 +15526,34 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &2025523226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2025523221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 280df8ff896df4b47a7f5e0ef75fc272, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateController:
+    playerState: {fileID: 633443588}
+--- !u!114 &2025523227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2025523221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a57b42876204b6640a85bb7335168b76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateView:
+    hp: {fileID: 699667461}
+    vigor: {fileID: 2041591790}
+    mp: {fileID: 338652506}
 --- !u!1 &2025588612
 GameObject:
   m_ObjectHideFlags: 0
