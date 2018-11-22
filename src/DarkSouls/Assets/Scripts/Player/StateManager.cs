@@ -31,7 +31,9 @@ public class StateManager : MonoBehaviour
     public float attackCost = 5.0f;
     public float heavyAttackCost = 15.0f;
 
-    public float vigorRecoverAmount = 0.3f;
+    public float vigorAutoRecoverTime = 1.0f;
+    public float vigorAutoRecoverAmount = 0.3f;
+    private Timer recoverVigorTimer = new Timer();
 
     public float Hp
     {
@@ -76,8 +78,6 @@ public class StateManager : MonoBehaviour
     public bool isCounterBackSuccess;
     public bool isCounterBackFailure;
 
-    private bool recoverVigor = false;
-
     private ActorManager am;
     void Awake()
     {
@@ -108,12 +108,13 @@ public class StateManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (recoverVigor)
+        recoverVigorTimer.Tick(Time.fixedDeltaTime);
+        if (recoverVigorTimer.IsFinished())
         {
-            Vigor += vigorRecoverAmount;
+            Vigor += vigorAutoRecoverAmount;
             if (Vigor >= state.maxVigor)
             {
-                recoverVigor = false;
+                recoverVigorTimer.Stop();
             }
         }
     }
@@ -126,13 +127,6 @@ public class StateManager : MonoBehaviour
     public void CountVigor(float amount)
     {
         Vigor += amount;
-        StartCoroutine(SetVigorRecover());
-    }
-
-    IEnumerator SetVigorRecover()
-    {
-        recoverVigor = false;
-        yield return new WaitForSeconds(1);
-        recoverVigor = true;
+        recoverVigorTimer.Go(vigorAutoRecoverTime);
     }
 }

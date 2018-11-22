@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class UIView : MonoBehaviour
+public class HudView : MonoBehaviour
 {
     [System.Serializable]
     public class StateView

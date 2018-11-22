@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-
-[System.Serializable]
-public class Button
+﻿public class Button
 {
     public bool IsPressing { get; private set; }
     public bool OnPressed { get; private set; }
@@ -9,8 +6,8 @@ public class Button
     public bool IsExtending { get; private set; }
     public bool IsDelaying { get; private set; }
 
-    public float extendingDuration;
-    public float delayingDuration;
+    public float extendingDuration = 0.15f;
+    public float delayingDuration = 0.15f;
     private bool curState = false;
     private bool lastState = false;
 

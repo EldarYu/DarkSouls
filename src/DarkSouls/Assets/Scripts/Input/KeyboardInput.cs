@@ -4,22 +4,6 @@ using UnityEngine;
 
 public class KeyboardInput : IPlayerInput
 {
-    [Header("Button Settings")]
-    [SerializeField]
-    private Button runBtn = new Button();
-    [SerializeField]
-    private Button rightAtkBtn = new Button();
-    [SerializeField]
-    private Button leftAtkBtn = new Button();
-    [SerializeField]
-    private Button rightHAtkBtn = new Button();
-    [SerializeField]
-    private Button leftHAtkBtn = new Button();
-    [SerializeField]
-    private Button lockBtn = new Button();
-    [SerializeField]
-    private Button actionBtn = new Button();
-
     [Header("Key Settings")]
     public KeyCode forwardKey;
     public KeyCode backKey;
@@ -36,6 +20,14 @@ public class KeyboardInput : IPlayerInput
     public KeyCode leftHAtkKey;
     public KeyCode lockKey;
     public KeyCode actionKey;
+
+    private Button runBtn = new Button();
+    private Button rightAtkBtn = new Button();
+    private Button leftAtkBtn = new Button();
+    private Button rightHAtkBtn = new Button();
+    private Button leftHAtkBtn = new Button();
+    private Button lockBtn = new Button();
+    private Button actionBtn = new Button();
 
     void Update()
     {

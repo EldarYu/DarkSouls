@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIController : MonoBehaviour
+public class HudController : MonoBehaviour
 {
     [System.Serializable]
     public class StateController
@@ -16,7 +16,7 @@ public class UIController : MonoBehaviour
         private float velovityHp;
         private float velovityVigor;
 
-        public void Tick(UIView uIManager)
+        public void Tick(HudView uIManager)
         {
             hp = Mathf.SmoothDamp(hp, playerState.state.hp, ref velovityHp, 0.1f);
             vigor = Mathf.SmoothDamp(vigor, playerState.state.vigor, ref velovityVigor, 0.1f);
@@ -27,11 +27,11 @@ public class UIController : MonoBehaviour
     }
     public StateController stateController;
 
-    private UIView uIManager;
+    private HudView uIManager;
 
     private void Start()
     {
-        uIManager = GetComponent<UIView>();
+        uIManager = GetComponent<HudView>();
     }
     void Update()
     {

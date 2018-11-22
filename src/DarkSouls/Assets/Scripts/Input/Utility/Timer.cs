@@ -33,9 +33,19 @@
         state = STATE.RUN;
     }
 
+    public void Stop()
+    {
+        state = STATE.IDLE;
+    }
+
     public bool IsRunning()
     {
         return state == STATE.RUN ? true : false;
+    }
+
+    public bool IsFinished()
+    {
+        return state == STATE.FINISHED ? true : false;
     }
 
 }
