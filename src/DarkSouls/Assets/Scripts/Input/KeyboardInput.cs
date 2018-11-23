@@ -56,8 +56,8 @@ public class KeyboardInput : IPlayerInput
 
         UpdateDmagDvec(Dup, Dright);
 
-        Run = runBtn.IsPressing && !runBtn.IsDelaying;
-        Jump = runBtn.OnPressed && runBtn.IsExtending;
+        Run = (runBtn.IsPressing && !runBtn.IsDelaying) || runBtn.IsExtending;
+        Jump = runBtn.OnPressed && Run;
         Roll = runBtn.OnReleased && runBtn.IsDelaying;
         LeftAttack = leftAtkBtn.OnReleased;
         RightAttack = rightAtkBtn.OnReleased;

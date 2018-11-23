@@ -25,9 +25,6 @@ public class ActorManager : IActorManager
 
     public void DoAction()
     {
-        if (dm.IsPlaying())
-            return;
-
         foreach (var ecastm in im.overlapEcastms)
         {
             if (!ecastm.active)

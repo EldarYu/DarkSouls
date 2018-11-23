@@ -25,6 +25,9 @@ public class DirectorManager : MonoBehaviour
 
     public void Play(EventType eventType, IActorManager player, IActorManager opponent)
     {
+        if (IsPlaying())
+            return;
+
         pd.playableAsset = GetTimelineAsset(eventType);
         TimelineAsset timeline = (TimelineAsset)pd.playableAsset;
 
