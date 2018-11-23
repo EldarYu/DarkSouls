@@ -12,6 +12,7 @@ TextureImporter:
     21300014: Menu08_7
     21300016: Menu08_8
     21300018: Menu08_9
+    21300020: Menu08_10
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -224,6 +225,20 @@ TextureImporter:
         height: 177
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Menu08_10
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 139
+        width: 340
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

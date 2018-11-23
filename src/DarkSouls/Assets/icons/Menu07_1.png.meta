@@ -4,6 +4,7 @@ TextureImporter:
   fileIDToRecycleName:
     21300000: Menu07_1_0
     21300002: Menu07_1_1
+    21300004: Menu07_1_2
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -89,7 +90,7 @@ TextureImporter:
         width: 94
         height: 110
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -102,6 +103,20 @@ TextureImporter:
         y: 9
         width: 405
         height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Menu07_1_2
+      rect:
+        serializedVersion: 2
+        x: 697
+        y: 268
+        width: 176
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

@@ -5,21 +5,7 @@ using UnityEngine;
 public class KeyboardInput : IPlayerInput
 {
     [Header("Key Settings")]
-    public KeyCode forwardKey;
-    public KeyCode backKey;
-    public KeyCode leftKey;
-    public KeyCode rightKey;
-    public KeyCode runKey;
-    public KeyCode upArrowKey;
-    public KeyCode downArrowKey;
-    public KeyCode leftArrowKey;
-    public KeyCode rightArrowKey;
-    public KeyCode rightAtkKey;
-    public KeyCode leftAtkKey;
-    public KeyCode rightHAtkKey;
-    public KeyCode leftHAtkKey;
-    public KeyCode lockKey;
-    public KeyCode actionKey;
+    public KeyMap keymap;
 
     private Button runBtn = new Button();
     private Button rightAtkBtn = new Button();
@@ -29,21 +15,31 @@ public class KeyboardInput : IPlayerInput
     private Button lockBtn = new Button();
     private Button actionBtn = new Button();
 
+    private void Start()
+    {
+        Init();
+    }
+
+    public void Init()
+    {
+        keymap = Settings.Instance.GetKeyMap();
+    }
+
     void Update()
     {
-        runBtn.Tick(Input.GetKey(runKey), Time.deltaTime);
-        leftAtkBtn.Tick(Input.GetKey(leftAtkKey), Time.deltaTime);
-        rightAtkBtn.Tick(Input.GetKey(rightAtkKey), Time.deltaTime);
-        leftHAtkBtn.Tick(Input.GetKey(leftHAtkKey), Time.deltaTime);
-        rightHAtkBtn.Tick(Input.GetKey(rightHAtkKey), Time.deltaTime);
-        lockBtn.Tick(Input.GetKey(lockKey), Time.deltaTime);
-        actionBtn.Tick(Input.GetKey(actionKey), Time.deltaTime);
+        runBtn.Tick(Input.GetKey(keymap.runKey), Time.deltaTime);
+        leftAtkBtn.Tick(Input.GetKey(keymap.leftAtkKey), Time.deltaTime);
+        rightAtkBtn.Tick(Input.GetKey(keymap.rightAtkKey), Time.deltaTime);
+        leftHAtkBtn.Tick(Input.GetKey(keymap.leftHAtkKey), Time.deltaTime);
+        rightHAtkBtn.Tick(Input.GetKey(keymap.rightHAtkKey), Time.deltaTime);
+        lockBtn.Tick(Input.GetKey(keymap.lockKey), Time.deltaTime);
+        actionBtn.Tick(Input.GetKey(keymap.actionKey), Time.deltaTime);
 
-        Jup = (Input.GetKey(upArrowKey) ? 1.0f : 0) - (Input.GetKey(downArrowKey) ? 1.0f : 0);
-        Jright = (Input.GetKey(rightArrowKey) ? 1.0f : 0) - (Input.GetKey(leftArrowKey) ? 1.0f : 0);
+        Jup = (Input.GetKey(keymap.upArrowKey) ? 1.0f : 0) - (Input.GetKey(keymap.downArrowKey) ? 1.0f : 0);
+        Jright = (Input.GetKey(keymap.rightArrowKey) ? 1.0f : 0) - (Input.GetKey(keymap.leftArrowKey) ? 1.0f : 0);
 
-        targetDup = (Input.GetKey(forwardKey) ? 1.0f : 0) - (Input.GetKey(backKey) ? 1.0f : 0);
-        targetDright = (Input.GetKey(rightKey) ? 1.0f : 0) - (Input.GetKey(leftKey) ? 1.0f : 0);
+        targetDup = (Input.GetKey(keymap.forwardKey) ? 1.0f : 0) - (Input.GetKey(keymap.backwardKey) ? 1.0f : 0);
+        targetDright = (Input.GetKey(keymap.rightKey) ? 1.0f : 0) - (Input.GetKey(keymap.leftKey) ? 1.0f : 0);
 
         if (!inputEnabled)
         {
