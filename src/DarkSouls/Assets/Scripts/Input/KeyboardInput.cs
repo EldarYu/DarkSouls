@@ -15,18 +15,10 @@ public class KeyboardInput : IPlayerInput
     private Button lockBtn = new Button();
     private Button actionBtn = new Button();
 
-    private void Start()
-    {
-        Init();
-    }
-
-    public void Init()
-    {
-        keymap = Settings.Instance.GetKeyMap();
-    }
-
     void Update()
     {
+        keymap = Settings.Instance.keyMap;
+
         runBtn.Tick(Input.GetKey(keymap.runKey), Time.deltaTime);
         leftAtkBtn.Tick(Input.GetKey(keymap.leftAtkKey), Time.deltaTime);
         rightAtkBtn.Tick(Input.GetKey(keymap.rightAtkKey), Time.deltaTime);
