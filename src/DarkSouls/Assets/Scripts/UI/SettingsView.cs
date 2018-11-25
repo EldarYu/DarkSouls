@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SettingsView : MonoBehaviour
 {
+    public GameObject parent;
     [System.Serializable]
     public class KeyboardSettingsView
     {

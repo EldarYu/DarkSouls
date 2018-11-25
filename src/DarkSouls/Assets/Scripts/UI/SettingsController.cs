@@ -5,7 +5,7 @@ using UnityEngine;
 public class SettingsController : MonoBehaviour
 {
     [System.Serializable]
-    public class KeyboardSettingsController
+    public class Controller : IUIController
     {
         private KeyModifierView[] keyModifierViews;
         private Dictionary<string, KeyCode> keymap;
@@ -13,9 +13,8 @@ public class SettingsController : MonoBehaviour
         public void Init(SettingsView _settingsView)
         {
             settingsView = _settingsView;
-            keyModifierViews = settingsView.keyboardSettingsView.keyModifierParent.GetComponentsInChildren<KeyModifierView>();
 
-            Restore();
+            keyModifierViews = settingsView.keyboardSettingsView.keyModifierParent.GetComponentsInChildren<KeyModifierView>();
             settingsView.keyboardSettingsView.submitBtn.onClick.AddListener(Save);
             settingsView.keyboardSettingsView.restoreBtn.onClick.AddListener(Restore);
         }
@@ -23,7 +22,7 @@ public class SettingsController : MonoBehaviour
         public void Save()
         {
             Settings.Instance.UpdateKeyMap(keyModifierViews);
-            settingsView.gameObject.SetActive(false);
+            UIManager.Instance.ReturnPrev();
         }
 
         public void Restore()
@@ -35,18 +34,25 @@ public class SettingsController : MonoBehaviour
                 item.Init();
             }
         }
+
+        public override void Hide()
+        {
+            settingsView.parent.SetActive(false);
+        }
+
+        public override void Show()
+        {
+            settingsView.parent.SetActive(true);
+            Restore();
+        }
     }
-    public KeyboardSettingsController keyboardSettingsController;
+    public Controller controller;
 
     private SettingsView menuView;
-    private void Awake()
+    void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
-    }
-
-    private void Start()
-    {
         menuView = GetComponent<SettingsView>();
-        keyboardSettingsController.Init(menuView);
+        controller.Init(menuView);
     }
 }

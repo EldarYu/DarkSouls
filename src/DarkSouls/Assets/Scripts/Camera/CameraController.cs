@@ -50,7 +50,6 @@ public class CameraController : MonoBehaviour
         if (!isAI)
         {
             mainCamera = Camera.main.gameObject;
-            Cursor.lockState = CursorLockMode.Locked;
         }
 
         if (camPivot == null || player == null || model == null || pi == null)

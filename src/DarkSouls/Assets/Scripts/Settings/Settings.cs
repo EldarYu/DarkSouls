@@ -184,7 +184,6 @@ public class Settings
         catch (Exception)
         {
             return temp;
-            throw;
         }
     }
 }

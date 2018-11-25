@@ -12,7 +12,7 @@ public class KeyModifierView : MonoBehaviour
     private UnityEngine.UI.Button button;
     private Text text;
     private bool isWaitingForKey = false;
-    void Start()
+    void Awake()
     {
         button = GetComponentInChildren<UnityEngine.UI.Button>();
         text = GetComponentInChildren<Text>();
