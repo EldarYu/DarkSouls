@@ -19,6 +19,7 @@ public class UIManager
     }
     private Stack<IUIController> history;
     private UIManager() { history = new Stack<IUIController>(); }
+    public int Count { get { return history.Count; } }
 
     public void ReturnPrev()
     {
@@ -40,7 +41,6 @@ public class UIManager
             if (cur != null)
             {
                 cur.Hide();
-                history.Push(cur);
             }
         }
         next.Show();

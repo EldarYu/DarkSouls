@@ -7,7 +7,7 @@ public class TitleController : MonoBehaviour
     [System.Serializable]
     public class MenuController : IUIController
     {
-        public SettingsController settingsController;
+        private SettingsController settingsController;
         private TitleView titleView;
 
         public void Init(TitleView _titleView)
@@ -16,6 +16,7 @@ public class TitleController : MonoBehaviour
             titleView.menuView.startBtn.onClick.AddListener(StartGame);
             titleView.menuView.settingsBtn.onClick.AddListener(ShowSettings);
             titleView.menuView.quitBtn.onClick.AddListener(QuitGame);
+            settingsController = GameObject.FindGameObjectWithTag("GameSettings").GetComponent<SettingsController>();
         }
 
         private void QuitGame()
@@ -61,6 +62,13 @@ public class TitleController : MonoBehaviour
             titleView.helloScreen.gameObject.SetActive(false);
             UIManager.Instance.AddRecord(menuController);
             first = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape)&& UIManager.Instance.Count > 0)
+        {
+            UIManager.Instance.ReturnPrev();
+            return;
+
         }
     }
 }
