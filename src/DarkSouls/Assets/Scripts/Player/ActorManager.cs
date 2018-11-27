@@ -43,22 +43,22 @@ public class ActorManager : IActorManager
 
     public bool TryDoRun()
     {
-        return sm.Vigor > 0;
+        return sm.state.Vigor > 0;
     }
 
     public bool TryDoRoll()
     {
-        return sm.Vigor > sm.rollCost;
+        return sm.state.Vigor > sm.state.rollCost;
     }
 
     public bool TryDoAttack()
     {
-        return sm.Vigor > sm.attackCost;
+        return sm.state.Vigor > sm.state.attackCost;
     }
 
     public bool TryDoHeavyAttack()
     {
-        return sm.Vigor > sm.heavyAttackCost;
+        return sm.state.Vigor > sm.state.heavyAttackCost;
     }
 
     public void TryDoDamage(WeaponController targetWC, bool attackVaild, bool counterVaild)
@@ -105,14 +105,14 @@ public class ActorManager : IActorManager
 
     private void HitOrDie(bool doHitAnimation = true)
     {
-        if (sm.Hp <= 0)
+        if (sm.state.HP <= 0)
         {
 
         }
         else
         {
             sm.CountHp(-5);
-            if (sm.Hp > 0)
+            if (sm.state.HP > 0)
             {
                 if (doHitAnimation)
                     Hit();

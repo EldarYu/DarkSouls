@@ -6689,17 +6689,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6ff40796450b3040a348a68d6f95ae1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state:
-    maxHp: 50
-    maxVigor: 50
-    hp: 0
-    vigor: 0
-  runCost: 0.2
-  rollCost: 15
-  attackCost: 5
-  heavyAttackCost: 15
-  vigorAutoRecoverTime: 1
-  vigorAutoRecoverAmount: 0.3
+  state: {fileID: 11400000, guid: a0d297016e146224d894c48c39a09e20, type: 2}
+  inventoryMaxCount: 0
   isGround: 0
   isJump: 0
   isRoll: 0
@@ -16593,17 +16584,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6ff40796450b3040a348a68d6f95ae1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state:
-    maxHp: 100
-    maxVigor: 50
-    hp: 0
-    vigor: 0
-  runCost: 0.2
-  rollCost: 10
-  attackCost: 5
-  heavyAttackCost: 15
-  vigorAutoRecoverTime: 1
-  vigorAutoRecoverAmount: 0.3
+  state: {fileID: 11400000, guid: a0d297016e146224d894c48c39a09e20, type: 2}
+  inventoryMaxCount: 0
   isGround: 0
   isJump: 0
   isRoll: 0
@@ -23416,7 +23398,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateController:
-    playerState: {fileID: 633443588}
+    sm: {fileID: 633443588}
 --- !u!1 &2025588612
 GameObject:
   m_ObjectHideFlags: 0

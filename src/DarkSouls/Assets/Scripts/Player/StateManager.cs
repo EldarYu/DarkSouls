@@ -4,59 +4,10 @@ using UnityEngine;
 
 public class StateManager : MonoBehaviour
 {
-    [System.Serializable]
-    public class State
-    {
-        public float maxHp;
-        public float maxVigor;
-
-        public float hp;
-        public float vigor;
-
-        public void Init()
-        {
-            hp = maxHp;
-            vigor = maxVigor;
-        }
-
-        public void ReCalculate()
-        {
-
-        }
-    }
     public State state;
-
-    public float runCost = 1.0f;
-    public float rollCost = 15.0f;
-    public float attackCost = 5.0f;
-    public float heavyAttackCost = 15.0f;
-
-    public float vigorAutoRecoverTime = 1.0f;
-    public float vigorAutoRecoverAmount = 0.3f;
     private Timer recoverVigorTimer = new Timer();
-
-    public float Hp
-    {
-        get
-        {
-            return state.hp;
-        }
-        private set
-        {
-            state.hp = Mathf.Clamp(value, 0, state.maxHp);
-        }
-    }
-    public float Vigor
-    {
-        get
-        {
-            return state.vigor;
-        }
-        private set
-        {
-            state.vigor = Mathf.Clamp(value, 0, state.maxVigor);
-        }
-    }
+    public int inventoryMaxCount;
+    public List<ItemData> Inventory { get; private set; }
 
     [Header("1st order state flag")]
     public bool isGround;
@@ -79,9 +30,12 @@ public class StateManager : MonoBehaviour
     public bool isCounterBackFailure;
 
     private ActorManager am;
+
     void Awake()
     {
         am = GetComponent<ActorManager>();
+        Inventory = new List<ItemData>(inventoryMaxCount);
+        state = Instantiate(state);
         state.Init();
     }
 
@@ -111,8 +65,8 @@ public class StateManager : MonoBehaviour
         recoverVigorTimer.Tick(Time.fixedDeltaTime);
         if (recoverVigorTimer.IsFinished())
         {
-            Vigor += vigorAutoRecoverAmount;
-            if (Vigor >= state.maxVigor)
+            state.Vigor += state.vigorAutoRecoverAmount;
+            if (state.Vigor >= state.maxVigor)
             {
                 recoverVigorTimer.Stop();
             }
@@ -121,12 +75,22 @@ public class StateManager : MonoBehaviour
 
     public void CountHp(float amount)
     {
-        Hp += amount;
+        state.HP += amount;
     }
 
     public void CountVigor(float amount)
     {
-        Vigor += amount;
-        recoverVigorTimer.Go(vigorAutoRecoverTime);
+        state.Vigor += amount;
+        recoverVigorTimer.Go(state.vigorAutoRecoverTime);
+    }
+
+    public bool AddItem(ItemData itemData)
+    {
+        if (Inventory.Count < inventoryMaxCount)
+        {
+            Inventory.Add(itemData);
+            return true;
+        }
+        return false;
     }
 }
