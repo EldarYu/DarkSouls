@@ -15,10 +15,10 @@ public class State : ScriptableObject
         }
         set
         {
-            hp = Mathf.Clamp(value, 0, maxHp);
+            hp = Mathf.Clamp(value, 0, MaxHP);
         }
     }
-    public float maxHp;
+    public float MaxHP { get; private set; }
     private float vigor;
     public float Vigor
     {
@@ -28,10 +28,10 @@ public class State : ScriptableObject
         }
         set
         {
-            vigor = Mathf.Clamp(value, 0, maxVigor);
+            vigor = Mathf.Clamp(value, 0, MaxVigor);
         }
     }
-    public float maxVigor;
+    public float MaxVigor { get; private set; }
     private float mp;
     public float MP
     {
@@ -41,10 +41,11 @@ public class State : ScriptableObject
         }
         set
         {
-            mp = Mathf.Clamp(value, 0, maxMp);
+            mp = Mathf.Clamp(value, 0, MaxMP);
         }
     }
-    public float maxMp;
+    public float MaxMP { get; private set; }
+    public float Attack { get; private set; }
 
     [Range(0, 99)]
     public int strength;
@@ -89,6 +90,7 @@ public class State : ScriptableObject
     public float hpIncrement;
     public float vigorIncrement;
     public float mpIncrement;
+    public float attackIncrement;
 
     public float runCost = 1.0f;
     public float rollCost = 15.0f;
@@ -101,16 +103,17 @@ public class State : ScriptableObject
     public void Init()
     {
         Calculate();
-        hp = maxHp;
-        vigor = maxVigor;
-        mp = maxMp;
+        hp = MaxHP;
+        vigor = MaxVigor;
+        mp = MaxMP;
     }
 
     public void Calculate()
     {
-        maxHp = strength * hpIncrement;
-        maxVigor = stamina * vigorIncrement;
-        maxMp = intellect * mpIncrement;
+        MaxHP = strength * hpIncrement;
+        MaxVigor = stamina * vigorIncrement;
+        MaxMP = intellect * mpIncrement;
+        Attack = strength * attackIncrement;
     }
 }
 

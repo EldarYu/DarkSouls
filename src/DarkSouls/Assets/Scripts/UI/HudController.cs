@@ -22,9 +22,9 @@ public class HudController : MonoBehaviour
             vigor = Mathf.SmoothDamp(vigor, sm.state.Vigor, ref velovityVigor, 0.1f);
             mp = Mathf.SmoothDamp(mp, sm.state.MP, ref velovityMp, 0.1f);
 
-            hudView.stateView.hp.fillAmount = hp / sm.state.maxHp;
-            hudView.stateView.vigor.fillAmount = vigor / sm.state.maxVigor;
-            hudView.stateView.mp.fillAmount = mp / sm.state.maxMp;
+            hudView.stateView.hp.fillAmount = hp / sm.state.MaxHP;
+            hudView.stateView.vigor.fillAmount = vigor / sm.state.MaxVigor;
+            hudView.stateView.mp.fillAmount = mp / sm.state.MaxMP;
         }
     }
     public StateController stateController;

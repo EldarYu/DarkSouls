@@ -66,7 +66,7 @@ public class StateManager : MonoBehaviour
         if (recoverVigorTimer.IsFinished())
         {
             state.Vigor += state.vigorAutoRecoverAmount;
-            if (state.Vigor >= state.maxVigor)
+            if (state.Vigor >= state.MaxVigor)
             {
                 recoverVigorTimer.Stop();
             }
