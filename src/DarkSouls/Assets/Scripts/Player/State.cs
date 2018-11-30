@@ -6,6 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Player/Player State")]
 public class State : ScriptableObject
 {
+    public int Level { get; private set; }
     private float hp;
     public float HP
     {
@@ -91,6 +92,7 @@ public class State : ScriptableObject
     public float vigorIncrement;
     public float mpIncrement;
     public float attackIncrement;
+    public float levelIncrement;
 
     public float runCost = 1.0f;
     public float rollCost = 15.0f;
@@ -114,6 +116,7 @@ public class State : ScriptableObject
         MaxVigor = stamina * vigorIncrement;
         MaxMP = intellect * mpIncrement;
         Attack = strength * attackIncrement;
+        Level = (strength + stamina + intellect) / 3;
     }
 }
 
