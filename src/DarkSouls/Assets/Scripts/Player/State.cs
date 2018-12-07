@@ -116,7 +116,7 @@ public class State : ScriptableObject
         MaxVigor = stamina * vigorIncrement;
         MaxMP = intellect * mpIncrement;
         Attack = strength * attackIncrement;
-        Level = (strength + stamina + intellect) / 3;
+        Level = (strength + stamina + intellect) - 45 + 1;
     }
 }
 
