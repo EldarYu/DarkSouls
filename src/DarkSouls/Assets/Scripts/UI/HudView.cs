@@ -10,7 +10,7 @@ public class HudView : MonoBehaviour
         public Image hp;
         public Image vigor;
         public Image mp;
-
+        public Text souls;
     }
     public StateView stateView;
 }

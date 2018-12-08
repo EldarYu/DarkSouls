@@ -53,5 +53,30 @@ public static class Helper
 
         return angle < targetAngleLimit;
     }
+
+    public static long SmoothDamp(long current, long target, long step)
+    {
+        if (current == target)
+        {
+            return target;
+        }
+        if (current < target)
+        {
+            current += step;
+
+            if (current > target)
+                return target;
+
+            return current;
+        }
+        if (current > target)
+        {
+            current -= step;
+            if (current < target)
+                return target;
+            return current;
+        }
+        return current;
+    }
 }
 

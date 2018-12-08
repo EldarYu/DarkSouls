@@ -6,7 +6,7 @@ using System;
 
 public class KeyModifierView : MonoBehaviour
 {
-    public string name;
+    public new string name;
     public KeyCode curKeycode;
 
     private UnityEngine.UI.Button button;

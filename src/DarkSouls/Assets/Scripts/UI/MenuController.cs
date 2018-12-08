@@ -8,12 +8,19 @@ public class MenuController : MonoBehaviour
     public class Controller : IUIController
     {
         public SettingsController settingsController;
+        public StateController stateController;
         private MenuView menuView;
         public void Init(MenuView _menuView)
         {
             menuView = _menuView;
             settingsController = GameObject.FindGameObjectWithTag("GameSettings").GetComponent<SettingsController>();
             menuView.settingsBtn.onClick.AddListener(ShowSettings);
+            menuView.stateBtn.onClick.AddListener(ShowState);
+        }
+
+        public void ShowState()
+        {
+            UIManager.Instance.AddRecord(stateController.controller);
         }
 
         public void ShowSettings()

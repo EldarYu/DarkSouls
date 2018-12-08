@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class StateManager : MonoBehaviour
 {
     public State state;
     private Timer recoverVigorTimer = new Timer();
     public int inventoryMaxCount;
     public List<ItemData> Inventory { get; private set; }
+    public int souls;
 
     [Header("1st order state flag")]
     public bool isGround;
@@ -37,6 +37,7 @@ public class StateManager : MonoBehaviour
         Inventory = new List<ItemData>(inventoryMaxCount);
         state = Instantiate(state);
         state.Init();
+        state.souls = 60000;
     }
 
     private void Update()
@@ -78,10 +79,11 @@ public class StateManager : MonoBehaviour
         state.HP += amount;
     }
 
-    public void CountVigor(float amount)
+    public void CountVigor(float amount, bool autoRecover = true)
     {
         state.Vigor += amount;
-        recoverVigorTimer.Go(state.vigorAutoRecoverTime);
+        if (autoRecover)
+            recoverVigorTimer.Go(state.vigorAutoRecoverTime);
     }
 
     public bool AddItem(ItemData itemData)

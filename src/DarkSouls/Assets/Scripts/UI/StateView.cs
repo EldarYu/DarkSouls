@@ -10,17 +10,16 @@ public class StateView : MonoBehaviour
     public class View
     {
         public Text level;
-        public Text curHp;
         public Text maxHp;
-        public Text curVigor;
         public Text maxVigor;
-        public Text curMp;
         public Text maxMp;
-        public Text strength;
-        public Text stamina;
-        public Text Intellect;
-
+        public Text curSouls;
+        public Text requiredSouls;
+        public StateModifierView strength;
+        public StateModifierView stamina;
+        public StateModifierView intellect;
+        public UnityEngine.UI.Button saveBtn;
+        public UnityEngine.UI.Button restoreBtn;
     }
     public View view;
-
 }

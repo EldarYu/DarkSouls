@@ -58,7 +58,7 @@ public class State : ScriptableObject
         }
         set
         {
-            strength = Mathf.Clamp(value, strength, 99);
+            strength = Mathf.Clamp(value, 0, 99);
         }
     }
     [Range(0, 99)]
@@ -71,7 +71,7 @@ public class State : ScriptableObject
         }
         set
         {
-            stamina = Mathf.Clamp(value, stamina, 99);
+            stamina = Mathf.Clamp(value, 0, 99);
         }
     }
     [Range(0, 99)]
@@ -84,15 +84,21 @@ public class State : ScriptableObject
         }
         set
         {
-            intellect = Mathf.Clamp(value, intellect, 99);
+            intellect = Mathf.Clamp(value, 0, 99);
         }
     }
+
+    public long souls;
 
     public float hpIncrement;
     public float vigorIncrement;
     public float mpIncrement;
     public float attackIncrement;
-    public float levelIncrement;
+
+    public long upgradeSoulAmount;
+
+    public long RequiredForUpgrade { get { return Level * upgradeSoulAmount; } }
+    public long LastUpgradeSouls { get { return (Level - 1) * upgradeSoulAmount; } }
 
     public float runCost = 1.0f;
     public float rollCost = 15.0f;
@@ -118,5 +124,49 @@ public class State : ScriptableObject
         Attack = strength * attackIncrement;
         Level = (strength + stamina + intellect) - 45 + 1;
     }
+
+    public bool CanUpgrade(long curSoulAmount)
+    {
+        return curSoulAmount >= RequiredForUpgrade;
+    }
+
+    public void CountStrength(int amount)
+    {
+        if (amount > 0)
+        {
+            if (!CanUpgrade(souls))
+                return;
+            souls -= RequiredForUpgrade;
+        }
+        else if (amount < 0)
+            souls += LastUpgradeSouls;
+        Strength += amount;
+    }
+
+    public void CountStamina(int amount)
+    {
+        if (amount > 0)
+        {
+            if (!CanUpgrade(souls))
+                return;
+            souls -= RequiredForUpgrade;
+        }
+        else if (amount < 0)
+            souls += LastUpgradeSouls;
+        Stamina += amount;
+    }
+    public void CountIntellect(int amount)
+    {
+        if (amount > 0)
+        {
+            if (!CanUpgrade(souls))
+                return;
+            souls -= RequiredForUpgrade;
+        }
+        else if (amount < 0)
+            souls += LastUpgradeSouls;
+        Intellect += amount;
+    }
+
 }
 
