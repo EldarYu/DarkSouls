@@ -7,13 +7,30 @@ using UnityEngine.UI;
 [CreateAssetMenu(menuName = "Item/Item Data")]
 public class ItemData : ScriptableObject
 {
+    public ItemType curItemType;
     public string itemName;
     public string description;
     public Sprite img;
     public float amount;
-    public void DoEffect(ref float tgtValue)
+    public bool allowOverlay;
+    public void DoEffect(State state)
     {
-        tgtValue += amount;
+        switch (curItemType)
+        {
+            case ItemType.Weapon:
+                break;
+            case ItemType.ForHp:
+                state.HP += amount;
+                break;
+            case ItemType.ForMp:
+                state.MP += amount;
+                break;
+            case ItemType.ForVigor:
+                state.Vigor += amount;
+                break;
+            default:
+                break;
+        }
     }
 }
 

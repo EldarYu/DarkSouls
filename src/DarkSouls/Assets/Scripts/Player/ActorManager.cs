@@ -8,6 +8,9 @@ public class ActorManager : IActorManager
     public ActorController ac;
     [HideInInspector]
     public StateManager sm;
+
+    public delegate void OnDialog();
+    public event OnDialog onDoAction;
     private BattleManager bm;
     private WeaponManager wm;
     private InteractionManager im;
@@ -39,6 +42,11 @@ public class ActorManager : IActorManager
                 dm.Play(ecastm.eventType, this, ecastm.am);
             }
         }
+    }
+
+    public bool CanDoAction()
+    {
+        return im.overlapEcastms.Count > 0;
     }
 
     public bool TryDoRun()

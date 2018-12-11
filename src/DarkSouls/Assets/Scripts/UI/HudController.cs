@@ -7,8 +7,6 @@ public class HudController : MonoBehaviour
     [System.Serializable]
     public class StateController
     {
-        public StateManager sm;
-
         private float hp;
         private float vigor;
         private float mp;
@@ -17,7 +15,7 @@ public class HudController : MonoBehaviour
         private float velovityHp;
         private float velovityVigor;
         private float velovityMp;
-        public void Tick(HudView hudView)
+        public void Tick(HudView hudView, StateManager sm)
         {
             hp = Mathf.SmoothDamp(hp, sm.state.HP, ref velovityHp, 0.1f);
             vigor = Mathf.SmoothDamp(vigor, sm.state.Vigor, ref velovityVigor, 0.1f);
@@ -31,7 +29,19 @@ public class HudController : MonoBehaviour
         }
     }
     public StateController stateController;
+    [System.Serializable]
+    public class DialogController : IUIController
+    {
+        public void Init()
+        {
 
+
+        }
+
+
+    }
+    public DialogController dialogController;
+    public ActorManager am;
     private HudView hudView;
 
     private void Start()
@@ -40,6 +50,15 @@ public class HudController : MonoBehaviour
     }
     void Update()
     {
-        stateController.Tick(hudView);
+        stateController.Tick(hudView, am.sm);
+        SetActive(am.CanDoAction());
+    }
+
+    public void SetActive(bool active)
+    {
+        if (hudView.actionTip.activeSelf != active)
+        {
+            hudView.actionTip.SetActive(active);
+        }
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class HudView : MonoBehaviour
 {
+    public GameObject actionTip;
     [System.Serializable]
     public class StateView
     {
@@ -13,4 +14,13 @@ public class HudView : MonoBehaviour
         public Text souls;
     }
     public StateView stateView;
+    [System.Serializable]
+    public class DialogView
+    {
+        public GameObject parent;
+        public Text text;
+        public GameObject tip;
+
+    }
+    public DialogView dialogView;
 }

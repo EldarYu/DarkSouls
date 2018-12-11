@@ -5,9 +5,6 @@ public class StateManager : MonoBehaviour
 {
     public State state;
     private Timer recoverVigorTimer = new Timer();
-    public int inventoryMaxCount;
-    public List<ItemData> Inventory { get; private set; }
-    public int souls;
 
     [Header("1st order state flag")]
     public bool isGround;
@@ -34,7 +31,6 @@ public class StateManager : MonoBehaviour
     void Awake()
     {
         am = GetComponent<ActorManager>();
-        Inventory = new List<ItemData>(inventoryMaxCount);
         state = Instantiate(state);
         state.Init();
         state.souls = 60000;
@@ -84,15 +80,5 @@ public class StateManager : MonoBehaviour
         state.Vigor += amount;
         if (autoRecover)
             recoverVigorTimer.Go(state.vigorAutoRecoverTime);
-    }
-
-    public bool AddItem(ItemData itemData)
-    {
-        if (Inventory.Count < inventoryMaxCount)
-        {
-            Inventory.Add(itemData);
-            return true;
-        }
-        return false;
     }
 }

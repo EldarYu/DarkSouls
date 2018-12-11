@@ -26,10 +26,17 @@ public class StateModifierView : MonoBehaviour, IUpdateSelectedHandler
     public void SetText(int value)
     {
         cur_value = value;
+
         if (cur_value == def_value)
             leftTip.gameObject.SetActive(false);
         else
             leftTip.gameObject.SetActive(true);
+
+        if (cur_value == 99)
+            rightTip.gameObject.SetActive(false);
+        else
+            rightTip.gameObject.SetActive(true);
+
         text.text = cur_value.ToString();
     }
 
