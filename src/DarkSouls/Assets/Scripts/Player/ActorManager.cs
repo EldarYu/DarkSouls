@@ -4,88 +4,102 @@ using UnityEngine;
 
 public class ActorManager : IActorManager
 {
-    [HideInInspector]
-    public ActorController ac;
-    [HideInInspector]
-    public StateManager sm;
+    public ActorController ActorC { get; private set; }
+    public StateManager StateM { get; private set; }
 
-    public delegate void OnDialog();
-    public event OnDialog onDoAction;
-    private BattleManager bm;
-    private WeaponManager wm;
-    private InteractionManager im;
-    private DirectorManager dm;
+    public BattleManager BattleM { get; private set; }
+    public WeaponManager WeaponM { get; private set; }
+    public InteractionManager InteractionM { get; private set; }
+    public DirectorManager DirectorM { get; private set; }
+    public InventoryManager InventoryM { get; private set; }
     private void Awake()
     {
-        bm = GetComponentInChildren<BattleManager>();
-        ac = GetComponent<ActorController>();
-        wm = GetComponentInChildren<WeaponManager>();
-        sm = GetComponent<StateManager>();
-        im = GetComponentInChildren<InteractionManager>();
-        dm = GetComponent<DirectorManager>();
-        ac.OnActionPressed += DoAction;
+        BattleM = GetComponentInChildren<BattleManager>();
+        ActorC = GetComponent<ActorController>();
+        WeaponM = GetComponentInChildren<WeaponManager>();
+        StateM = GetComponent<StateManager>();
+        InteractionM = GetComponentInChildren<InteractionManager>();
+        DirectorM = GetComponent<DirectorManager>();
+        InventoryM = GetComponent<InventoryManager>();
+        ActorC.OnActionPressed += DoAction;
     }
 
     public void DoAction()
     {
-        foreach (var ecastm in im.overlapEcastms)
+        EventCasterManager waitForRemoveEcastm = null;
+        foreach (var ecastm in InteractionM.overlapEcastms)
         {
             if (!ecastm.active)
                 continue;
 
-            if (ac.model.transform.CheckAngleSelf(ecastm.am.transform, 30.0f))
+            if (ActorC.model.transform.CheckAngleSelf(ecastm.am.transform, 30.0f))
             {
+                switch (ecastm.eventType)
+                {
+                    case EventType.OpenBox:
+                        AddItem(ecastm.itemData, ecastm.itemCount);
+                        break;
+                }
                 //transform.position = ecastm.transform.position + ecastm.am.transform.TransformVector(ecastm.offset);
-                ac.model.transform.forward -= ecastm.am.transform.forward;
+                ActorC.model.transform.forward -= ecastm.am.transform.forward;
                 //ac.model.transform.LookAt(ecastm.am.transform, Vector3.up);
                 ecastm.active = false;
-                dm.Play(ecastm.eventType, this, ecastm.am);
+                waitForRemoveEcastm = ecastm;
+                DirectorM.Play(ecastm.eventType, this, ecastm.am);
+                break;
             }
         }
+        if (waitForRemoveEcastm != null)
+            InteractionM.overlapEcastms.Remove(waitForRemoveEcastm);
+    }
+
+    public void AddItem(ItemData data, int count)
+    {
+        InventoryM.Additem(data, count);
     }
 
     public bool CanDoAction()
     {
-        return im.overlapEcastms.Count > 0;
+        return InteractionM.overlapEcastms.Count > 0;
     }
 
     public bool TryDoRun()
     {
-        return sm.state.Vigor > 0;
+        return StateM.state.Vigor > 0;
     }
 
     public bool TryDoRoll()
     {
-        return sm.state.Vigor > sm.state.rollCost;
+        return StateM.state.Vigor > StateM.state.rollCost;
     }
 
     public bool TryDoAttack()
     {
-        return sm.state.Vigor > sm.state.attackCost;
+        return StateM.state.Vigor > StateM.state.attackCost;
     }
 
     public bool TryDoHeavyAttack()
     {
-        return sm.state.Vigor > sm.state.heavyAttackCost;
+        return StateM.state.Vigor > StateM.state.heavyAttackCost;
     }
 
     public void TryDoDamage(WeaponController targetWC, bool attackVaild, bool counterVaild)
     {
         if (attackVaild)
         {
-            if (sm.isCounterBackSuccess && counterVaild)
+            if (StateM.isCounterBackSuccess && counterVaild)
             {
                 targetWC.wm.am.Stunned();
             }
-            else if (sm.isCounterBackFailure)
+            else if (StateM.isCounterBackFailure)
             {
                 HitOrDie(false);
             }
-            else if (sm.isImmortal)
+            else if (StateM.isImmortal)
             {
                 //无敌
             }
-            else if (sm.isDefense)
+            else if (StateM.isDefense)
             {
                 Blocked();
             }
@@ -98,29 +112,29 @@ public class ActorManager : IActorManager
 
     public void SetCounterBackEnable(bool enable)
     {
-        sm.isCounterBackEnable = enable;
+        StateM.isCounterBackEnable = enable;
     }
 
     public override void LockUnlockAnimator(bool value = true)
     {
-        ac.SetAnimatorBool("lock", value);
+        ActorC.SetAnimatorBool("lock", value);
     }
 
     public override Animator GetAnimator()
     {
-        return ac.GetAnimator();
+        return ActorC.GetAnimator();
     }
 
     private void HitOrDie(bool doHitAnimation = true)
     {
-        if (sm.state.HP <= 0)
+        if (StateM.state.HP <= 0)
         {
 
         }
         else
         {
-            sm.CountHp(-5);
-            if (sm.state.HP > 0)
+            StateM.CountHp(-5);
+            if (StateM.state.HP > 0)
             {
                 if (doHitAnimation)
                     Hit();
@@ -134,28 +148,28 @@ public class ActorManager : IActorManager
 
     private void Stunned()
     {
-        ac.IssueTrigger("stunned");
+        ActorC.IssueTrigger("stunned");
     }
 
     private void Blocked()
     {
-        ac.IssueTrigger("blocked");
+        ActorC.IssueTrigger("blocked");
     }
 
     private void Hit()
     {
-        ac.IssueTrigger("hit");
+        ActorC.IssueTrigger("hit");
     }
 
     private void Die()
     {
-        ac.IssueTrigger("die");
-        ac.pi.inputEnabled = false;
-        if (ac.camcon.lockState)
+        ActorC.IssueTrigger("die");
+        ActorC.pi.inputEnabled = false;
+        if (ActorC.camcon.lockState)
         {
-            ac.camcon.LockUnlock();
-            ac.camcon.lockDot.enabled = false;
+            ActorC.camcon.LockUnlock();
+            ActorC.camcon.lockDot.enabled = false;
         }
-        ac.camcon.enabled = false;
+        ActorC.camcon.enabled = false;
     }
 }

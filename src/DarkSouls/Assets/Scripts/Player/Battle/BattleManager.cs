@@ -15,8 +15,8 @@ public class BattleManager : MonoBehaviour
         if (other.CompareTag("Weapon"))
         {
             WeaponController targetWC = other.gameObject.GetComponentInParent<WeaponController>();
-            Transform self = am.ac.model.transform;
-            Transform target = targetWC.wm.am.ac.model.transform;
+            Transform self = am.ActorC.model.transform;
+            Transform target = targetWC.wm.am.ActorC.model.transform;
 
             bool attackValid = self.CheckAngleTarget(target, 45);
             bool counterValid = self.CheckAngleSelf(target, 30);

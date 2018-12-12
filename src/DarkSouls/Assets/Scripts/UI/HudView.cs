@@ -15,6 +15,15 @@ public class HudView : MonoBehaviour
     }
     public StateView stateView;
     [System.Serializable]
+    public class NewItemInfoView
+    {
+        public GameObject parent;
+        public Text name;
+        public Text count;
+        public Image img;
+    }
+    public NewItemInfoView newItemInfoView;
+    [System.Serializable]
     public class DialogView
     {
         public GameObject parent;

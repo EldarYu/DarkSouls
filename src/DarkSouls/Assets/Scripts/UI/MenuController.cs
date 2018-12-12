@@ -7,6 +7,7 @@ public class MenuController : MonoBehaviour
     [System.Serializable]
     public class Controller : IUIController
     {
+        public InventoryController inventoryController;
         public SettingsController settingsController;
         public StateController stateController;
         private MenuView menuView;
@@ -16,6 +17,12 @@ public class MenuController : MonoBehaviour
             settingsController = GameObject.FindGameObjectWithTag("GameSettings").GetComponent<SettingsController>();
             menuView.settingsBtn.onClick.AddListener(ShowSettings);
             menuView.stateBtn.onClick.AddListener(ShowState);
+            menuView.inventoryBtn.onClick.AddListener(ShowInventory);
+        }
+
+        public void ShowInventory()
+        {
+            UIManager.Instance.AddRecord(inventoryController.controller);
         }
 
         public void ShowState()

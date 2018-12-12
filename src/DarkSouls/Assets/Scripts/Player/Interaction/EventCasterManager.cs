@@ -12,7 +12,8 @@ public class EventCasterManager : MonoBehaviour
     public bool active;
     public EventType eventType;
     public Vector3 offset;
-
+    public ItemData itemData;
+    public int itemCount;
     private void Start()
     {
         am = GetComponentInParent<IActorManager>();

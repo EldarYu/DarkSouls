@@ -16,7 +16,7 @@ public class InteractionManager : MonoBehaviour
         EventCasterManager[] ecastms = other.GetComponents<EventCasterManager>();
         foreach (var ecastm in ecastms)
         {
-            if (!overlapEcastms.Contains(ecastm))
+            if (!overlapEcastms.Contains(ecastm) && ecastm.active)
             {
                 overlapEcastms.Add(ecastm);
             }

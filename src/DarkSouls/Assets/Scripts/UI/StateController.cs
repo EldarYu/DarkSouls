@@ -7,12 +7,12 @@ public class StateController : MonoBehaviour
     [System.Serializable]
     public class Controller : IUIController
     {
-        public StateManager stateManager;
+        public StateManager sm;
         private StateView stateView;
         private State playerState;
         public void Init(StateView _stateView)
         {
-            if (stateManager == null)
+            if (sm == null)
                 return;
             stateView = _stateView;
 
@@ -91,21 +91,21 @@ public class StateController : MonoBehaviour
 
         public void Save()
         {
-            stateManager.state = Instantiate(playerState);
-            stateManager.state.Init();
+            sm.state = Instantiate(playerState);
+            sm.state.Init();
             UIManager.Instance.ReturnPrev();
         }
 
         public void Restore()
         {
-            playerState = Instantiate(stateManager.state);
+            playerState = Instantiate(sm.state);
             playerState.Init();
             InitStatePanel();
         }
 
         public override void Show()
         {
-            playerState = Instantiate(stateManager.state);
+            playerState = Instantiate(sm.state);
             playerState.Init();
             InitStatePanel();
             stateView.parent.SetActive(true);

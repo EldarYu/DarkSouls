@@ -23,6 +23,9 @@ public class UIManager
 
     public void ReturnPrev()
     {
+        if (history.Count == 0)
+            return;
+
         IUIController cur = history.Pop();
         cur.Hide();
         if (history.Count > 0)

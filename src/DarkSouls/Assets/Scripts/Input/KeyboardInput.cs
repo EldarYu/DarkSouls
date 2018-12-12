@@ -14,6 +14,10 @@ public class KeyboardInput : IPlayerInput
     private Button leftHAtkBtn = new Button();
     private Button lockBtn = new Button();
     private Button actionBtn = new Button();
+    private Button itemTopBtn = new Button();
+    private Button itemDownBtn = new Button();
+    private Button itemLeftBtn = new Button();
+    private Button itemRightBtn = new Button();
 
     private void Start()
     {
@@ -29,6 +33,10 @@ public class KeyboardInput : IPlayerInput
         rightHAtkBtn.Tick(Input.GetKey(keymap.rightHAtkKey), Time.deltaTime);
         lockBtn.Tick(Input.GetKey(keymap.lockKey), Time.deltaTime);
         actionBtn.Tick(Input.GetKey(keymap.actionKey), Time.deltaTime);
+        itemLeftBtn.Tick(Input.GetKey(keymap.itemLeftKey), Time.deltaTime);
+        itemRightBtn.Tick(Input.GetKey(keymap.itemRightKey), Time.deltaTime);
+        itemTopBtn.Tick(Input.GetKey(keymap.itemUpKey), Time.deltaTime);
+        itemDownBtn.Tick(Input.GetKey(keymap.itemDownKey), Time.deltaTime);
 
         Jup = (Input.GetKey(keymap.upArrowKey) ? 1.0f : 0) - (Input.GetKey(keymap.downArrowKey) ? 1.0f : 0);
         Jright = (Input.GetKey(keymap.rightArrowKey) ? 1.0f : 0) - (Input.GetKey(keymap.leftArrowKey) ? 1.0f : 0);
@@ -57,5 +65,15 @@ public class KeyboardInput : IPlayerInput
         Defense = leftAtkBtn.IsPressing;
         LockOn = lockBtn.OnPressed;
         Action = actionBtn.OnPressed;
+
+        ShortcutLeftSelect = itemLeftBtn.OnReleased && itemLeftBtn.IsDelaying;
+        ShortcutRightSelect = itemRightBtn.OnReleased && itemRightBtn.IsDelaying;
+        ShortcutTopSelect = itemTopBtn.OnReleased && itemTopBtn.IsDelaying;
+        ShortcutDownSelect = itemDownBtn.OnReleased && itemDownBtn.IsDelaying;
+
+        ShortcuLeftUse = itemLeftBtn.IsPressing && !itemLeftBtn.IsDelaying;
+        ShortcuRightUse = itemRightBtn.IsPressing && !itemRightBtn.IsDelaying;
+        ShortcuTopUse = itemTopBtn.IsPressing && !itemTopBtn.IsDelaying;
+        ShortcuDownUse = itemDownBtn.IsPressing && !itemDownBtn.IsDelaying;
     }
 }

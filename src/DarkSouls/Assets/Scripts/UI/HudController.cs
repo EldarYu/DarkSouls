@@ -30,6 +30,57 @@ public class HudController : MonoBehaviour
     }
     public StateController stateController;
     [System.Serializable]
+    public class NewItemInfoController : IUIController
+    {
+        public float waitForHide;
+        private ItemData curItem;
+        private int curCount;
+        private HudView hudView;
+        private Timer timer;
+        public void Init(ActorManager am, HudView _hudView)
+        {
+            timer = new Timer();
+            hudView = _hudView;
+            am.InventoryM.OnItemAdded += ShowNewItemInfo;
+        }
+        public void Tick(float time)
+        {
+            timer.Tick(time);
+            if (timer.IsFinished())
+            {
+                UIManager.Instance.ReturnPrev();
+                timer.Stop();
+            }
+        }
+
+        public void ShowNewItemInfo(ItemData itemData, int count)
+        {
+            curCount = count;
+            curItem = itemData;
+            UIManager.Instance.AddRecord(this);
+        }
+        public override void Hide()
+        {
+            hudView.newItemInfoView.parent.SetActive(false);
+            curCount = 0;
+            curItem = null;
+            hudView.newItemInfoView.name.text = "";
+            hudView.newItemInfoView.count.text = "";
+            hudView.newItemInfoView.img.sprite = null;
+            timer.Stop();
+        }
+        public override void Show()
+        {
+            hudView.newItemInfoView.name.text = curItem.name;
+            hudView.newItemInfoView.count.text = curCount.ToString();
+            hudView.newItemInfoView.img.sprite = curItem.img;
+            hudView.newItemInfoView.parent.SetActive(true);
+            timer.Go(waitForHide);
+        }
+    }
+    public NewItemInfoController newItemInfoController;
+
+    [System.Serializable]
     public class DialogController : IUIController
     {
         public void Init()
@@ -38,7 +89,15 @@ public class HudController : MonoBehaviour
 
         }
 
+        public override void Show()
+        {
+            base.Show();
+        }
 
+        public override void Hide()
+        {
+            base.Hide();
+        }
     }
     public DialogController dialogController;
     public ActorManager am;
@@ -47,10 +106,12 @@ public class HudController : MonoBehaviour
     private void Start()
     {
         hudView = GetComponent<HudView>();
+        newItemInfoController.Init(am, hudView);
     }
     void Update()
     {
-        stateController.Tick(hudView, am.sm);
+        stateController.Tick(hudView, am.StateM);
+        newItemInfoController.Tick(Time.deltaTime);
         SetActive(am.CanDoAction());
     }
 

@@ -53,7 +53,7 @@ public class ActorController : IActorController
         Action();
 
         if (anim.GetFloat("forward") > 1.9f)
-            am.sm.CountVigor(-am.sm.state.runCost);
+            am.StateM.CountVigor(-am.StateM.state.runCost);
     }
 
     private void LocolMotion()
@@ -197,7 +197,7 @@ public class ActorController : IActorController
     {
         trackDirection = true;
         thrushVec.y = rollVelocity;
-        am.sm.CountVigor(-am.sm.state.rollCost);
+        am.StateM.CountVigor(-am.StateM.state.rollCost);
     }
 
     void OnJabEnter()
@@ -289,12 +289,12 @@ public class ActorController : IActorController
 
     void CountAttackVigorCost()
     {
-        am.sm.CountVigor(-am.sm.state.attackCost);
+        am.StateM.CountVigor(-am.StateM.state.attackCost);
     }
 
     void CountHeavyAttackVigorCost()
     {
-        am.sm.CountVigor(-am.sm.state.attackCost);
+        am.StateM.CountVigor(-am.StateM.state.attackCost);
     }
 
     //root motion值处理

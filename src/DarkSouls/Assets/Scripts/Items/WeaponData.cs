@@ -7,7 +7,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Item/Weapon Data")]
 public class WeaponData : ItemData
 {
-    public WeaponType curType;
+    public WeaponType curWeaponType;
     public GameObject obj;
     public float atk;
     public float def;

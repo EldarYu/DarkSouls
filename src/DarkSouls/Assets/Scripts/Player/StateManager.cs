@@ -38,22 +38,22 @@ public class StateManager : MonoBehaviour
 
     private void Update()
     {
-        isGround = am.ac.CheckAnimatorStateWithName("ground");
-        isJump = am.ac.CheckAnimatorStateWithName("jump");
-        isRoll = am.ac.CheckAnimatorStateWithName("roll");
-        isJab = am.ac.CheckAnimatorStateWithName("jab");
-        isFall = am.ac.CheckAnimatorStateWithName("fall");
-        isAttack = am.ac.CheckAnimatorStateWithTag("attackL") || am.ac.CheckAnimatorStateWithTag("attackR");
-        isHit = am.ac.CheckAnimatorStateWithName("hit");
-        isBlocked = am.ac.CheckAnimatorStateWithName("blocked");
-        isDie = am.ac.CheckAnimatorStateWithName("die");
-        isCounterBack = am.ac.CheckAnimatorStateWithName("counterBack");
+        isGround = am.ActorC.CheckAnimatorStateWithName("ground");
+        isJump = am.ActorC.CheckAnimatorStateWithName("jump");
+        isRoll = am.ActorC.CheckAnimatorStateWithName("roll");
+        isJab = am.ActorC.CheckAnimatorStateWithName("jab");
+        isFall = am.ActorC.CheckAnimatorStateWithName("fall");
+        isAttack = am.ActorC.CheckAnimatorStateWithTag("attackL") || am.ActorC.CheckAnimatorStateWithTag("attackR");
+        isHit = am.ActorC.CheckAnimatorStateWithName("hit");
+        isBlocked = am.ActorC.CheckAnimatorStateWithName("blocked");
+        isDie = am.ActorC.CheckAnimatorStateWithName("die");
+        isCounterBack = am.ActorC.CheckAnimatorStateWithName("counterBack");
 
         isCounterBackSuccess = isCounterBackEnable;
         isCounterBackFailure = isCounterBack && !isCounterBackEnable;
 
         isAllowDefense = isGround || isBlocked;
-        isDefense = isAllowDefense && am.ac.CheckAnimatorStateWithName("defense1h", "Defense");
+        isDefense = isAllowDefense && am.ActorC.CheckAnimatorStateWithName("defense1h", "Defense");
         isImmortal = isRoll || isJab;
     }
 

@@ -74,7 +74,7 @@ public class CameraController : MonoBehaviour
             if (Vector3.Distance(model.transform.position, lockTarget.target.transform.position) >= maxLockDistance)
                 LockUnlock(null);
 
-            if (lockTarget.am != null && lockTarget.am.sm.isDie)
+            if (lockTarget.am != null && lockTarget.am.StateM.isDie)
                 LockUnlock(null);
         }
         else

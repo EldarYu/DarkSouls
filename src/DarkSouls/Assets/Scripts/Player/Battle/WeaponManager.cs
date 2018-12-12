@@ -25,7 +25,7 @@ public class WeaponManager : MonoBehaviour
     //Animation Event
     void WeaponEnable()
     {
-        if (am.ac.CheckAnimatorStateWithTag("attackL"))
+        if (am.ActorC.CheckAnimatorStateWithTag("attackL"))
             LeftWCol.enabled = true;
         else
             rightWcol.enabled = true;
