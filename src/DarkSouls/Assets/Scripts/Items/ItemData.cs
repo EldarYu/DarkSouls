@@ -12,6 +12,7 @@ public class ItemData : ScriptableObject
     public string description;
     public Sprite img;
     public float amount;
+    public GameObject obj;
     public bool allowOverlay;
     public void DoEffect(State state)
     {

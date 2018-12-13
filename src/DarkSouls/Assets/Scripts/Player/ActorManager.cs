@@ -25,6 +25,12 @@ public class ActorManager : IActorManager
         ActorC.OnActionPressed += DoAction;
     }
 
+    public void SwitchWeapon(ItemData itemData, Direction direction)
+    {
+        if (itemData == null)
+            return;
+    }
+
     public void DoAction()
     {
         EventCasterManager waitForRemoveEcastm = null;
@@ -57,6 +63,21 @@ public class ActorManager : IActorManager
     public void AddItem(ItemData data, int count)
     {
         InventoryM.Additem(data, count);
+    }
+
+    public bool UseItem(int index, int amount)
+    {
+        if (InventoryM.UseItem(index, amount))
+        {
+            WeaponM.ShowItem(InventoryM[index]);
+            return true;
+        }
+        return false;
+    }
+
+    public void HideItem()
+    {
+        WeaponM.HideItem();
     }
 
     public bool CanDoAction()

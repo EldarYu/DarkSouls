@@ -36,6 +36,8 @@ public class HudController : MonoBehaviour
         private ShortcutSlotView right;
         private ShortcutSlotView top;
         private ShortcutSlotView down;
+
+        public List<ItemData> test;
         public void Init(ActorManager am, HudView hudview)
         {
             left = hudview.shortcutView.left;
@@ -43,6 +45,18 @@ public class HudController : MonoBehaviour
             top = hudview.shortcutView.top;
             down = hudview.shortcutView.down;
             pi = am.PlayerInput;
+            left.OnItemChange += am.SwitchWeapon;
+            right.OnItemChange += am.SwitchWeapon;
+            down.OnItemUse += am.UseItem;
+            left.Init();
+            right.Init();
+            top.Init();
+            down.Init();
+
+            for (int i = 0; i < test.Count; i++)
+            {
+                down.SetItem(test[i], i, i + 1, i);
+            }
         }
 
         public void Tick()
@@ -70,7 +84,7 @@ public class HudController : MonoBehaviour
 
         public void ShortcutUse(ShortcutSlotView tgt)
         {
-            // tgt.UseItem()
+            tgt.UseItem();
         }
     }
     public ShortcutController shortcutController;
@@ -156,6 +170,7 @@ public class HudController : MonoBehaviour
     void Update()
     {
         stateController.Tick(hudView, am.StateM);
+        shortcutController.Tick();
         newItemInfoController.Tick(Time.deltaTime);
         SetActive(am.CanDoAction());
     }

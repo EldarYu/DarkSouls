@@ -22,6 +22,16 @@ public class WeaponManager : MonoBehaviour
         rightWcol = rightWC.GetComponentInChildren<Collider>();
     }
 
+    public void ShowItem(ItemData itemData)
+    {
+        rightWC.ShowItem(itemData);
+    }
+
+    public void HideItem()
+    {
+        rightWC.HideItem();
+    }
+
     //Animation Event
     void WeaponEnable()
     {

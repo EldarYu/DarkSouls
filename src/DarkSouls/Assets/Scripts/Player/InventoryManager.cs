@@ -42,11 +42,11 @@ public class InventoryManager : MonoBehaviour
             }
         }
 
-        public void CountItem(int index, int amount)
+        public void MinusItem(int index, int amount)
         {
             if (datas.ContainsKey(index))
             {
-                count[index] -= amount;
+                count[index] += amount;
                 if (count[index] <= 0)
                 {
                     datas.Remove(index);
@@ -80,6 +80,7 @@ public class InventoryManager : MonoBehaviour
     {
         return inventory.count[index];
     }
+    public ItemData this[int index] { get { return inventory.datas.ContainsKey(index) ? inventory.datas[index] : null; } }
     public delegate void ItemAdded(ItemData itemData, int count);
     public event ItemAdded OnItemAdded;
     private ActorManager am;
@@ -94,8 +95,14 @@ public class InventoryManager : MonoBehaviour
         OnItemAdded.Invoke(itemData, count);
     }
 
-    public void CountItem(int index, int amount = 1)
+    public bool UseItem(int index, int amount = 1)
     {
-        inventory.CountItem(index, amount);
+        if (inventory.datas.ContainsKey(index) && inventory.count[index] < 1)
+            return false;
+        am.ActorC.IssueTrigger("useItem");
+        ItemData itemData = inventory.datas[index];
+        itemData.DoEffect(am.StateM.state);
+        inventory.MinusItem(index, amount);
+        return true;
     }
 }

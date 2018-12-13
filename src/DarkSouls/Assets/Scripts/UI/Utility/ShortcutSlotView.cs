@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class ShortcutSlotView : MonoBehaviour
 {
+    public Direction curDir;
     public Image curImg;
     public Text curCountText;
     public int maxCount = 3;
@@ -19,29 +20,44 @@ public class ShortcutSlotView : MonoBehaviour
     private int curCount;
     private int curIndex;
     private int curItemIndex;
-    public delegate void ItemChange(ItemData itemData);
+    public delegate void ItemChange(ItemData itemData, Direction curDir);
     public event ItemChange OnItemChange;
-    public delegate bool ItemUse(int itemIndex);
+    public delegate bool ItemUse(int itemIndex, int amount);
     public event ItemUse OnItemUse;
 
-    public void Init(List<ItemData> _itemDatas, int _curIndex, List<int> _itemCounts, List<int> _itemIndex)
+    public void Init()
     {
-        itemDatas = _itemDatas;
-        itemCounts = _itemCounts;
-        itemIndex = _itemIndex;
-        curIndex = _curIndex;
+        itemDatas = new List<ItemData>(maxCount) { null, null, null };
+        itemCounts = new List<int>(maxCount) { -1, -1, -1 };
+        itemIndex = new List<int>(maxCount) { 0, 0, 0 };
+        curIndex = 0;
         curItemIndex = itemIndex[curIndex];
         curItemdata = itemDatas[curIndex];
         curCount = itemCounts[curIndex];
         SetImg();
     }
 
+    public void SetItem(ItemData _itemData, int _itemIndex, int _itemCount, int _curindex)
+    {
+        itemDatas[_curindex] = _itemData;
+        itemCounts[_curindex] = _itemCount;
+        itemIndex[_curindex] = _itemIndex;
+        if (_curindex == curIndex)
+        {
+            curItemIndex = itemIndex[curIndex];
+            curItemdata = itemDatas[curIndex];
+            curCount = itemCounts[curIndex];
+            SetImg();
+        }
+    }
 
     public void UseItem()
     {
+        if (curDir != Direction.Down)
+            return;
         if (curItemIndex != -1)
         {
-            if (OnItemUse.Invoke(curItemIndex))
+            if (OnItemUse.Invoke(curItemIndex, -1))
             {
                 itemCounts[curIndex]--;
                 curCount = itemCounts[curIndex];
@@ -58,15 +74,21 @@ public class ShortcutSlotView : MonoBehaviour
         curItemdata = itemDatas[curIndex];
         curCount = itemCounts[curIndex];
 
-        if (curItemdata.curItemType == ItemType.Weapon)
+        if (curDir == Direction.Left || curDir == Direction.Right)
         {
-            OnItemChange.Invoke(curItemdata);
+            OnItemChange.Invoke(curItemdata, curDir);
         }
         SetImg();
     }
 
-    public void SetImg()
+    private void SetImg()
     {
+        if (curItemdata == null)
+        {
+            Clear();
+            return;
+        }
+        curImg.color = new Color(1, 1, 1, 1);
         if ((curItemdata.curItemType == ItemType.ForHp ||
             curItemdata.curItemType == ItemType.ForMp ||
             curItemdata.curItemType == ItemType.ForVigor) &&
@@ -86,10 +108,9 @@ public class ShortcutSlotView : MonoBehaviour
 
     public void Clear()
     {
-        itemDatas = null;
-        itemCounts = null;
         curItemIndex = -1;
         curImg.sprite = null;
+        curImg.color = new Color(1, 1, 1, 0);
         curCountText.text = "";
     }
 }
