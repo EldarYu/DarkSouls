@@ -11,7 +11,6 @@ public class HudController : MonoBehaviour
         private float vigor;
         private float mp;
         private long souls;
-
         private float velovityHp;
         private float velovityVigor;
         private float velovityMp;
@@ -29,6 +28,52 @@ public class HudController : MonoBehaviour
         }
     }
     public StateController stateController;
+    [System.Serializable]
+    public class ShortcutController
+    {
+        private IPlayerInput pi;
+        private ShortcutSlotView left;
+        private ShortcutSlotView right;
+        private ShortcutSlotView top;
+        private ShortcutSlotView down;
+        public void Init(ActorManager am, HudView hudview)
+        {
+            left = hudview.shortcutView.left;
+            right = hudview.shortcutView.right;
+            top = hudview.shortcutView.top;
+            down = hudview.shortcutView.down;
+            pi = am.PlayerInput;
+        }
+
+        public void Tick()
+        {
+            if (pi.ShortcutLeftSelect)
+                ShortcutSelect(left);
+
+            if (pi.ShortcutRightSelect)
+                ShortcutSelect(right);
+
+            if (pi.ShortcutTopSelect)
+                ShortcutSelect(top);
+
+            if (pi.ShortcutDownSelect)
+                ShortcutSelect(down);
+
+            if (pi.ShortcutItemUse)
+                ShortcutUse(down);
+        }
+
+        public void ShortcutSelect(ShortcutSlotView tgt)
+        {
+            tgt.NextItem();
+        }
+
+        public void ShortcutUse(ShortcutSlotView tgt)
+        {
+            // tgt.UseItem()
+        }
+    }
+    public ShortcutController shortcutController;
     [System.Serializable]
     public class NewItemInfoController : IUIController
     {
@@ -79,7 +124,6 @@ public class HudController : MonoBehaviour
         }
     }
     public NewItemInfoController newItemInfoController;
-
     [System.Serializable]
     public class DialogController : IUIController
     {
@@ -100,13 +144,14 @@ public class HudController : MonoBehaviour
         }
     }
     public DialogController dialogController;
+
     public ActorManager am;
     private HudView hudView;
-
     private void Start()
     {
         hudView = GetComponent<HudView>();
         newItemInfoController.Init(am, hudView);
+        shortcutController.Init(am, hudView);
     }
     void Update()
     {

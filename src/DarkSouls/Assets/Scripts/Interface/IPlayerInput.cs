@@ -23,10 +23,7 @@ public abstract class IPlayerInput : MonoBehaviour
     public bool ShortcutRightSelect { get; protected set; }
     public bool ShortcutTopSelect { get; protected set; }
     public bool ShortcutDownSelect { get; protected set; }
-    public bool ShortcuLeftUse { get; protected set; }
-    public bool ShortcuRightUse { get; protected set; }
-    public bool ShortcuTopUse { get; protected set; }
-    public bool ShortcuDownUse { get; protected set; }
+    public bool ShortcutItemUse { get; protected set; }
 
     protected float Dup;
     protected float targetDup;

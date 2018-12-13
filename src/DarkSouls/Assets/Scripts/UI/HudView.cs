@@ -15,6 +15,15 @@ public class HudView : MonoBehaviour
     }
     public StateView stateView;
     [System.Serializable]
+    public class ShortcutView
+    {
+        public ShortcutSlotView left;
+        public ShortcutSlotView right;
+        public ShortcutSlotView top;
+        public ShortcutSlotView down;
+    }
+    public ShortcutView shortcutView;
+    [System.Serializable]
     public class NewItemInfoView
     {
         public GameObject parent;

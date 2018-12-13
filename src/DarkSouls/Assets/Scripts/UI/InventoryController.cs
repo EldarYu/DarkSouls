@@ -7,12 +7,11 @@ public class InventoryController : MonoBehaviour
     [System.Serializable]
     public class Controller : IUIController
     {
-        public ActorManager am;
         private InventoryManager im;
         private ItemSlotView[] itemSlotViews;
         private List<ItemSlotView> itemslotPool;
         private InventoryView inventoryView;
-        public void Init(InventoryView _inventoryView)
+        public void Init(ActorManager am, InventoryView _inventoryView)
         {
             im = am.InventoryM;
             inventoryView = _inventoryView;
@@ -69,10 +68,12 @@ public class InventoryController : MonoBehaviour
         }
     }
     public Controller controller;
+
+    public ActorManager am;
     private InventoryView inventoryView;
     private void Start()
     {
         inventoryView = GetComponent<InventoryView>();
-        controller.Init(inventoryView);
+        controller.Init(am, inventoryView);
     }
 }

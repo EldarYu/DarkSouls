@@ -47,6 +47,7 @@ public class TitleController : MonoBehaviour
         }
     }
     public MenuController menuController;
+
     private TitleView titleView;
     private bool first = true;
     void Awake()

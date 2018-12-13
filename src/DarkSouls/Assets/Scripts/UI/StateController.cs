@@ -7,13 +7,12 @@ public class StateController : MonoBehaviour
     [System.Serializable]
     public class Controller : IUIController
     {
-        public StateManager sm;
+        private StateManager sm;
         private StateView stateView;
         private State playerState;
-        public void Init(StateView _stateView)
+        public void Init(ActorManager am, StateView _stateView)
         {
-            if (sm == null)
-                return;
+            sm = am.StateM;
             stateView = _stateView;
 
             stateView.view.strength.OnAdd += AddStrength;
@@ -118,10 +117,11 @@ public class StateController : MonoBehaviour
     }
     public Controller controller;
 
+    public ActorManager am;
     private StateView stateView;
     private void Start()
     {
         stateView = GetComponent<StateView>();
-        controller.Init(stateView);
+        controller.Init(am, stateView);
     }
 }

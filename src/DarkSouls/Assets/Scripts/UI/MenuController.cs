@@ -69,7 +69,6 @@ public class MenuController : MonoBehaviour
                 UIManager.Instance.ReturnPrev();
                 return;
             }
-
         }
     }
 }

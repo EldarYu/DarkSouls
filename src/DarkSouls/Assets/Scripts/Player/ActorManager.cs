@@ -12,6 +12,7 @@ public class ActorManager : IActorManager
     public InteractionManager InteractionM { get; private set; }
     public DirectorManager DirectorM { get; private set; }
     public InventoryManager InventoryM { get; private set; }
+    public IPlayerInput PlayerInput { get { return ActorC.pi; } }
     private void Awake()
     {
         BattleM = GetComponentInChildren<BattleManager>();
