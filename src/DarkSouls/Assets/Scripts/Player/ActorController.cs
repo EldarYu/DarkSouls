@@ -24,8 +24,6 @@ public class ActorController : IActorController
     public PhysicMaterial fricitionOne;
     public PhysicMaterial fricitionZero;
 
-    public bool leftIsShield = true;
-
     public delegate void OnActionHandle();
     public event OnActionHandle OnActionPressed;
 
@@ -111,7 +109,7 @@ public class ActorController : IActorController
 
     void Attack()
     {
-        if (leftIsShield)
+        if (am.LeftIsShield)
         {
             if (CheckAnimatorStateWithName("ground") || CheckAnimatorStateWithName("blocked"))
             {
@@ -133,7 +131,7 @@ public class ActorController : IActorController
         {
             if (pi.LeftAttack || pi.RightAttack)
             {
-                if (pi.LeftAttack && !leftIsShield && am.TryDoAttack())
+                if (pi.LeftAttack && !am.LeftIsShield && am.TryDoAttack())
                 {
                     anim.SetBool("leftHandAttack", true);
                     anim.SetTrigger("attack");
@@ -153,7 +151,7 @@ public class ActorController : IActorController
                 }
                 else
                 {
-                    if (!leftIsShield)
+                    if (!am.LeftIsShield)
                     {
                         //left heavy attack
                     }

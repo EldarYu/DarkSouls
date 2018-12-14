@@ -7,7 +7,6 @@ public class ShortcutModifierView : MonoBehaviour
 {
     [HideInInspector]
     public int curIndex;
-    public Sprite empty;
     public Image curImg;
     public Text curCountText;
     public ItemType itemType;
@@ -46,20 +45,10 @@ public class ShortcutModifierView : MonoBehaviour
             return;
         }
         curImg.color = new Color(1, 1, 1, 1);
-        if (curItemData.curItemType == ItemType.Consumable &&
-            curItemData.forHp &&
-            curItemCount == 0)
-        {
-            curImg.sprite = empty;
+        curImg.sprite = curItemData.img;
+        if (curItemCount == 1)
             curCountText.text = "";
-        }
-        else
-        {
-            curImg.sprite = curItemData.img;
-            if (curItemCount == 1)
-                curCountText.text = "";
-            curCountText.text = curItemCount.ToString();
-        }
+        curCountText.text = curItemCount.ToString();
     }
 
     public void Clear()

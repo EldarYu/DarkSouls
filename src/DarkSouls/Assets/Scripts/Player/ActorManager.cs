@@ -13,6 +13,8 @@ public class ActorManager : IActorManager
     public DirectorManager DirectorM { get; private set; }
     public InventoryManager InventoryM { get; private set; }
     public IPlayerInput PlayerInput { get { return ActorC.pi; } }
+
+    public bool LeftIsShield { get { return WeaponM.LeftIsShield; } }
     private void Awake()
     {
         BattleM = GetComponentInChildren<BattleManager>();

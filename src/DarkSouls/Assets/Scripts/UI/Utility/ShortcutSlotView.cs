@@ -9,7 +9,6 @@ public class ShortcutSlotView : MonoBehaviour
     public Image curImg;
     public Text curCountText;
     public int maxCount = 3;
-    public Sprite empty;
     [HideInInspector]
     public List<ItemData> itemDatas;
     [HideInInspector]
@@ -48,6 +47,8 @@ public class ShortcutSlotView : MonoBehaviour
             curItemIndex = itemIndex[curIndex];
             curItemData = itemDatas[curIndex];
             curItemCount = itemCounts[curIndex];
+            if (OnItemChange != null)
+                OnItemChange.Invoke(curItemData, curDir);
             SetImg();
         }
     }
@@ -62,6 +63,15 @@ public class ShortcutSlotView : MonoBehaviour
             {
                 itemCounts[curIndex]--;
                 curItemCount = itemCounts[curIndex];
+                if (curItemCount <= 0)
+                {
+                    itemDatas[curIndex] = null;
+                    itemCounts[curIndex] = -1;
+                    itemIndex[curIndex] = -1;
+                    curItemIndex = itemIndex[curIndex];
+                    curItemData = itemDatas[curIndex];
+                    curItemCount = itemCounts[curIndex];
+                }
                 SetImg();
             }
         }
@@ -90,20 +100,10 @@ public class ShortcutSlotView : MonoBehaviour
             return;
         }
         curImg.color = new Color(1, 1, 1, 1);
-        if (curItemData.curItemType == ItemType.Consumable &&
-            curItemData.forHp &&
-            curItemCount == 0)
-        {
-            curImg.sprite = empty;
+        curImg.sprite = curItemData.img;
+        if (curItemCount == 1)
             curCountText.text = "";
-        }
-        else
-        {
-            curImg.sprite = curItemData.img;
-            if (curItemCount == 1)
-                curCountText.text = "";
-            curCountText.text = curItemCount.ToString();
-        }
+        curCountText.text = curItemCount.ToString();
     }
 
     public void Clear()

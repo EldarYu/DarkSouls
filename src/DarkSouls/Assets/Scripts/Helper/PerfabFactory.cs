@@ -19,13 +19,13 @@ public class PerfabFactory
     public Dictionary<string, GameObject> objDatas;
     private PerfabFactory() { objDatas = new Dictionary<string, GameObject>(); }
 
-    public GameObject GetPerfab(ItemData itemData)
+    public GameObject GetPerfab(ItemData itemData, Transform tgtParent)
     {
         if (objDatas.ContainsKey(itemData.name))
         {
             return objDatas[itemData.name];
         }
-        GameObject temp = GameObject.Instantiate(itemData.obj);
+        GameObject temp = GameObject.Instantiate(itemData.obj, tgtParent);
         objDatas.Add(itemData.name, temp);
         return temp;
     }

@@ -100,11 +100,18 @@ public class InventoryManager : MonoBehaviour
     }
     public delegate void OnItemAddedHandle(ItemData itemData, int count);
     public event OnItemAddedHandle OnItemAdded;
+    public WeaponData defaultSword;
+    public WeaponData defaultShield;
+
     private ActorManager am;
     private void Start()
     {
         am = GetComponent<ActorManager>();
         inventory = new Inventory();
+        //*****************
+        inventory.AddItem(defaultShield,1);
+        inventory.AddItem(defaultSword, 1);
+        //*****************
     }
     public void Additem(ItemData itemData, int count = 1)
     {
@@ -112,12 +119,26 @@ public class InventoryManager : MonoBehaviour
         OnItemAdded.Invoke(itemData, count);
     }
 
-    public bool UseItem(int index, int amount = 1)
+    public bool UseItem(int index, int amount = -1)
     {
         if (inventory.datas.ContainsKey(index) && inventory.count[index] < 1)
             return false;
-        am.ActorC.IssueTrigger("useItem");
+        print(am.ActorC.CheckAnimatorStateWithTag("useItem"));
         ItemData itemData = inventory.datas[index];
+        if (itemData.curItemType == ItemType.Consumable)
+        {
+            if (itemData.forHp || itemData.forMp || itemData.forVigor)
+            {
+                if (am.ActorC.CheckAnimatorStateWithTag("useItem"))
+                    return false;
+                am.ActorC.IssueTrigger("useItem");
+            }
+
+            if (itemData.forSoul)
+            {
+
+            }
+        }
         itemData.DoEffect(am.StateM.state);
         inventory.MinusItem(index, amount);
         return true;

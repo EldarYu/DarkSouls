@@ -280,7 +280,7 @@ ModelImporter:
       curves: []
       events:
       - time: 0.96407175
-        functionName: HIdeItem
+        functionName: HideItem
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

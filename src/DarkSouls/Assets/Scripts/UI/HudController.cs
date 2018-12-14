@@ -31,13 +31,14 @@ public class HudController : MonoBehaviour
     [System.Serializable]
     public class ShortcutController
     {
+        public WeaponData defaultSword;
+        public WeaponData defaultShield;
         private IPlayerInput pi;
         private ShortcutSlotView left;
         private ShortcutSlotView right;
         private ShortcutSlotView top;
         private ShortcutSlotView down;
 
-        public List<ItemData> test;
         public void Init(ActorManager am, HudView hudview)
         {
             left = hudview.shortcutView.left;
@@ -52,11 +53,10 @@ public class HudController : MonoBehaviour
             right.Init();
             top.Init();
             down.Init();
-
-            //for (int i = 0; i < test.Count; i++)
-            //{
-            //    down.SetItem(test[i], i, i + 1, i);
-            //}
+            //*****************
+            left.SetItem(defaultShield, 0, 1, 0);
+            right.SetItem(defaultSword, 1, 1, 0);
+            //*****************
         }
 
         public void Tick()

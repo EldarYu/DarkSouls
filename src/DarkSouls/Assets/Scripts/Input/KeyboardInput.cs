@@ -71,6 +71,6 @@ public class KeyboardInput : IPlayerInput
         ShortcutTopSelect = itemTopBtn.OnReleased && itemTopBtn.IsDelaying;
         ShortcutDownSelect = itemDownBtn.OnReleased && itemDownBtn.IsDelaying;
 
-        ShortcutItemUse = itemDownBtn.IsPressing && !itemDownBtn.IsDelaying;
+        ShortcutItemUse = itemDownBtn.IsPressing && !itemDownBtn.IsDelaying && !itemDownBtn.IsExtending;
     }
 }

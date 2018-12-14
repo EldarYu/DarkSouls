@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc6b66bc400198c4aaa7920ec5754172, type: 3}
+  m_Name: DefaultSword
+  m_EditorClassIdentifier: 
+  curItemType: 1
+  itemName: Default Sword
+  description: Default Sword
+  img: {fileID: 21300004, guid: 76f0e42ce64a05c4d86557b91175f06c, type: 3}
+  amount: 0
+  obj: {fileID: 1612942499376656, guid: a9e194d9df03afa4fae881608be57f49, type: 2}
+  allowOverlay: 0
+  forHp: 0
+  forMp: 0
+  forVigor: 0
+  forSoul: 0
+  curWeaponType: 1
+  atk: 15
+  def: 0
