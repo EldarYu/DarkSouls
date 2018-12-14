@@ -12,27 +12,11 @@ public class DirectorManager : MonoBehaviour
 
     private ActorManager am;
     private PlayableDirector pd;
-    public delegate void Played();
-    public event Played OnPlayed;
     private bool lastState = false;
     void Start()
     {
         am = GetComponent<ActorManager>();
         pd = GetComponent<PlayableDirector>();
-    }
-
-    private void Update()
-    {
-        //bool playState = IsPlaying();
-        //if (lastState && !playState)
-        //{
-        //    OnPlayed.Invoke();
-        //    lastState = false;
-        //}
-        //if (playState != lastState)
-        //{
-        //    lastState = playState;
-        //}
     }
 
     public bool IsPlaying()

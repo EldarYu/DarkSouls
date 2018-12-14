@@ -8,4 +8,5 @@ public class MenuView : MonoBehaviour
     public UnityEngine.UI.Button settingsBtn;
     public UnityEngine.UI.Button stateBtn;
     public UnityEngine.UI.Button inventoryBtn;
+    public UnityEngine.UI.Button equipmentBtn;
 }

@@ -1,4 +1,4 @@
 ﻿public enum ItemType
 {
-    Weapon, ForHp, ForMp, ForVigor, ForSoul, Grimoire
+    None, Weapon, Consumable
 }

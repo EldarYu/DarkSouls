@@ -9,17 +9,26 @@ public class ItemSlotView : MonoBehaviour
     public Text countText;
     public Image itemImg;
     public Text descriptionText;
-    public int countValue;
-    public int index;
-    public void Init(ItemData _itemData, int _index, int count = 1)
+    public int itemCount;
+    public int itemIndex;
+
+    public delegate void OnClickHandle(ItemData itemData, int itemIndex, int itemCount);
+    public event OnClickHandle OnClick;
+    private UnityEngine.UI.Button btn;
+    private void Start()
+    {
+        btn = GetComponent<UnityEngine.UI.Button>();
+        btn.onClick.AddListener(Enter);
+    }
+    public void Init(ItemData _itemData, int _itemIndex, int _itemCount = 1)
     {
         itemData = _itemData;
         nameText.text = itemData.name;
         itemImg.sprite = itemData.img;
         descriptionText.text = itemData.description;
-        countValue = count;
-        index = _index;
-        countText.text = countValue.ToString();
+        itemCount = _itemCount;
+        this.itemIndex = _itemIndex;
+        countText.text = itemCount.ToString();
         gameObject.SetActive(true);
     }
 
@@ -29,8 +38,13 @@ public class ItemSlotView : MonoBehaviour
         nameText.text = "";
         descriptionText.text = "";
         countText.text = "";
-        countValue = 0;
-        index = -1;
+        itemCount = 0;
+        itemIndex = -1;
         gameObject.SetActive(false);
+    }
+
+    public void Enter()
+    {
+        OnClick.Invoke(itemData, itemIndex, itemCount);
     }
 }

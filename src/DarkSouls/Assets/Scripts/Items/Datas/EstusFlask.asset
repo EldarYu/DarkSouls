@@ -11,9 +11,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fd6cc9e2b8440149a1855c40370537c, type: 3}
   m_Name: EstusFlask
   m_EditorClassIdentifier: 
-  curItemType: 1
+  curItemType: 2
   itemName: EstusFlask
   description: EstusFlask
   img: {fileID: 21300010, guid: 7ab62f81848debc4daa8c4380846902f, type: 3}
   amount: 20
+  obj: {fileID: 0}
   allowOverlay: 1
+  forHp: 1
+  forMp: 0
+  forVigor: 0
+  forSoul: 0

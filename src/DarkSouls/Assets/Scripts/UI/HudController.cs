@@ -53,10 +53,10 @@ public class HudController : MonoBehaviour
             top.Init();
             down.Init();
 
-            for (int i = 0; i < test.Count; i++)
-            {
-                down.SetItem(test[i], i, i + 1, i);
-            }
+            //for (int i = 0; i < test.Count; i++)
+            //{
+            //    down.SetItem(test[i], i, i + 1, i);
+            //}
         }
 
         public void Tick()

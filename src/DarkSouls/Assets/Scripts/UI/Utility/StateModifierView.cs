@@ -9,10 +9,10 @@ public class StateModifierView : MonoBehaviour, IUpdateSelectedHandler
     public Text text;
     public GameObject leftTip;
     public GameObject rightTip;
-    public delegate void OnAddDelegate();
-    public event OnAddDelegate OnAdd;
-    public delegate void OnMinusDelegate();
-    public event OnMinusDelegate OnMinus;
+    public delegate void OnAddHandle();
+    public event OnAddHandle OnAdd;
+    public delegate void OnMinusHandle();
+    public event OnMinusHandle OnMinus;
     private int def_value;
     private int cur_value;
 

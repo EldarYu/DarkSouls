@@ -7,17 +7,15 @@ public class InventoryManager : MonoBehaviour
     public class Inventory
     {
         public Dictionary<int, ItemData> datas;
-
         public Dictionary<int, int> count;
-
-        private Dictionary<ItemType, int> itemType;
+        public Dictionary<ItemType, List<int>> itemType;
         private int curIndex;
         public Inventory()
         {
             curIndex = 0;
             datas = new Dictionary<int, ItemData>();
             count = new Dictionary<int, int>();
-            itemType = new Dictionary<ItemType, int>();
+            itemType = new Dictionary<ItemType, List<int>>();
         }
 
         public void AddItem(ItemData itemData, int _count)
@@ -37,7 +35,11 @@ public class InventoryManager : MonoBehaviour
             {
                 datas.Add(curIndex, itemData);
                 count.Add(curIndex, _count);
-                itemType.Add(itemData.curItemType, curIndex);
+                if (!itemType.ContainsKey(itemData.curItemType))
+                {
+                    itemType.Add(itemData.curItemType, new List<int>());
+                }
+                itemType[itemData.curItemType].Add(curIndex);
                 curIndex++;
             }
         }
@@ -49,8 +51,7 @@ public class InventoryManager : MonoBehaviour
                 count[index] += amount;
                 if (count[index] <= 0)
                 {
-                    datas.Remove(index);
-                    count.Remove(index);
+                    RemoveItem(index);
                 }
             }
         }
@@ -63,6 +64,7 @@ public class InventoryManager : MonoBehaviour
                 {
                     datas.Remove(index);
                     count.Remove(index);
+                    itemType[datas[index].curItemType].Remove(index);
                 }
                 else if (count[index] > 1)
                 {
@@ -81,8 +83,23 @@ public class InventoryManager : MonoBehaviour
         return inventory.count[index];
     }
     public ItemData this[int index] { get { return inventory.datas.ContainsKey(index) ? inventory.datas[index] : null; } }
-    public delegate void ItemAdded(ItemData itemData, int count);
-    public event ItemAdded OnItemAdded;
+    public Dictionary<int, ItemData> this[ItemType itemType]
+    {
+        get
+        {
+            Dictionary<int, ItemData> temp = new Dictionary<int, ItemData>();
+            if (inventory.itemType.ContainsKey(itemType))
+            {
+                foreach (var index in inventory.itemType[itemType])
+                {
+                    temp.Add(index, inventory.datas[index]);
+                }
+            }
+            return temp;
+        }
+    }
+    public delegate void OnItemAddedHandle(ItemData itemData, int count);
+    public event OnItemAddedHandle OnItemAdded;
     private ActorManager am;
     private void Start()
     {

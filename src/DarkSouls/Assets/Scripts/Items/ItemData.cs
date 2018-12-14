@@ -14,20 +14,23 @@ public class ItemData : ScriptableObject
     public float amount;
     public GameObject obj;
     public bool allowOverlay;
+    public bool forHp;
+    public bool forMp;
+    public bool forVigor;
+    public bool forSoul;
     public void DoEffect(State state)
     {
         switch (curItemType)
         {
             case ItemType.Weapon:
                 break;
-            case ItemType.ForHp:
-                state.HP += amount;
-                break;
-            case ItemType.ForMp:
-                state.MP += amount;
-                break;
-            case ItemType.ForVigor:
-                state.Vigor += amount;
+            case ItemType.Consumable:
+                if (forHp)
+                    state.HP += amount;
+                if (forMp)
+                    state.MP += amount;
+                if (forVigor)
+                    state.Vigor += amount;
                 break;
             default:
                 break;

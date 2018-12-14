@@ -26,8 +26,8 @@ public class ActorController : IActorController
 
     public bool leftIsShield = true;
 
-    public delegate void OnActionDelegate();
-    public event OnActionDelegate OnActionPressed;
+    public delegate void OnActionHandle();
+    public event OnActionHandle OnActionPressed;
 
     private CapsuleCollider col;
     private ActorManager am;

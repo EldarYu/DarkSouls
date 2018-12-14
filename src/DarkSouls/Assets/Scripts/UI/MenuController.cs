@@ -10,6 +10,7 @@ public class MenuController : MonoBehaviour
         public InventoryController inventoryController;
         public SettingsController settingsController;
         public StateController stateController;
+        public EquipmentController equipmentController;
         private MenuView menuView;
         public void Init(MenuView _menuView)
         {
@@ -18,10 +19,17 @@ public class MenuController : MonoBehaviour
             menuView.settingsBtn.onClick.AddListener(ShowSettings);
             menuView.stateBtn.onClick.AddListener(ShowState);
             menuView.inventoryBtn.onClick.AddListener(ShowInventory);
+            menuView.equipmentBtn.onClick.AddListener(ShowEquipment);
+        }
+
+        public void ShowEquipment()
+        {
+            UIManager.Instance.AddRecord(equipmentController.controller);
         }
 
         public void ShowInventory()
         {
+            inventoryController.controller.curItemType = ItemType.None;
             UIManager.Instance.AddRecord(inventoryController.controller);
         }
 
