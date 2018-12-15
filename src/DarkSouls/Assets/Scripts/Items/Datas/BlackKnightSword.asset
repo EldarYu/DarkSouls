@@ -16,7 +16,7 @@ MonoBehaviour:
   description: Black Knight Sword
   img: {fileID: 21300030, guid: 76f0e42ce64a05c4d86557b91175f06c, type: 3}
   amount: 0
-  obj: {fileID: 0}
+  obj: {fileID: 1881323365381002, guid: 184a057955fd4fa4cb5eb2fbade5c4ac, type: 2}
   allowOverlay: 0
   forHp: 0
   forMp: 0
@@ -25,4 +25,5 @@ MonoBehaviour:
   curWeaponType: 1
   atk: 10
   def: 1
-  otherSideObj: {fileID: 0}
+  otherSideObj: {fileID: 1673120853699346, guid: 31d85dd0c29bdfb47bf5e94a3318ca5f,
+    type: 2}
