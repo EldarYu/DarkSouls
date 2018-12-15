@@ -12,7 +12,6 @@ public class DirectorManager : MonoBehaviour
 
     private ActorManager am;
     private PlayableDirector pd;
-    private bool lastState = false;
     void Start()
     {
         am = GetComponent<ActorManager>();
@@ -24,7 +23,7 @@ public class DirectorManager : MonoBehaviour
         return pd.state == PlayState.Playing ? true : false;
     }
 
-    public void Play(EventType eventType, IActorManager player, IActorManager opponent)
+    public void Play(EventCasterType eventType, IActorManager player, IActorManager opponent)
     {
         if (IsPlaying())
             return;
@@ -67,17 +66,17 @@ public class DirectorManager : MonoBehaviour
         pd.Play();
     }
 
-    TimelineAsset GetTimelineAsset(EventType eventType)
+    TimelineAsset GetTimelineAsset(EventCasterType eventType)
     {
         switch (eventType)
         {
-            case EventType.OpenBox:
+            case EventCasterType.OpenBox:
                 return Instantiate(openBox);
 
-            case EventType.FrontStab:
+            case EventCasterType.FrontStab:
                 return Instantiate(frontStab);
 
-            case EventType.LeverUp:
+            case EventCasterType.LeverUp:
                 return Instantiate(leverUp);
         }
         return null;

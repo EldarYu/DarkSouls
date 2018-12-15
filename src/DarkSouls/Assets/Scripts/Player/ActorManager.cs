@@ -13,6 +13,7 @@ public class ActorManager : IActorManager
     public DirectorManager DirectorM { get; private set; }
     public InventoryManager InventoryM { get; private set; }
     public IPlayerInput PlayerInput { get { return ActorC.pi; } }
+    public EventCasterManager EventCastM { get; private set; }
 
     public bool LeftIsShield { get { return WeaponM.LeftIsShield; } }
     private void Awake()
@@ -24,6 +25,7 @@ public class ActorManager : IActorManager
         InteractionM = GetComponentInChildren<InteractionManager>();
         DirectorM = GetComponent<DirectorManager>();
         InventoryM = GetComponent<InventoryManager>();
+        EventCastM = GetComponentInChildren<EventCasterManager>();
         ActorC.OnActionPressed += DoAction;
     }
 
@@ -47,8 +49,11 @@ public class ActorManager : IActorManager
             {
                 switch (ecastm.eventType)
                 {
-                    case EventType.OpenBox:
+                    case EventCasterType.OpenBox:
                         AddItem(ecastm.itemData, ecastm.itemCount);
+                        break;
+                    case EventCasterType.FrontStab:
+                        ecastm.am.HitOrDie((WeaponM.RightWC.Atk + GetAtk()) * 2, false);
                         break;
                 }
                 //transform.position = ecastm.transform.position + ecastm.am.transform.TransformVector(ecastm.offset);
@@ -119,7 +124,7 @@ public class ActorManager : IActorManager
             }
             else if (StateM.isCounterBackFailure)
             {
-                HitOrDie(false);
+                HitOrDie(targetWC.Atk + targetWC.wm.am.GetAtk(), false);
             }
             else if (StateM.isImmortal)
             {
@@ -131,9 +136,14 @@ public class ActorManager : IActorManager
             }
             else
             {
-                HitOrDie();
+                HitOrDie(targetWC.Atk + targetWC.wm.am.GetAtk());
             }
         }
+    }
+
+    public float GetAtk()
+    {
+        return StateM.state.Attack;
     }
 
     public void SetCounterBackEnable(bool enable)
@@ -151,15 +161,16 @@ public class ActorManager : IActorManager
         return ActorC.GetAnimator();
     }
 
-    private void HitOrDie(bool doHitAnimation = true)
+    public override void HitOrDie(float hitAmount, bool doHitAnimation = true)
     {
+        print(hitAmount);
         if (StateM.state.HP <= 0)
         {
 
         }
         else
         {
-            StateM.CountHp(-5);
+            //StateM.CountHp(-hitAmount);
             if (StateM.state.HP > 0)
             {
                 if (doHitAnimation)
@@ -175,6 +186,18 @@ public class ActorManager : IActorManager
     private void Stunned()
     {
         ActorC.IssueTrigger("stunned");
+    }
+
+    public void ECMOn()
+    {
+        if (EventCastM != null)
+            EventCastM.active = true;
+    }
+
+    public void ECMOff()
+    {
+        if (EventCastM != null)
+            EventCastM.active = false;
     }
 
     private void Blocked()

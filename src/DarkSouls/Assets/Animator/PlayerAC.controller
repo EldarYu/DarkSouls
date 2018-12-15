@@ -165,21 +165,6 @@ MonoBehaviour:
   - CountAttackVigorCost
   onUpdateMessages: []
   onExitMessages: []
---- !u!114 &114120694089247296
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 630234ef7f073024aa1a2e758c463d64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  clearAtEnter:
-  - useItem
-  clearAtExit:
-  - useItem
 --- !u!114 &114181410069971120
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -273,6 +258,21 @@ MonoBehaviour:
   - OnRollEnter
   onUpdateMessages: []
   onExitMessages: []
+--- !u!114 &114442309325410576
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d29dfaec3a95924ba6344b83a055b36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnterMessages:
+  - OnUseItemEnter
+  onUpdateMessages: []
+  onExitMessages: []
 --- !u!114 &114442815585665900
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -352,22 +352,8 @@ MonoBehaviour:
   onEnterMessages:
   - OnStunnedEnter
   onUpdateMessages: []
-  onExitMessages: []
---- !u!114 &114694609148830510
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 630234ef7f073024aa1a2e758c463d64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  clearAtEnter:
-  - useItem
-  clearAtExit:
-  - useItem
+  onExitMessages:
+  - OnStunnedExit
 --- !u!114 &114737639777967036
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1861,7 +1847,7 @@ AnimatorStateTransition:
   m_ExitTime: 0.8972603
   m_HasExitTime: 1
   m_HasFixedDuration: 1
-  m_InterruptionSource: 0
+  m_InterruptionSource: 2
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
 --- !u!1101 &1101758043997369210
@@ -2565,8 +2551,7 @@ AnimatorState:
   m_Transitions:
   - {fileID: 1101791338286664264}
   - {fileID: 1101590189537400148}
-  m_StateMachineBehaviours:
-  - {fileID: 114120694089247296}
+  m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -2645,8 +2630,7 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101746107848119816}
-  m_StateMachineBehaviours:
-  - {fileID: 114694609148830510}
+  m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -3154,7 +3138,8 @@ AnimatorStateMachine:
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: 114442309325410576}
   m_AnyStatePosition: {x: -96, y: 240, z: 0}
   m_EntryPosition: {x: -96, y: 108, z: 0}
   m_ExitPosition: {x: 396, y: 24, z: 0}

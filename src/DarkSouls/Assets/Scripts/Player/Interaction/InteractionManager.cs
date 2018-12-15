@@ -11,7 +11,7 @@ public class InteractionManager : MonoBehaviour
         am = GetComponentInParent<ActorManager>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         EventCasterManager[] ecastms = other.GetComponents<EventCasterManager>();
         foreach (var ecastm in ecastms)

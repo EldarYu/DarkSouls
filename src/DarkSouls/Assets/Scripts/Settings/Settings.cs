@@ -28,6 +28,7 @@ public class KeyMap
     public KeyCode itemDownKey = KeyCode.B;
     public KeyCode itemLeftKey = KeyCode.Q;
     public KeyCode itemRightKey = KeyCode.E;
+    public KeyCode itemUseKey = KeyCode.T;
 }
 [Serializable]
 public class SettingsData
@@ -80,7 +81,8 @@ public class Settings
             { "itemUp",keyMap.itemUpKey},
             { "itemDown",keyMap.itemDownKey},
             { "itemLeft",keyMap.itemLeftKey},
-            { "itemRight",keyMap.itemRightKey}
+            { "itemRight",keyMap.itemRightKey},
+            { "itemUse",keyMap.itemUseKey}
         };
     }
 
@@ -146,6 +148,9 @@ public class Settings
                     break;
                 case "itemRight":
                     settingsData.keyMap.itemRightKey = item.curKeycode;
+                    break;
+                case "itemUse":
+                    settingsData.keyMap.itemUseKey = item.curKeycode;
                     break;
             }
         }

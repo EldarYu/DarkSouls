@@ -23,5 +23,7 @@ MonoBehaviour:
   forVigor: 0
   forSoul: 0
   curWeaponType: 1
-  atk: 15
-  def: 0
+  atk: 5
+  def: 1
+  otherSideObj: {fileID: 1751945650186528, guid: 1baf97f4c094d3647a1046b75529087f,
+    type: 2}

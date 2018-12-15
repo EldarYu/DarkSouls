@@ -18,6 +18,7 @@ public class KeyboardInput : IPlayerInput
     private Button itemDownBtn = new Button();
     private Button itemLeftBtn = new Button();
     private Button itemRightBtn = new Button();
+    private Button itemUseBtn = new Button();
 
     private void Start()
     {
@@ -37,6 +38,7 @@ public class KeyboardInput : IPlayerInput
         itemRightBtn.Tick(Input.GetKey(keymap.itemRightKey), Time.deltaTime);
         itemTopBtn.Tick(Input.GetKey(keymap.itemUpKey), Time.deltaTime);
         itemDownBtn.Tick(Input.GetKey(keymap.itemDownKey), Time.deltaTime);
+        itemUseBtn.Tick(Input.GetKey(keymap.itemUseKey), Time.deltaTime);
 
         Jup = (Input.GetKey(keymap.upArrowKey) ? 1.0f : 0) - (Input.GetKey(keymap.downArrowKey) ? 1.0f : 0);
         Jright = (Input.GetKey(keymap.rightArrowKey) ? 1.0f : 0) - (Input.GetKey(keymap.leftArrowKey) ? 1.0f : 0);
@@ -71,6 +73,6 @@ public class KeyboardInput : IPlayerInput
         ShortcutTopSelect = itemTopBtn.OnReleased && itemTopBtn.IsDelaying;
         ShortcutDownSelect = itemDownBtn.OnReleased && itemDownBtn.IsDelaying;
 
-        ShortcutItemUse = itemDownBtn.IsPressing && !itemDownBtn.IsDelaying && !itemDownBtn.IsExtending;
+        ShortcutItemUse = itemUseBtn.OnReleased && itemUseBtn.IsDelaying;
     }
 }

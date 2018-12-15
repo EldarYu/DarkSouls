@@ -153,7 +153,10 @@ public class ActorController : IActorController
                 {
                     if (!am.LeftIsShield)
                     {
-                        //left heavy attack
+                        if (am.TryDoHeavyAttack())
+                        {
+                            //left heavy attack
+                        }
                     }
                     else if (am.TryDoHeavyAttack())
                     {
@@ -245,8 +248,14 @@ public class ActorController : IActorController
 
     void OnStunnedEnter()
     {
+        am.ECMOn();
         pi.inputEnabled = false;
         planarVec = Vector3.zero;
+    }
+
+    void OnStunnedExit()
+    {
+        am.ECMOff();
     }
 
     void OnCounterBackEnter()
@@ -254,6 +263,14 @@ public class ActorController : IActorController
         pi.inputEnabled = false;
         planarVec = Vector3.zero;
     }
+
+    void OnUseItemEnter()
+    {
+        pi.inputEnabled = false;
+        planarVec = Vector3.zero;
+    }
+
+
 
     //发往WeaponManager
     void OnLockEnter()

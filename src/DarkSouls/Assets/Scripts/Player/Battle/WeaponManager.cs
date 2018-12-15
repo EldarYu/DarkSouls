@@ -13,6 +13,7 @@ public class WeaponManager : MonoBehaviour
     public bool isAI;
     [HideInInspector]
     public ActorManager am;
+    public WeaponController RightWC { get { return rightWC; } }
     public bool LeftIsShield { get { return leftWC.IsShield; } }
     private void Awake()
     {
@@ -24,8 +25,8 @@ public class WeaponManager : MonoBehaviour
         leftWC.isAI = isAI;
         rightWC.isAI = isAI;
         //*****************
-        leftWC.Init(defaultShield);
-        rightWC.Init(defaultSword);
+        leftWC.Init(defaultShield.name, defaultShield, defaultShield.obj);
+        rightWC.Init(defaultSword.name, defaultSword, defaultSword.obj);
         //*****************
         LeftWCol = leftWC.GetComponentInChildren<Collider>();
         rightWcol = rightWC.GetComponentInChildren<Collider>();
@@ -35,13 +36,18 @@ public class WeaponManager : MonoBehaviour
     {
         if (direction == Direction.Left)
         {
-            leftWC.Init(itemData as WeaponData);
+            WeaponData tmp = itemData as WeaponData;
+            if (tmp.curWeaponType == WeaponType.Sword)
+                leftWC.Init(tmp.name + "left", tmp, tmp.otherSideObj);
+            else
+                leftWC.Init(tmp.name, tmp, tmp.obj);
             LeftWCol = leftWC.GetComponentInChildren<Collider>();
         }
 
         if (direction == Direction.Right)
         {
-            rightWC.Init(itemData as WeaponData);
+            WeaponData tmp = itemData as WeaponData;
+            rightWC.Init(tmp.name, tmp, tmp.obj);
             rightWcol = rightWC.GetComponentInChildren<Collider>();
         }
     }

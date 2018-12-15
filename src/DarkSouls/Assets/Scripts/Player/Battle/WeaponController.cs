@@ -12,7 +12,9 @@ public class WeaponController : MonoBehaviour
     public GameObject item;
     public bool isAI;
     public bool IsShield { get { return weaponData.IsShield; } }
-    public void Init(WeaponData _weaponData)
+    public float Atk { get { return weaponData.ATK; } }
+    public float Def { get { return weaponData.DEF; } }
+    public void Init(string weaponName, WeaponData _weaponData, GameObject obj)
     {
         if (item != null)
             item.SetActive(false);
@@ -21,9 +23,9 @@ public class WeaponController : MonoBehaviour
         weaponData = _weaponData;
 
         if (isAI)
-            weapon = GameObject.Instantiate(weaponData.obj, this.transform);
+            weapon = GameObject.Instantiate(obj, this.transform);
         else
-            weapon = PerfabFactory.Instance.GetPerfab(weaponData, this.transform);
+            weapon = PerfabFactory.Instance.GetPerfab(weaponName, obj, this.transform);
 
         weapon.SetActive(true);
     }
@@ -40,8 +42,8 @@ public class WeaponController : MonoBehaviour
         if (isAI)
             item = GameObject.Instantiate(itemData.obj, this.transform);
         else
-            item = PerfabFactory.Instance.GetPerfab(itemData, this.transform);
-  
+            item = PerfabFactory.Instance.GetPerfab(itemData.name, itemData.obj, this.transform);
+
         item.SetActive(true);
     }
 

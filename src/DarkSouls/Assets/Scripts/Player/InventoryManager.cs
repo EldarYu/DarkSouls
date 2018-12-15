@@ -129,8 +129,6 @@ public class InventoryManager : MonoBehaviour
         {
             if (itemData.forHp || itemData.forMp || itemData.forVigor)
             {
-                if (am.ActorC.CheckAnimatorStateWithTag("useItem"))
-                    return false;
                 am.ActorC.IssueTrigger("useItem");
             }
 

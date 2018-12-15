@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 605c29e75ae497e41939ba360915d252, type: 3}
+  m_Name: BlackKnightState
+  m_EditorClassIdentifier: 
+  strength: 10
+  stamina: 10
+  intellect: 10
+  souls: 0
+  hpIncrement: 5
+  vigorIncrement: 3
+  mpIncrement: 2
+  attackIncrement: 2
+  upgradeSoulAmount: 500
+  runCost: 0.3
+  rollCost: 15
+  attackCost: 5
+  heavyAttackCost: 15
+  vigorAutoRecoverTime: 1
+  vigorAutoRecoverAmount: 0.3

@@ -8,4 +8,5 @@ public class IActorManager : MonoBehaviour
 {
     public virtual Animator GetAnimator() { return null; }
     public virtual void LockUnlockAnimator(bool value = true) { }
+    public virtual void HitOrDie(float hitAmount, bool doHitAnimation = true) { }
 }
