@@ -109,7 +109,7 @@ public class InventoryManager : MonoBehaviour
         am = GetComponent<ActorManager>();
         inventory = new Inventory();
         //*****************
-        inventory.AddItem(defaultShield,1);
+        inventory.AddItem(defaultShield, 1);
         inventory.AddItem(defaultSword, 1);
         //*****************
     }
@@ -121,9 +121,9 @@ public class InventoryManager : MonoBehaviour
 
     public bool UseItem(int index, int amount = -1)
     {
-        if (inventory.datas.ContainsKey(index) && inventory.count[index] < 1)
+        if (!inventory.datas.ContainsKey(index) || inventory.count[index] < 1)
             return false;
-        print(am.ActorC.CheckAnimatorStateWithTag("useItem"));
+        //print(am.ActorC.CheckAnimatorStateWithTag("useItem"));
         ItemData itemData = inventory.datas[index];
         if (itemData.curItemType == ItemType.Consumable)
         {

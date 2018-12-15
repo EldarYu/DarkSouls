@@ -31,6 +31,21 @@ public class WeaponManager : MonoBehaviour
         rightWcol = rightWC.GetComponentInChildren<Collider>();
     }
 
+    public void SwitchWeapon(ItemData itemData, Direction direction)
+    {
+        if (direction == Direction.Left)
+        {
+            leftWC.Init(itemData as WeaponData);
+            LeftWCol = leftWC.GetComponentInChildren<Collider>();
+        }
+
+        if (direction == Direction.Right)
+        {
+            rightWC.Init(itemData as WeaponData);
+            rightWcol = rightWC.GetComponentInChildren<Collider>();
+        }
+    }
+
     public void ShowItem(ItemData itemData)
     {
         rightWC.ShowItem(itemData);

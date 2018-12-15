@@ -31,6 +31,8 @@ public class ActorManager : IActorManager
     {
         if (itemData == null)
             return;
+
+        WeaponM.SwitchWeapon(itemData, direction);
     }
 
     public void DoAction()

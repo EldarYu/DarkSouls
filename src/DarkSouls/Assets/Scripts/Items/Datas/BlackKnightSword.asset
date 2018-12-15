@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc6b66bc400198c4aaa7920ec5754172, type: 3}
   m_Name: BlackKnightSword
   m_EditorClassIdentifier: 
-  curItemType: 0
+  curItemType: 1
   itemName: 
   description: 
   img: {fileID: 0}
@@ -22,6 +22,6 @@ MonoBehaviour:
   forMp: 0
   forVigor: 0
   forSoul: 0
-  curWeaponType: 0
-  atk: 0
+  curWeaponType: 1
+  atk: 10
   def: 0
