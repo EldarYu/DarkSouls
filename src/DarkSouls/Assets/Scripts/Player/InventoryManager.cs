@@ -111,6 +111,16 @@ public class InventoryManager : MonoBehaviour
         //*****************
         inventory.AddItem(defaultShield, 1);
         inventory.AddItem(defaultSword, 1);
+
+        inventory.AddItem(defaultSword, 1);
+        inventory.AddItem(defaultSword, 1);
+        inventory.AddItem(defaultSword, 1);
+        inventory.AddItem(defaultSword, 1);
+        inventory.AddItem(defaultSword, 1);
+        inventory.AddItem(defaultSword, 1);
+        inventory.AddItem(defaultSword, 1);
+        inventory.AddItem(defaultSword, 1);
+        inventory.AddItem(defaultSword, 1);
         //*****************
     }
     public void Additem(ItemData itemData, int count = 1)
