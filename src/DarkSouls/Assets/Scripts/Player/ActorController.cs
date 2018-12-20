@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActorController : IActorController
+public class ActorController : IActorController, IHearable
 {
+    public NoiseLevel curNoiseLevel;
     [Header("Move Options")]
     public float walkSpeed = 1.7f;
     public float runMulti = 2.0f;
@@ -52,6 +53,16 @@ public class ActorController : IActorController
 
         if (anim.GetFloat("forward") > 1.9f)
             am.StateM.CountVigor(-am.StateM.state.runCost);
+
+        curNoiseLevel = NoiseLevel.None;
+        if (pi.Run)
+            curNoiseLevel = NoiseLevel.Mid;
+
+        if (pi.LeftAttack || pi.RightAttack || pi.LeftHeavyAttack || pi.RightHeavyAttack)
+            curNoiseLevel = NoiseLevel.Hig;
+
+        if (!pi.Run && pi.Dmag > 0.1f)
+            curNoiseLevel = NoiseLevel.Low;
     }
 
     private void LocolMotion()
@@ -179,6 +190,11 @@ public class ActorController : IActorController
         rigid.velocity = new Vector3(planarVec.x, rigid.velocity.y, planarVec.z) + thrushVec;
         thrushVec = Vector3.zero;
         deltaPos = Vector3.zero;
+    }
+
+    public NoiseLevel GetNoiseLevel()
+    {
+        return curNoiseLevel;
     }
 
     //Sensor 消息
