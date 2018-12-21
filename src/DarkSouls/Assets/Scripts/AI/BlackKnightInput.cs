@@ -1,13 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BlackKnightInput : DummyIPlayerInput
 {
+    private NavMeshAgent navMeshAgent;
+    private void Start()
+    {
+        navMeshAgent = GetComponent<NavMeshAgent>();
+    }
     private void Update()
     {
-        if (target != null)
-            CalculateDistance(target.position);
+        if (!inputEnabled)
+        {
+            targetDup = 0;
+            targetDright = 0;
+        }
+
+        if (nextPoint != null)
+            CalculateDistance(nextPoint);
 
         LockOn = false;
         RightAttack = false;
@@ -16,17 +28,30 @@ public class BlackKnightInput : DummyIPlayerInput
         LeftHeavyAttack = false;
     }
 
-    public override void Move()
+    public override void Move(Vector3 pos)
     {
-        if (target != null)
+        nextPoint = pos;
+        navMeshAgent.destination = nextPoint;
+        Dvec = transform.forward;
+        Dmag = Dvec.normalized.magnitude;
+    }
+
+    public override void LockOnMove()
+    {
+        if (nextPoint != null)
         {
-            Dvec = target.transform.position - transform.position;
-            Dmag = Dvec.normalized.magnitude;
+            Vector3 tmpDir = nextPoint - transform.position;
+            tmpDir.Normalize();
+            Debug.Log("x:" + tmpDir.x + "z:" + tmpDir.z);
+
+            UpdateDmagDvec(-tmpDir.x, -tmpDir.z);
+            //Debug.Log("angle:" + Vector3.Angle(transform.forward, Dvec));
+            //Debug.DrawRay(model.transform.position, Dvec * 10.0f, Color.red, 5.0f);
+            //Dmag = Dvec.normalized.magnitude;
         }
         else
         {
-            Dvec = Vector3.zero;
-            Dmag = 0;
+            UpdateDmagDvec(0, 0);
         }
     }
 
@@ -51,9 +76,9 @@ public class BlackKnightInput : DummyIPlayerInput
         }
     }
 
-    public override void DoRun()
+    public override void DoRun(bool value = true)
     {
-        Run = true;
+        Run = value;
     }
 
     public override void DoLockOn()

@@ -65,11 +65,10 @@ public class TitleController : MonoBehaviour
             first = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape)&& UIManager.Instance.Count > 0)
+        if (Input.GetKeyDown(KeyCode.Escape)&& UIManager.Instance.Count > 1)
         {
             UIManager.Instance.ReturnPrev();
             return;
-
         }
     }
 }
