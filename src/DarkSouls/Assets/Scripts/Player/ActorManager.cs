@@ -4,17 +4,6 @@ using UnityEngine;
 
 public class ActorManager : IActorManager
 {
-    public ActorController ActorC { get; private set; }
-    public StateManager StateM { get; private set; }
-
-    public BattleManager BattleM { get; private set; }
-    public WeaponManager WeaponM { get; private set; }
-    public InteractionManager InteractionM { get; private set; }
-    public DirectorManager DirectorM { get; private set; }
-    public InventoryManager InventoryM { get; private set; }
-    public IPlayerInput PlayerInput { get { return ActorC.pi; } }
-    public EventCasterManager EventCastM { get; private set; }
-
     public bool LeftIsShield { get { return WeaponM.LeftIsShield; } }
     private void Awake()
     {

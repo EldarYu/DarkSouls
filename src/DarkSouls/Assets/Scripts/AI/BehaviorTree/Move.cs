@@ -5,8 +5,8 @@ using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
 using BehaviorDesigner.Runtime;
 
-public class MoveToTarget : Action
+public class Move : Action
 {
-
+    
 }
 

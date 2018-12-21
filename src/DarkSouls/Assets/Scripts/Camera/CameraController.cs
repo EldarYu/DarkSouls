@@ -29,7 +29,7 @@ public class CameraController : MonoBehaviour
 
     [HideInInspector]
     public bool lockState = false;
-    private GameObject player;
+    private GameObject character;
     private GameObject camPivot;
     private GameObject model;
     private GameObject mainCamera;
@@ -41,9 +41,9 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         camPivot = transform.parent.gameObject;
-        player = camPivot.transform.parent.gameObject;
+        character = camPivot.transform.parent.gameObject;
 
-        IActorController ac = player.GetComponent<IActorController>();
+        IActorController ac = character.GetComponent<IActorController>();
         model = ac.model;
         pi = ac.pi;
 
@@ -52,7 +52,7 @@ public class CameraController : MonoBehaviour
             mainCamera = Camera.main.gameObject;
         }
 
-        if (camPivot == null || player == null || model == null || pi == null)
+        if (camPivot == null || character == null || model == null || pi == null)
             this.enabled = false;
     }
 
@@ -60,6 +60,8 @@ public class CameraController : MonoBehaviour
     {
         if (pi.LockOn)
             LockUnlock();
+
+        print(lockTarget.target);
 
         if (lockTarget.target != null)
         {
@@ -89,7 +91,7 @@ public class CameraController : MonoBehaviour
         {
             Vector3 temp = model.transform.eulerAngles;
 
-            player.transform.Rotate(Vector3.up, pi.Jright * horizontalSpeed * Time.fixedDeltaTime);
+            character.transform.Rotate(Vector3.up, pi.Jright * horizontalSpeed * Time.fixedDeltaTime);
             eulerX -= pi.Jup * verticalSpeed * Time.fixedDeltaTime;
             eulerX = Mathf.Clamp(eulerX, minEulerX, maxEulerX);
             camPivot.transform.localEulerAngles = new Vector3(eulerX, 0, 0);
@@ -98,9 +100,9 @@ public class CameraController : MonoBehaviour
         }
         else
         {
-            Vector3 tempForward = lockTarget.target.transform.position - player.transform.position;
+            Vector3 tempForward = lockTarget.target.transform.position - character.transform.position;
             tempForward.y = 0;
-            player.transform.forward = tempForward;
+            character.transform.forward = tempForward;
         }
 
         if (!isAI)

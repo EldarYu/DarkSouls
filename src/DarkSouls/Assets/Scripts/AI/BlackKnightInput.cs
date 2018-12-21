@@ -5,10 +5,10 @@ using UnityEngine.AI;
 
 public class BlackKnightInput : DummyIPlayerInput
 {
-    private NavMeshAgent navMeshAgent;
+    private GameObject model;
     private void Start()
     {
-        navMeshAgent = GetComponent<NavMeshAgent>();
+        model = transform.GetChild(0).gameObject;
     }
     private void Update()
     {
@@ -18,8 +18,6 @@ public class BlackKnightInput : DummyIPlayerInput
             targetDright = 0;
         }
 
-        if (nextPoint != null)
-            CalculateDistance(nextPoint);
 
         LockOn = false;
         RightAttack = false;
@@ -28,31 +26,46 @@ public class BlackKnightInput : DummyIPlayerInput
         LeftHeavyAttack = false;
     }
 
+    public override void FaceTarget()
+    {
+        transform.forward = -target.transform.GetChild(0).transform.forward;
+        model.transform.forward = transform.forward;
+    }
+
     public override void Move(Vector3 pos)
     {
-        nextPoint = pos;
-        navMeshAgent.destination = nextPoint;
-        Dvec = transform.forward;
-        Dmag = Dvec.normalized.magnitude;
+        //nextPoint = pos;
+        //agent.destination = nextPoint;
+        //Vector3 tmp = agent.velocity.normalized;
+
+        //Vector3 tmpDir = nextPoint - model.transform.position;
+        //tmpDir.Normalize();
+        //Debug.Log("x:" + tmpDir.x + "z:" + tmpDir.z);
+
+        //UpdateDmagDvec(tmpDir.z, tmpDir.x);
+    }
+
+    private void CalculateDmagDvec()
+    {
     }
 
     public override void LockOnMove()
     {
-        if (nextPoint != null)
-        {
-            Vector3 tmpDir = nextPoint - transform.position;
-            tmpDir.Normalize();
-            Debug.Log("x:" + tmpDir.x + "z:" + tmpDir.z);
+        //if (nextPoint != null)
+        //{
+        //    Vector3 tmpDir = nextPoint - transform.position;
+        //    tmpDir.Normalize();
+        //    Debug.Log("x:" + tmpDir.x + "z:" + tmpDir.z);
 
-            UpdateDmagDvec(-tmpDir.x, -tmpDir.z);
-            //Debug.Log("angle:" + Vector3.Angle(transform.forward, Dvec));
-            //Debug.DrawRay(model.transform.position, Dvec * 10.0f, Color.red, 5.0f);
-            //Dmag = Dvec.normalized.magnitude;
-        }
-        else
-        {
-            UpdateDmagDvec(0, 0);
-        }
+        //    UpdateDmagDvec(-tmpDir.x, -tmpDir.z);
+        //    //Debug.Log("angle:" + Vector3.Angle(transform.forward, Dvec));
+        //    //Debug.DrawRay(model.transform.position, Dvec * 10.0f, Color.red, 5.0f);
+        //    //Dmag = Dvec.normalized.magnitude;
+        //}
+        //else
+        //{
+        //    UpdateDmagDvec(0, 0);
+        //}
     }
 
     public override void Attack(Direction direction, bool isHeavy = false)

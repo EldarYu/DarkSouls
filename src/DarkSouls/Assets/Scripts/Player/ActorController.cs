@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ActorController : IActorController, IHearable
 {
+    public bool isAI = false;
     public NoiseLevel curNoiseLevel;
     [Header("Move Options")]
     public float walkSpeed = 1.7f;
