@@ -22,12 +22,10 @@ public class ActorController : IActorController, IHearable
     private bool trackDirection = false;
     private bool canAttack;
 
+
     [Header("Physic")]
     public PhysicMaterial fricitionOne;
     public PhysicMaterial fricitionZero;
-
-    public delegate void OnActionHandle();
-    public event OnActionHandle OnActionPressed;
 
     private CapsuleCollider col;
     private ActorManager am;
@@ -182,7 +180,7 @@ public class ActorController : IActorController, IHearable
     void Action()
     {
         if (pi.Action)
-            OnActionPressed.Invoke();
+            ActionPressed();
     }
 
     private void FixedUpdate()

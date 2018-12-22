@@ -10,26 +10,32 @@ public class WeaponManager : MonoBehaviour
     private WeaponController rightWC;
     private Collider LeftWCol;
     private Collider rightWcol;
+    public bool leftHasWeapon;
+    public bool rightHasWeapon;
     public bool isAI;
     [HideInInspector]
-    public ActorManager am;
+    public IActorManager am;
     public WeaponController RightWC { get { return rightWC; } }
     public bool LeftIsShield { get { return leftWC.IsShield; } }
     private void Awake()
     {
-        am = GetComponentInParent<ActorManager>();
-        leftWC = gameObject.AddComponentInChildren<WeaponController>("LeftWeaponHandle");
-        leftWC.wm = this;
-        rightWC = gameObject.AddComponentInChildren<WeaponController>("RightWeaponHandle");
-        rightWC.wm = this;
-        leftWC.isAI = isAI;
-        rightWC.isAI = isAI;
-        //*****************
-        leftWC.Init(defaultShield.name, defaultShield, defaultShield.obj);
-        rightWC.Init(defaultSword.name, defaultSword, defaultSword.obj);
-        //*****************
-        LeftWCol = leftWC.GetComponentInChildren<Collider>();
-        rightWcol = rightWC.GetComponentInChildren<Collider>();
+        am = GetComponentInParent<IActorManager>();
+        if (leftHasWeapon)
+        {
+            leftWC = gameObject.AddComponentInChildren<WeaponController>("LeftWeaponHandle");
+            leftWC.wm = this;
+            leftWC.isAI = isAI;
+            leftWC.Init(defaultShield.name, defaultShield, defaultShield.obj);
+            LeftWCol = leftWC.GetComponentInChildren<Collider>();
+        }
+        if (rightHasWeapon)
+        {
+            rightWC = gameObject.AddComponentInChildren<WeaponController>("RightWeaponHandle");
+            rightWC.wm = this;
+            rightWC.isAI = isAI;
+            rightWC.Init(defaultSword.name, defaultSword, defaultSword.obj);
+            rightWcol = rightWC.GetComponentInChildren<Collider>();
+        }
     }
 
     public void SwitchWeapon(ItemData itemData, Direction direction)

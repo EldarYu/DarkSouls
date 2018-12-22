@@ -12,8 +12,13 @@ public abstract class IActorController : MonoBehaviour
     public GameObject model;
     [HideInInspector]
     public CameraController camcon;
-    protected Animator anim;
-
+    public Animator anim;
+    public delegate void OnActionHandle();
+    public event OnActionHandle OnActionPressed;
+    public void ActionPressed()
+    {
+        OnActionPressed.Invoke();
+    }
     public virtual bool CheckAnimatorStateWithName(string stateName, string layerName = "Base")
     {
         return anim.GetCurrentAnimatorStateInfo(anim.GetLayerIndex(layerName)).IsName(stateName);

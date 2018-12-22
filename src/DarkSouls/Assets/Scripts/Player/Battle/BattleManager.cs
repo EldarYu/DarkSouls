@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
-    private ActorManager am;
+    private IActorManager am;
     private void Awake()
     {
-        am = transform.parent.GetComponent<ActorManager>();
+        am = transform.parent.GetComponent<IActorManager>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.name);
         if (other.CompareTag("Weapon"))
         {
             WeaponController targetWC = other.gameObject.GetComponentInParent<WeaponController>();

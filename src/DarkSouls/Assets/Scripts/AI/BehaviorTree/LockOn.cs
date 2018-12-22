@@ -15,12 +15,11 @@ public class LockOn : Action
         input = GetComponent<DummyIPlayerInput>();
         actorManager = GetComponent<ActorManager>();
         input.target = target.Value;
-        input.FaceTarget();
     }
 
     public override TaskStatus OnUpdate()
     {
-        input.DoLockOn();
+        actorManager.ActorC.camcon.LockUnlock(target.Value);
         if (actorManager.IsLockState)
             return TaskStatus.Success;
         else

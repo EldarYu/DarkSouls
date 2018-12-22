@@ -103,7 +103,7 @@ public class ActorManager : IActorManager
         return StateM.state.Vigor > StateM.state.heavyAttackCost;
     }
 
-    public void TryDoDamage(WeaponController targetWC, bool attackVaild, bool counterVaild)
+    public override void TryDoDamage(WeaponController targetWC, bool attackVaild, bool counterVaild)
     {
         if (attackVaild)
         {
@@ -130,12 +130,12 @@ public class ActorManager : IActorManager
         }
     }
 
-    public float GetAtk()
+    public override float GetAtk()
     {
         return StateM.state.Attack;
     }
 
-    public void SetCounterBackEnable(bool enable)
+    public override void SetCounterBackEnable(bool enable)
     {
         StateM.isCounterBackEnable = enable;
     }
@@ -152,14 +152,13 @@ public class ActorManager : IActorManager
 
     public override void HitOrDie(float hitAmount, bool doHitAnimation = true)
     {
-        print(hitAmount);
         if (StateM.state.HP <= 0)
         {
 
         }
         else
         {
-            //StateM.CountHp(-hitAmount);
+            StateM.CountHp(-hitAmount);
             if (StateM.state.HP > 0)
             {
                 if (doHitAnimation)
@@ -172,7 +171,7 @@ public class ActorManager : IActorManager
         }
     }
 
-    private void Stunned()
+    public override void Stunned()
     {
         ActorC.IssueTrigger("stunned");
     }

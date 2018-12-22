@@ -61,8 +61,6 @@ public class CameraController : MonoBehaviour
         if (pi.LockOn)
             LockUnlock();
 
-        print(lockTarget.target);
-
         if (lockTarget.target != null)
         {
             lockState = true;
@@ -82,6 +80,7 @@ public class CameraController : MonoBehaviour
         else
         {
             lockState = false;
+            lockDot.gameObject.SetActive(false);
         }
     }
 
@@ -132,6 +131,13 @@ public class CameraController : MonoBehaviour
 
             LockUnlock(temp.gameObject, temp.bounds.extents.y, temp.gameObject.GetComponent<ActorManager>(), true);
         }
+    }
+
+    public void LockUnlock(GameObject target)
+    {
+        lockTarget.target = target;
+        lockTarget.halfHeight = 0;
+        lockTarget.am = null;
     }
 
     private void LockUnlock(GameObject target, float halfHeight = 0, ActorManager am = null, bool lookDotEnable = false)

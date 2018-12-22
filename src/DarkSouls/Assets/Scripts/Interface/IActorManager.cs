@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class IActorManager : MonoBehaviour
 {
-    public ActorController ActorC { get; protected set; }
+    public IActorController ActorC { get; protected set; }
     public StateManager StateM { get; protected set; }
 
     public BattleManager BattleM { get; protected set; }
@@ -21,4 +21,8 @@ public class IActorManager : MonoBehaviour
     public virtual Animator GetAnimator() { return null; }
     public virtual void LockUnlockAnimator(bool value = true) { }
     public virtual void HitOrDie(float hitAmount, bool doHitAnimation = true) { }
+    public virtual void TryDoDamage(WeaponController targetWC, bool attackVaild, bool counterVaild) { }
+    public virtual void SetCounterBackEnable(bool enable) { }
+    public virtual float GetAtk() { return 0; }
+    public virtual void Stunned() { }
 }

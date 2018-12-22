@@ -21,9 +21,9 @@ GameObject:
   - component: {fileID: 4175223057679496}
   - component: {fileID: 33728837068254778}
   - component: {fileID: 23319170838662196}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: EstusFlask
-  m_TagString: Weapon
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc6b66bc400198c4aaa7920ec5754172, type: 3}
+  m_Name: ArtoriasSword
+  m_EditorClassIdentifier: 
+  curItemType: 0
+  itemName: 
+  description: 
+  img: {fileID: 0}
+  amount: 0
+  obj: {fileID: 1246309860287936, guid: 5c318f184ed439b47a592df2a8b04e42, type: 2}
+  allowOverlay: 0
+  forHp: 0
+  forMp: 0
+  forVigor: 0
+  forSoul: 0
+  curWeaponType: 0
+  atk: 25
+  def: 0
+  otherSideObj: {fileID: 0}

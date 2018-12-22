@@ -5,31 +5,37 @@ using UnityEngine.AI;
 
 public class BlackKnightInput : DummyIPlayerInput
 {
-    private GameObject model;
-    private void Start()
-    {
-        model = transform.GetChild(0).gameObject;
-    }
     private void Update()
     {
+        if (target != null)
+            distance = Vector3.Distance(transform.position, target.transform.position);
+
         if (!inputEnabled)
         {
             targetDup = 0;
             targetDright = 0;
         }
-
-
         LockOn = false;
         RightAttack = false;
         LeftAttack = false;
         RightHeavyAttack = false;
         LeftHeavyAttack = false;
+        print("Dmag:" + Dmag + "Dvec:" + Dvec);
     }
 
-    public override void FaceTarget()
+    public override void StopMove()
     {
-        transform.forward = -target.transform.GetChild(0).transform.forward;
-        model.transform.forward = transform.forward;
+        UpdateDmagDvec(0, 0);
+    }
+
+    public override void MoveForward()
+    {
+        UpdateDmagDvec(1.0f, 0);
+    }
+
+    public override void MoveLeft()
+    {
+        UpdateDmagDvec(0, -1.0f);
     }
 
     public override void Move(Vector3 pos)
