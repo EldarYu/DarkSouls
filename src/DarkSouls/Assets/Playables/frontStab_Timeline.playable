@@ -110,7 +110,7 @@ MonoBehaviour:
   template:
     am: {fileID: 0}
   am:
-    exposedName: ec4d59dc-7998-4403-85ea-9c5a19f928e1
+    exposedName: b27f7e1c-19f4-4c0f-b62d-4ade1f0c2741
     defaultValue: {fileID: 0}
 --- !u!114 &114498077969535126
 MonoBehaviour:
@@ -142,7 +142,7 @@ MonoBehaviour:
   template:
     am: {fileID: 0}
   am:
-    exposedName: 2c764c75-3f3a-4f4e-a243-2386e81b2a81
+    exposedName: ba252ad1-fe50-4552-ace6-c6d0b390fac9
     defaultValue: {fileID: 0}
 --- !u!114 &114564570357224832
 MonoBehaviour:
@@ -268,6 +268,23 @@ MonoBehaviour:
   am:
     exposedName: 
     defaultValue: {fileID: 0}
+--- !u!114 &114683010948995026
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 2024714994, guid: 6a10b2909283487f913b00d94cd3faf5, type: 3}
+  m_Name: AnimationPlayableAsset of idle
+  m_EditorClassIdentifier: 
+  m_Clip: {fileID: 7400000, guid: a044b3b8c0ecc2f4ab0b7113135b170d, type: 3}
+  m_Position: {x: 0, y: 0, z: 0}
+  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
+  m_UseTrackMatchFields: 0
+  m_MatchTargetFields: 63
+  m_RemoveStartOffset: 1
 --- !u!114 &114806528850160850
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -488,7 +505,7 @@ MonoBehaviour:
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
     m_BlendInDuration: -1
-    m_BlendOutDuration: -1
+    m_BlendOutDuration: 0.21666666666666679
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -532,9 +549,66 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 0
     m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: Infinity
+    m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
     m_DisplayName: stabbedFront
+    m_Version: 1
+  - m_Start: 6.283333333333333
+    m_ClipIn: 0
+    m_Asset: {fileID: 114683010948995026}
+    m_Duration: 0.41666666666666696
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 114950299367139260}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 0.21666666666666679
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 1
+    m_PreExtrapolationMode: 1
+    m_PostExtrapolationTime: Infinity
+    m_PreExtrapolationTime: 0
+    m_DisplayName: idle
     m_Version: 1
   m_OpenClipPreExtrapolation: 0
   m_OpenClipPostExtrapolation: 0

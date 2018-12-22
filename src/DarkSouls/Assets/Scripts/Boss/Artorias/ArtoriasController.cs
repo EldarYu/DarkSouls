@@ -17,8 +17,10 @@ public class ArtoriasController : IActorController
     private Vector3 deltaPos;
     private Vector3 thrushVec;
     private bool canAttack;
+    private ArtoriasManager am;
     void Awake()
     {
+        am = GetComponent<ArtoriasManager>();
         rigid = GetComponent<Rigidbody>();
         model = transform.GetChild(0).gameObject;
         anim = model.GetComponent<Animator>();
@@ -32,5 +34,15 @@ public class ArtoriasController : IActorController
         rigid.velocity = thrushVec;
         thrushVec = Vector3.zero;
         deltaPos = Vector3.zero;
+    }
+
+    void OnStunnedEnter()
+    {
+        am.ECMOn();
+    }
+
+    void OnStunnedExit()
+    {
+        am.ECMOff();
     }
 }

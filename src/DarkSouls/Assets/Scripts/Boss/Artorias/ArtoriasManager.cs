@@ -32,6 +32,7 @@ public class ArtoriasManager : IActorManager
         ActorC = GetComponent<IActorController>();
         agent = GetComponent<NavMeshAgent>();
         WeaponM = GetComponentInChildren<WeaponManager>();
+        EventCastM = GetComponentInChildren<EventCasterManager>();
         CurHp = maxHp;
         IsChargeEnd = false;
 
@@ -69,7 +70,7 @@ public class ArtoriasManager : IActorManager
         }
 
         forward = agent.velocity.magnitude;
-        ActorC.anim.SetFloat("forward", forward);
+        ActorC.SetAnimatorFloat("forward", forward);
     }
 
     public void SetTarget()
@@ -134,8 +135,35 @@ public class ArtoriasManager : IActorManager
         }
     }
 
+    public override void Stunned()
+    {
+        ActorC.IssueTrigger("stunned");
+    }
+
     public void Die()
     {
         ActorC.IssueTrigger("die");
+    }
+
+    public override void LockUnlockAnimator(bool value = true)
+    {
+        ActorC.SetAnimatorBool("lock", value);
+    }
+
+    public void ECMOn()
+    {
+        if (EventCastM != null)
+            EventCastM.active = true;
+    }
+
+    public void ECMOff()
+    {
+        if (EventCastM != null)
+            EventCastM.active = false;
+    }
+
+    public override Animator GetAnimator()
+    {
+        return ActorC.GetAnimator();
     }
 }

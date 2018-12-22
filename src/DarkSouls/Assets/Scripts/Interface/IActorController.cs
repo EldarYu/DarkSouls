@@ -12,7 +12,7 @@ public abstract class IActorController : MonoBehaviour
     public GameObject model;
     [HideInInspector]
     public CameraController camcon;
-    public Animator anim;
+    protected Animator anim;
     public delegate void OnActionHandle();
     public event OnActionHandle OnActionPressed;
     public void ActionPressed()
@@ -29,6 +29,10 @@ public abstract class IActorController : MonoBehaviour
         return anim.GetCurrentAnimatorStateInfo(anim.GetLayerIndex(layerName)).IsTag(tagName);
     }
 
+    public virtual void SetAnimatorFloat(string fieldName, float value)
+    {
+        anim.SetFloat(fieldName, value);
+    }
     public virtual void IssueTrigger(string triggerName)
     {
         anim.SetTrigger(triggerName);
