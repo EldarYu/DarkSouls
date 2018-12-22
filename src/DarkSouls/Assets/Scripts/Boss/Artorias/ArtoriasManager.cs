@@ -5,17 +5,36 @@ using UnityEngine.AI;
 
 public class ArtoriasManager : IActorManager
 {
+    public string bossName;
+    public float maxHp = 1500;
+    public float atk = 5.0f;
+    public float chageFinalIncrement = 3.0f;
+    private float curHp;
+    public float CurHp
+    {
+        get
+        {
+            return curHp;
+        }
+        private set
+        {
+            curHp = Mathf.Clamp(value, 0, maxHp);
+        }
+    }
+    public bool IsChargeEnd { get; private set; }
     public GameObject target;
     public float distance;
-    public bool isChargeEnd = false;
     public NavMeshAgent agent;
-
+    public bool IsImmortal { get { return ActorC.CheckAnimatorStateWithName("charge"); } }
     private float forward;
     void Awake()
     {
         ActorC = GetComponent<IActorController>();
         agent = GetComponent<NavMeshAgent>();
         WeaponM = GetComponentInChildren<WeaponManager>();
+        CurHp = maxHp;
+        IsChargeEnd = false;
+
         //
         TestFun();
     }
@@ -80,5 +99,43 @@ public class ArtoriasManager : IActorManager
         ActorC.SetAnimatorBool("charge", true);
     }
 
+    public override void TryDoDamage(WeaponController targetWC, bool attackVaild, bool counterVaild)
+    {
+        if (attackVaild)
+        {
+            if (IsImmortal)
+            {
 
+            }
+            else
+            {
+                HitOrDie(targetWC.Atk + targetWC.wm.am.GetAtk(), false);
+            }
+        }
+        Debug.Log("Count hp");
+    }
+
+    public override float GetAtk()
+    {
+        return IsChargeEnd ? atk : atk * chageFinalIncrement;
+    }
+
+    public override void HitOrDie(float hitAmount, bool doHitAnimation = true)
+    {
+        if (CurHp <= 0)
+        {
+
+        }
+        else
+        {
+            CurHp -= hitAmount;
+            if (curHp <= 0)
+                Die();
+        }
+    }
+
+    public void Die()
+    {
+        ActorC.IssueTrigger("die");
+    }
 }

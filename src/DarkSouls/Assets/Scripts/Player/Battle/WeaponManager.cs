@@ -79,8 +79,10 @@ public class WeaponManager : MonoBehaviour
 
     void WeaponDisable()
     {
-        LeftWCol.enabled = false;
-        rightWcol.enabled = false;
+        if (LeftWCol != null)
+            LeftWCol.enabled = false;
+        if (rightWcol != null)
+            rightWcol.enabled = false;
     }
 
     void CounterBackEnable()

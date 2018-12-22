@@ -63,6 +63,20 @@ AnimatorController:
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
+--- !u!114 &114569548505957818
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d29dfaec3a95924ba6344b83a055b36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnterMessages: []
+  onUpdateMessages: []
+  onExitMessages: []
 --- !u!114 &114589125783138880
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -462,7 +476,7 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: e0ec6ac06ae572a4c94a8fd50bd0df27, type: 3}
-  m_Tag: 
+  m_Tag: attackR
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
@@ -478,7 +492,8 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101987052338815550}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: 114569548505957818}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -488,7 +503,7 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: f56459dcc354b374da44e34cc00004da, type: 3}
-  m_Tag: 
+  m_Tag: attackR
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
@@ -544,7 +559,7 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: 2c9a770a52b55be42ae93c333cdf3c99, type: 3}
-  m_Tag: 
+  m_Tag: attackR
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
