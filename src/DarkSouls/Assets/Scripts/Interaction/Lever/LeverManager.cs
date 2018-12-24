@@ -20,6 +20,7 @@ public class LeverManager : BoxManager
 
     public override void UpOrDown()
     {
-        lever.UpOrDown();
+        Debug.Log("lever up");
+        lever.UpOrDown(false);
     }
 }

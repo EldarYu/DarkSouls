@@ -10,13 +10,11 @@ public class Lever : MonoBehaviour
     public List<Vector3> leverPos;
     public Transform trigger;
     public List<Vector3> triggerPos;
-    public LayerMask triggerCheckLayer;
     private int curLeverPosIndex;
     private int curTriggerPosIndex;
     private bool isLeverLifting = false;
     private bool isTriggerLifting = false;
-    private Vector3 velocity;
-    // Use this for initialization
+    private Vector3 leverVelocity;
     void Start()
     {
         curLeverPosIndex = 0;
@@ -25,14 +23,11 @@ public class Lever : MonoBehaviour
         isLeverLifting = true;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        CheckTrigger();
         if (isLeverLifting)
         {
-            //lever.transform.DOLocalMove(leverPos[curLeverPosIndex], 5.0f);
-            lever.localPosition = Vector3.SmoothDamp(lever.localPosition, leverPos[curLeverPosIndex], ref velocity, 5.0f);
+            lever.localPosition = Vector3.SmoothDamp(lever.localPosition, leverPos[curLeverPosIndex], ref leverVelocity, 5.0f);
             if (Vector3.Distance(lever.localPosition, leverPos[curLeverPosIndex]) < 0.3f)
                 isLeverLifting = false;
         }
@@ -45,35 +40,39 @@ public class Lever : MonoBehaviour
         }
     }
 
-    public void CheckTrigger()
+    public void Trigger(bool isEnter)
     {
-        isTriggerLifting = true;
-
-#if UNITY_EDITOR
-        Debug.DrawRay(trigger.position, Vector3.up * 0.5f, Color.red);
-#endif
-
-        if (Physics.Raycast(trigger.position, Vector3.up, 0.5f, triggerCheckLayer))
+        if (isEnter)
         {
             curTriggerPosIndex = 1;
+            isTriggerLifting = true;
             UpOrDown();
         }
         else
         {
             curTriggerPosIndex = 0;
+            isTriggerLifting = true;
         }
     }
 
-    public void UpOrDown()
+    public void UpOrDown(bool isTrigger = true)
     {
         if (isLeverLifting)
         {
             return;
         }
+        else if (isTrigger)
+        {
+            leverManagers[curLeverPosIndex].Init(true);
+            NextIndex();
+            leverManagers[curLeverPosIndex].Init(false);
+            isLeverLifting = true;
+        }
         else
         {
-            isLeverLifting = true;
             NextIndex();
+            leverManagers[curLeverPosIndex].Init(true);
+            isLeverLifting = true;
         }
     }
 
