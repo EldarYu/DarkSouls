@@ -17,7 +17,8 @@ public abstract class IActorController : MonoBehaviour
     public event OnActionHandle OnActionPressed;
     public void ActionPressed()
     {
-        OnActionPressed.Invoke();
+        if (OnActionPressed != null)
+            OnActionPressed.Invoke();
     }
     public virtual bool CheckAnimatorStateWithName(string stateName, string layerName = "Base")
     {

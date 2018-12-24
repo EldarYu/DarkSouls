@@ -11,14 +11,14 @@ public class HudController : MonoBehaviour
         private float vigor;
         private float mp;
         private long souls;
-        private float velovityHp;
-        private float velovityVigor;
-        private float velovityMp;
+        private float velocityHp;
+        private float velocityVigor;
+        private float velocityMp;
         public void Tick(HudView hudView, StateManager sm)
         {
-            hp = Mathf.SmoothDamp(hp, sm.state.HP, ref velovityHp, 0.1f);
-            vigor = Mathf.SmoothDamp(vigor, sm.state.Vigor, ref velovityVigor, 0.1f);
-            mp = Mathf.SmoothDamp(mp, sm.state.MP, ref velovityMp, 0.1f);
+            hp = Mathf.SmoothDamp(hp, sm.state.HP, ref velocityHp, 0.1f);
+            vigor = Mathf.SmoothDamp(vigor, sm.state.Vigor, ref velocityVigor, 0.1f);
+            mp = Mathf.SmoothDamp(mp, sm.state.MP, ref velocityMp, 0.1f);
             souls = Helper.SmoothDamp(souls, sm.state.souls, 100);
 
             hudView.stateView.hp.fillAmount = hp / sm.state.MaxHP;
@@ -28,6 +28,43 @@ public class HudController : MonoBehaviour
         }
     }
     public StateController stateController;
+    [System.Serializable]
+    public class BossStateController
+    {
+        private IActorManager bossAm;
+        private HudView hudView;
+        private float bossHp;
+        private float velocityHp;
+        public void Init(HudView _hudview)
+        {
+            hudView = _hudview;
+
+        }
+        public void Tick()
+        {
+            if (bossAm != null)
+            {
+                if (bossAm.IsDie())
+                {
+                    hudView.bossStateView.parent.SetActive(false);
+                    bossHp = 0;
+                    hudView.bossStateView.bosName.text = "";
+                    bossAm = null;
+                    return;
+                }
+                bossHp = Mathf.SmoothDamp(bossHp, bossAm.bossHp, ref velocityHp, 0.1f);
+                hudView.bossStateView.bossHp.fillAmount = bossHp / bossAm.maxBossHp;
+            }
+
+        }
+        public void SetBossInfo(IActorManager _bossAm)
+        {
+            bossAm = _bossAm;
+            hudView.bossStateView.parent.SetActive(true);
+            hudView.bossStateView.bosName.text = bossAm.bossName;
+        }
+    }
+    public BossStateController bossStateController;
     [System.Serializable]
     public class ShortcutController
     {
@@ -166,10 +203,12 @@ public class HudController : MonoBehaviour
         hudView = GetComponent<HudView>();
         newItemInfoController.Init(am, hudView);
         shortcutController.Init(am, hudView);
+        bossStateController.Init(hudView);
     }
     void Update()
     {
         stateController.Tick(hudView, am.StateM);
+        bossStateController.Tick();
         shortcutController.Tick();
         newItemInfoController.Tick(Time.deltaTime);
         SetActive(am.CanDoAction());

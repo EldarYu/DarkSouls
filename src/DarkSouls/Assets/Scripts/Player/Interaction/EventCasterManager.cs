@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum EventCasterType
 {
-    OpenBox, FrontStab, LeverUp
+    OpenBox, FrontStab, LeverUp, OpenDoor
 }
 
 public class EventCasterManager : MonoBehaviour

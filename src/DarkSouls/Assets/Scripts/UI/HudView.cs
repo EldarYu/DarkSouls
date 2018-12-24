@@ -15,6 +15,14 @@ public class HudView : MonoBehaviour
     }
     public StateView stateView;
     [System.Serializable]
+    public class BossStateView
+    {
+        public GameObject parent;
+        public Text bosName;
+        public Image bossHp;
+    }
+    public BossStateView bossStateView;
+    [System.Serializable]
     public class ShortcutView
     {
         public ShortcutSlotView left;

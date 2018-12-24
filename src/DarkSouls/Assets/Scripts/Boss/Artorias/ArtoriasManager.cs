@@ -5,20 +5,17 @@ using UnityEngine.AI;
 
 public class ArtoriasManager : IActorManager
 {
-    public string bossName;
-    public float maxHp = 1500;
     public float atk = 5.0f;
     public float chageFinalIncrement = 3.0f;
-    private float curHp;
     public float CurHp
     {
         get
         {
-            return curHp;
+            return bossHp;
         }
         private set
         {
-            curHp = Mathf.Clamp(value, 0, maxHp);
+            bossHp = Mathf.Clamp(value, 0, maxBossHp);
         }
     }
     public override bool IsDie()
@@ -37,11 +34,8 @@ public class ArtoriasManager : IActorManager
         agent = GetComponent<NavMeshAgent>();
         WeaponM = GetComponentInChildren<WeaponManager>();
         EventCastM = GetComponentInChildren<EventCasterManager>();
-        CurHp = maxHp;
+        CurHp = maxBossHp;
         IsChargeEnd = false;
-
-        //
-        //LockTarget(GameObject.FindGameObjectWithTag("Player"));
     }
 
     public override void LockTarget(GameObject target)
@@ -52,6 +46,9 @@ public class ArtoriasManager : IActorManager
 
     void Update()
     {
+        if (IsDie())
+            return;
+
         if (target != null)
         {
             distance = Vector3.Distance(transform.position, target.transform.position);
@@ -117,7 +114,6 @@ public class ArtoriasManager : IActorManager
                 HitOrDie(targetWC.Atk + targetWC.wm.am.GetAtk(), false);
             }
         }
-        Debug.Log("Count hp");
     }
 
     public override float GetAtk()
@@ -134,8 +130,10 @@ public class ArtoriasManager : IActorManager
         else
         {
             CurHp -= hitAmount;
-            if (curHp <= 0)
+            if (bossHp <= 0)
+            {
                 Die();
+            }
         }
     }
 

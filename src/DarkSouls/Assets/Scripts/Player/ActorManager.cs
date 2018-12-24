@@ -42,6 +42,9 @@ public class ActorManager : IActorManager
             {
                 switch (ecastm.eventType)
                 {
+                    case EventCasterType.OpenDoor:
+                        transform.position += transform.forward * 2;
+                        break;
                     case EventCasterType.LeverUp:
                         ecastm.am.UpOrDown();
                         break;
