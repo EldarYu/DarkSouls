@@ -9,18 +9,18 @@ public class LockOn : Action
 {
     public SharedGameObject target;
     private DummyIPlayerInput input;
-    private IActorManager actorManager;
+    private IActorManager am;
     public override void OnStart()
     {
         input = GetComponent<DummyIPlayerInput>();
-        actorManager = GetComponent<ActorManager>();
+        am = GetComponent<ActorManager>();
         input.target = target.Value;
     }
 
     public override TaskStatus OnUpdate()
     {
-        actorManager.ActorC.camcon.LockUnlock(target.Value);
-        if (actorManager.IsLockState)
+        am.LockTarget(target.Value);
+        if (am.IsLockState)
             return TaskStatus.Success;
         else
             return TaskStatus.Running;

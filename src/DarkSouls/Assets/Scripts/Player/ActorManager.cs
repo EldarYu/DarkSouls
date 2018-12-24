@@ -5,6 +5,10 @@ using UnityEngine;
 public class ActorManager : IActorManager
 {
     public bool LeftIsShield { get { return WeaponM.LeftIsShield; } }
+    public override bool IsDie()
+    {
+        return StateM.isDie;
+    }
     private void Awake()
     {
         BattleM = GetComponentInChildren<BattleManager>();

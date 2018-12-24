@@ -21,6 +21,10 @@ public class ArtoriasManager : IActorManager
             curHp = Mathf.Clamp(value, 0, maxHp);
         }
     }
+    public override bool IsDie()
+    {
+        return CurHp <= 0;
+    }
     public bool IsChargeEnd { get; private set; }
     public GameObject target;
     public float distance;
@@ -37,12 +41,12 @@ public class ArtoriasManager : IActorManager
         IsChargeEnd = false;
 
         //
-        TestFun();
+        LockTarget(GameObject.FindGameObjectWithTag("Player"));
     }
 
-    void TestFun()
+    public override void LockTarget(GameObject target)
     {
-        target = GameObject.FindWithTag("Player");
+        this.target = target;
         SetTarget();
     }
 

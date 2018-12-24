@@ -18,11 +18,13 @@ public class IActorManager : MonoBehaviour
     public EventCasterManager EventCastM { get; protected set; }
     public bool IsLockState { get { return ActorC.camcon.lockState; } }
 
+    public virtual bool IsDie() { return false; }
     public virtual Animator GetAnimator() { return null; }
     public virtual void LockUnlockAnimator(bool value = true) { }
     public virtual void HitOrDie(float hitAmount, bool doHitAnimation = true) { }
     public virtual void TryDoDamage(WeaponController targetWC, bool attackVaild, bool counterVaild) { }
     public virtual void SetCounterBackEnable(bool enable) { }
     public virtual float GetAtk() { return 0; }
+    public virtual void LockTarget(GameObject target) { }
     public virtual void Stunned() { }
 }
