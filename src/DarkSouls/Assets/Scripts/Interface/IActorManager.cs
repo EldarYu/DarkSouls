@@ -27,4 +27,5 @@ public class IActorManager : MonoBehaviour
     public virtual float GetAtk() { return 0; }
     public virtual void LockTarget(GameObject target) { }
     public virtual void Stunned() { }
+    public virtual void UpOrDown() { }
 }

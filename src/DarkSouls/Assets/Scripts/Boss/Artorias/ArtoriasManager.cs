@@ -41,7 +41,7 @@ public class ArtoriasManager : IActorManager
         IsChargeEnd = false;
 
         //
-        LockTarget(GameObject.FindGameObjectWithTag("Player"));
+        //LockTarget(GameObject.FindGameObjectWithTag("Player"));
     }
 
     public override void LockTarget(GameObject target)

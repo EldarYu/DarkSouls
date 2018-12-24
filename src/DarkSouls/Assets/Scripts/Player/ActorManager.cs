@@ -42,6 +42,9 @@ public class ActorManager : IActorManager
             {
                 switch (ecastm.eventType)
                 {
+                    case EventCasterType.LeverUp:
+                        ecastm.am.UpOrDown();
+                        break;
                     case EventCasterType.OpenBox:
                         AddItem(ecastm.itemData, ecastm.itemCount);
                         break;

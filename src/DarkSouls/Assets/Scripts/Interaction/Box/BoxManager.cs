@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class BoxManager : IActorManager
 {
-    private Animator anim;
-    private EventCasterManager em;
+    protected Animator anim;
+    protected EventCasterManager em;
     private void Start()
     {
         anim = GetComponentInChildren<Animator>();
