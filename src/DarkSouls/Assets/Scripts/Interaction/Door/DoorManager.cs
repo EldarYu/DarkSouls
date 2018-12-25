@@ -22,9 +22,9 @@ public class DoorManager : IActorManager
         }
     }
 
-    public override void StartBossBattle()
+    public override void StartBossBattle(GameObject obj)
     {
-        bossAm.LockTarget(GameObject.FindGameObjectWithTag("Player"));
+        bossAm.LockTarget(obj);
         hudController.bossStateController.SetBossInfo(bossAm);
     }
 }

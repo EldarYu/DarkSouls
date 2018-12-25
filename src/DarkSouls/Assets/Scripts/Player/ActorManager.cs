@@ -5,6 +5,8 @@ using UnityEngine;
 public class ActorManager : IActorManager
 {
     public bool LeftIsShield { get { return WeaponM.LeftIsShield; } }
+    public delegate void Dead();
+    public event Dead OnDead;
     public override bool IsDie()
     {
         return StateM.isDie;
@@ -43,7 +45,8 @@ public class ActorManager : IActorManager
                 switch (ecastm.eventType)
                 {
                     case EventCasterType.OpenDoor:
-                        transform.position += transform.forward * 2;
+                        transform.position += transform.forward * 3;
+                        ecastm.am.StartBossBattle(this.gameObject);
                         break;
                     case EventCasterType.LeverUp:
                         ecastm.am.UpOrDown();
@@ -77,7 +80,8 @@ public class ActorManager : IActorManager
     {
         if (InventoryM.UseItem(index, amount))
         {
-            WeaponM.ShowItem(InventoryM[index]);
+            if (!InventoryM[index].forSoul)
+                WeaponM.ShowItem(InventoryM[index]);
             return true;
         }
         return false;
@@ -208,7 +212,7 @@ public class ActorManager : IActorManager
         ActorC.IssueTrigger("hit");
     }
 
-    private void Die()
+    public void Die()
     {
         ActorC.IssueTrigger("die");
         ActorC.pi.inputEnabled = false;
@@ -218,5 +222,7 @@ public class ActorManager : IActorManager
             ActorC.camcon.lockDot.enabled = false;
         }
         ActorC.camcon.enabled = false;
+        if (OnDead != null)
+            OnDead.Invoke();
     }
 }

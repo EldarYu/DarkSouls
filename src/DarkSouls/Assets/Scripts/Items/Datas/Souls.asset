@@ -13,9 +13,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curItemType: 2
   itemName: "\u5927\u91CF\u7075\u9B42"
-  description: "\u5927\u91CF\u7075\u9B42"
+  description: "1E\u7075\u9B42"
   img: {fileID: 21300114, guid: 7ab62f81848debc4daa8c4380846902f, type: 3}
-  amount: 50000
+  amount: 100000000
   obj: {fileID: 0}
   allowOverlay: 1
   forHp: 0

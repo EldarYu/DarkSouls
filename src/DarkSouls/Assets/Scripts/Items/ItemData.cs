@@ -31,6 +31,8 @@ public class ItemData : ScriptableObject
                     state.MP += amount;
                 if (forVigor)
                     state.Vigor += amount;
+                if (forSoul)
+                    state.souls += (long)amount;
                 break;
             default:
                 break;

@@ -30,5 +30,5 @@ public class IActorManager : MonoBehaviour
     public virtual void LockTarget(GameObject target) { }
     public virtual void Stunned() { }
     public virtual void UpOrDown() { }
-    public virtual void StartBossBattle() { }
+    public virtual void StartBossBattle(GameObject obj) { }
 }

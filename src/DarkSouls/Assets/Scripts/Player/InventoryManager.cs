@@ -134,7 +134,7 @@ public class InventoryManager : MonoBehaviour
 
             if (itemData.forSoul)
             {
-
+                //
             }
         }
         itemData.DoEffect(am.StateM.state);

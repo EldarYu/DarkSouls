@@ -23,6 +23,12 @@ public class HudView : MonoBehaviour
     }
     public BossStateView bossStateView;
     [System.Serializable]
+    public class DiedView
+    {
+        public GameObject parent;
+    }
+    public DiedView diedView;
+    [System.Serializable]
     public class ShortcutView
     {
         public ShortcutSlotView left;

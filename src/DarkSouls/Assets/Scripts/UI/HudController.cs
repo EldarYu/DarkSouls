@@ -66,6 +66,34 @@ public class HudController : MonoBehaviour
     }
     public BossStateController bossStateController;
     [System.Serializable]
+    public class DiedController
+    {
+        public ActorManager player;
+        private HudView hudView;
+        public void Init(HudView _hudView)
+        {
+            hudView = _hudView;
+            player.OnDead += Show;
+        }
+
+        public void Tick()
+        {
+            if (hudView.diedView.parent.activeSelf)
+            {
+                if (Input.anyKeyDown)
+                {
+                    UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+                }
+            }
+        }
+
+        public void Show()
+        {
+            hudView.diedView.parent.SetActive(true);
+        }
+    }
+    public DiedController diedController;
+    [System.Serializable]
     public class ShortcutController
     {
         public WeaponData defaultSword;
@@ -204,11 +232,13 @@ public class HudController : MonoBehaviour
         newItemInfoController.Init(am, hudView);
         shortcutController.Init(am, hudView);
         bossStateController.Init(hudView);
+        diedController.Init(hudView);
     }
     void Update()
     {
         stateController.Tick(hudView, am.StateM);
         bossStateController.Tick();
+        diedController.Tick();
         shortcutController.Tick();
         newItemInfoController.Tick(Time.deltaTime);
         SetActive(am.CanDoAction());
