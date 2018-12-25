@@ -325,7 +325,50 @@ ModelImporter:
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
+      curves:
+      - name: attackVelocityForward
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 2
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+          - serializedVersion: 2
+            time: 0.22310758
+            value: 1.3041024
+            inSlope: 6.9921694
+            outSlope: 6.9921694
+            tangentMode: 0
+          - serializedVersion: 2
+            time: 0.4755527
+            value: 3
+            inSlope: -1.490686
+            outSlope: -1.490686
+            tangentMode: 0
+          - serializedVersion: 2
+            time: 0.58246005
+            value: 1.7703978
+            inSlope: -12.3928995
+            outSlope: -12.3928995
+            tangentMode: 0
+          - serializedVersion: 2
+            time: 0.7017354
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+          - serializedVersion: 2
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 0
       events:
       - time: 0.2468085
         functionName: WeaponEnable

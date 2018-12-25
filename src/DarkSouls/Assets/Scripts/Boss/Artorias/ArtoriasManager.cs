@@ -22,11 +22,13 @@ public class ArtoriasManager : IActorManager
     {
         return CurHp <= 0;
     }
+    public bool trackTarget;
     public bool IsChargeEnd { get; private set; }
     public GameObject target;
     public float distance;
     public NavMeshAgent agent;
     public bool IsImmortal { get { return ActorC.CheckAnimatorStateWithName("charge"); } }
+    public bool CanAttack { get { return ActorC.canAttack; } }
     private float forward;
     void Awake()
     {
@@ -41,6 +43,7 @@ public class ArtoriasManager : IActorManager
     public override void LockTarget(GameObject target)
     {
         this.target = target;
+        trackTarget = true;
         SetTarget();
     }
 
@@ -76,24 +79,27 @@ public class ArtoriasManager : IActorManager
 
     public void SetTarget()
     {
-        if (target == null)
+        if (target == null && !trackTarget)
             return;
         agent.SetDestination(target.transform.position);
     }
 
     public void StabAttack()
     {
-        ActorC.IssueTrigger("stab_attack");
+        if (ActorC.canAttack)
+            ActorC.IssueTrigger("stab_attack");
     }
 
     public void Attack()
     {
-        ActorC.IssueTrigger("attack");
+        if (ActorC.canAttack)
+            ActorC.IssueTrigger("attack");
     }
 
     public void JumpAttack()
     {
-        ActorC.IssueTrigger("jump_attack");
+        if (ActorC.canAttack)
+            ActorC.IssueTrigger("jump_attack");
     }
 
     public void Charge()

@@ -5,21 +5,13 @@ using UnityEngine.AI;
 
 public class ArtoriasController : IActorController
 {
-    [Header("Move Options")]
-    public float walkSpeed = 1.7f;
-    public float runMulti = 2.0f;
-    public float jumpVelocity = 4.0f;
-    public float rollVelocity = 3.0f;
-    public float rollVelocityThreshold = 7.0f;
-
     private Rigidbody rigid;
-    private Vector3 planarVec;
-    private Vector3 deltaPos;
     private Vector3 thrushVec;
-    private bool canAttack;
     private ArtoriasManager am;
+    private NavMeshAgent agent;
     void Awake()
     {
+        agent = GetComponent<NavMeshAgent>();
         am = GetComponent<ArtoriasManager>();
         rigid = GetComponent<Rigidbody>();
         model = transform.GetChild(0).gameObject;
@@ -30,19 +22,94 @@ public class ArtoriasController : IActorController
 
     private void FixedUpdate()
     {
-        rigid.position += deltaPos;
         rigid.velocity = thrushVec;
         thrushVec = Vector3.zero;
-        deltaPos = Vector3.zero;
     }
 
+    //
     void OnStunnedEnter()
     {
+        agent.isStopped = true;
+        agent.velocity = Vector3.zero;
         am.ECMOn();
+        canAttack = false;
     }
 
     void OnStunnedExit()
     {
+        agent.isStopped = false;
         am.ECMOff();
+        canAttack = true;
     }
+
+    void StabAttackEnter()
+    {
+        canAttack = false;
+    }
+
+    void StabAttackUpdate()
+    {
+        thrushVec = model.transform.forward * anim.GetFloat("stab_attackVelocityForward");
+    }
+
+    void StabAttackExit()
+    {
+        canAttack = true;
+    }
+
+    void JumpAttackEnter()
+    {
+        canAttack = false;
+    }
+
+    void JumpAttackUpdate()
+    {
+        thrushVec = model.transform.forward * anim.GetFloat("jump_attackVelocityForward") +
+            model.transform.up * anim.GetFloat("jump_attackVelocityUp");
+    }
+
+    void JumpAttackExit()
+    {
+        canAttack = true;
+        am.Attack();
+    }
+
+    void Attack1Enter()
+    {
+        canAttack = false;
+    }
+
+    void Attack1Update()
+    {
+        thrushVec = model.transform.forward * anim.GetFloat("attackVelocityForward");
+    }
+
+    void Attack1Exit()
+    {
+        canAttack = true;
+    }
+
+    void ChargeEnter()
+    {
+        canAttack = false;
+    }
+
+    void ChargeExit()
+    {
+        canAttack = true;
+    }
+
+    void LocolMotionEnter()
+    {
+        am.trackTarget = true;
+        agent.isStopped = false;
+    }
+
+    void LocolMotionExit()
+    {
+        am.trackTarget = false;
+        agent.isStopped = true;
+        agent.velocity = Vector3.zero;
+    }
+
 }

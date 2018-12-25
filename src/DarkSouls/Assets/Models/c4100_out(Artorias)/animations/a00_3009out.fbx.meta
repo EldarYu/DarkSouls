@@ -324,7 +324,75 @@ ModelImporter:
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
+      curves:
+      - name: jump_attackVelocityUp
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 2
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+          - serializedVersion: 2
+            time: 0.2709163
+            value: 6
+            inSlope: -6.1807404
+            outSlope: -6.1807404
+            tangentMode: 0
+          - serializedVersion: 2
+            time: 0.33255917
+            value: 4.7041507
+            inSlope: -20.97839
+            outSlope: -20.97839
+            tangentMode: 0
+          - serializedVersion: 2
+            time: 0.35838318
+            value: 1.2344804
+            inSlope: -69.69752
+            outSlope: -69.69752
+            tangentMode: 0
+          - serializedVersion: 2
+            time: 0.38313508
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+          preInfinity: 2
+          postInfinity: 2
+          rotationOrder: 0
+      - name: jump_attackVelocityForward
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 2
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+          - serializedVersion: 2
+            time: 0.30675074
+            value: 4
+            inSlope: -2.9283333
+            outSlope: -2.9283333
+            tangentMode: 0
+          - serializedVersion: 2
+            time: 0.38023144
+            value: 2.2267952
+            inSlope: -20.372448
+            outSlope: -20.372448
+            tangentMode: 0
+          - serializedVersion: 2
+            time: 0.43538857
+            value: 0.012481689
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 0
       events:
       - time: 0.32765958
         functionName: WeaponEnable

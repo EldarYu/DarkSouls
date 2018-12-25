@@ -20,8 +20,6 @@ public class ActorController : IActorController, IHearable
     private Vector3 thrushVec;
     private bool lockPlanar = false;
     private bool trackDirection = false;
-    private bool canAttack;
-
 
     [Header("Physic")]
     public PhysicMaterial fricitionOne;

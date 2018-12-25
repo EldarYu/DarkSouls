@@ -13,6 +13,7 @@ public abstract class IActorController : MonoBehaviour
     [HideInInspector]
     public CameraController camcon;
     protected Animator anim;
+    public bool canAttack = true;
     public delegate void OnActionHandle();
     public event OnActionHandle OnActionPressed;
     public void ActionPressed()

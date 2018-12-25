@@ -7,11 +7,18 @@ public class DoorManager : IActorManager
     public IActorManager bossAm;
     public HudController hudController;
     private EventCasterManager em;
-    private MeshRenderer meshRenderer;
     private void Start()
     {
         em = GetComponentInChildren<EventCasterManager>();
-        meshRenderer = transform.GetChild(0).GetComponent<MeshRenderer>();
+
+        //
+        StartCoroutine(TestFunc());
+    }
+
+    IEnumerator TestFunc()
+    {
+        yield return new WaitForSeconds(2);
+        StartBossBattle(GameObject.FindGameObjectWithTag("Player"));
     }
 
     private void Update()
