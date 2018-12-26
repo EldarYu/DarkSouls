@@ -7,6 +7,11 @@ public class ArtoriasManager : IActorManager
 {
     public float atk = 5.0f;
     public float chageFinalIncrement = 3.0f;
+    public float chageBreakedAmount = 600.0f;
+    public float curChargeBreakedAmount;
+    public bool IsChargeBreaked { get; private set; }
+    public bool IsChargeEnd { get; set; }
+    public bool IsCharging { get; private set; }
     public float CurHp
     {
         get
@@ -23,11 +28,9 @@ public class ArtoriasManager : IActorManager
         return CurHp <= 0;
     }
     public bool trackTarget;
-    public bool IsChargeEnd { get; private set; }
     public GameObject target;
     public float distance;
     public NavMeshAgent agent;
-    public bool IsImmortal { get { return ActorC.CheckAnimatorStateWithName("charge"); } }
     public bool CanAttack { get { return ActorC.canAttack; } }
     private float forward;
     void Awake()
@@ -38,6 +41,8 @@ public class ArtoriasManager : IActorManager
         EventCastM = GetComponentInChildren<EventCasterManager>();
         CurHp = maxBossHp;
         IsChargeEnd = false;
+        IsCharging = false;
+        agent.updateRotation = false;
     }
 
     public override void LockTarget(GameObject target)
@@ -75,6 +80,16 @@ public class ArtoriasManager : IActorManager
 
         forward = agent.velocity.magnitude;
         ActorC.SetAnimatorFloat("forward", forward);
+        IsCharging = ActorC.CheckAnimatorStateWithName("charge");
+        if (IsCharging)
+        {
+            if (curChargeBreakedAmount >= chageBreakedAmount)
+            {
+                IsChargeBreaked = true;
+                ActorC.IssueTrigger("chargeBreaked");
+                IsChargeEnd = true;
+            }
+        }
     }
 
     public void SetTarget()
@@ -104,27 +119,20 @@ public class ArtoriasManager : IActorManager
 
     public void Charge()
     {
-        ActorC.SetAnimatorBool("charge", true);
+        ActorC.IssueTrigger("charge");
     }
 
     public override void TryDoDamage(WeaponController targetWC, bool attackVaild, bool counterVaild)
     {
         if (attackVaild)
         {
-            if (IsImmortal)
-            {
-
-            }
-            else
-            {
-                HitOrDie(targetWC.Atk + targetWC.wm.am.GetAtk(), false);
-            }
+            HitOrDie(targetWC.Atk + targetWC.wm.am.GetAtk(), false);
         }
     }
 
     public override float GetAtk()
     {
-        return IsChargeEnd ? atk : atk * chageFinalIncrement;
+        return IsChargeEnd && !IsChargeBreaked ? atk * chageFinalIncrement : atk;
     }
 
     public override void HitOrDie(float hitAmount, bool doHitAnimation = true)
@@ -135,6 +143,8 @@ public class ArtoriasManager : IActorManager
         }
         else
         {
+            if (IsCharging)
+                curChargeBreakedAmount += hitAmount;
             CurHp -= hitAmount;
             if (bossHp <= 0)
             {

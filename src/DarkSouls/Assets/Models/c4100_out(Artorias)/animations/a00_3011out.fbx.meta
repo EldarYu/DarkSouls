@@ -339,20 +339,20 @@ ModelImporter:
           - serializedVersion: 2
             time: 0.22310758
             value: 1.3041024
-            inSlope: 6.9921694
-            outSlope: 6.9921694
+            inSlope: 14.661761
+            outSlope: 14.661761
             tangentMode: 0
           - serializedVersion: 2
             time: 0.4755527
-            value: 3
+            value: 6
             inSlope: -1.490686
             outSlope: -1.490686
             tangentMode: 0
           - serializedVersion: 2
             time: 0.58246005
             value: 1.7703978
-            inSlope: -12.3928995
-            outSlope: -12.3928995
+            inSlope: -26.519773
+            outSlope: -26.519773
             tangentMode: 0
           - serializedVersion: 2
             time: 0.7017354

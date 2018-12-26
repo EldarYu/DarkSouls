@@ -29,10 +29,13 @@ public class ArtoriasController : IActorController
     //
     void OnStunnedEnter()
     {
+        am.WeaponM.WeaponDisable();
         agent.isStopped = true;
         agent.velocity = Vector3.zero;
         am.ECMOn();
         canAttack = false;
+        agent.isStopped = true;
+        agent.velocity = Vector3.zero;
     }
 
     void OnStunnedExit()
@@ -40,6 +43,7 @@ public class ArtoriasController : IActorController
         agent.isStopped = false;
         am.ECMOff();
         canAttack = true;
+        agent.isStopped = false;
     }
 
     void StabAttackEnter()
@@ -91,16 +95,22 @@ public class ArtoriasController : IActorController
 
     void ChargeEnter()
     {
+        am.WeaponM.WeaponDisable();
         canAttack = false;
+        agent.isStopped = true;
+        agent.velocity = Vector3.zero;
     }
 
     void ChargeExit()
     {
         canAttack = true;
+        am.IsChargeEnd = true;
+        agent.isStopped = false;
     }
 
     void LocolMotionEnter()
     {
+        am.WeaponM.WeaponDisable();
         am.trackTarget = true;
         agent.isStopped = false;
     }

@@ -345,21 +345,21 @@ ModelImporter:
             tangentMode: 0
           - serializedVersion: 2
             time: 0.34392953
-            value: 4.9844704
+            value: 12
             inSlope: 0
             outSlope: 0
             tangentMode: 0
           - serializedVersion: 2
             time: 0.39518455
             value: 3.1926074
-            inSlope: -37.069695
-            outSlope: -37.069695
+            inSlope: -36.08905
+            outSlope: -36.08905
             tangentMode: 0
           - serializedVersion: 2
             time: 0.4635914
             value: 1.4476333
-            inSlope: -16.693125
-            outSlope: -16.693125
+            inSlope: -10.608299
+            outSlope: -10.608299
             tangentMode: 0
           - serializedVersion: 2
             time: 0.6066789
