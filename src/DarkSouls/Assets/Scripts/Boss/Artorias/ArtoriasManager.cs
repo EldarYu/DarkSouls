@@ -12,6 +12,10 @@ public class ArtoriasManager : IActorManager
     public bool IsChargeBreaked { get; private set; }
     public bool IsChargeEnd { get; set; }
     public bool IsCharging { get; private set; }
+    public float runDistance = 7.0f;
+    public float walkDistance = 3.0f;
+    public float runSpeed = 3.0f;
+    public float walkSpeed = 1.0f;
     public float CurHp
     {
         get
@@ -27,12 +31,15 @@ public class ArtoriasManager : IActorManager
     {
         return CurHp <= 0;
     }
-    public bool trackTarget;
+    public bool lockAgent;
+    public bool lockDir;
+    private Vector3 dir;
     public GameObject target;
     public float distance;
     public NavMeshAgent agent;
     public bool CanAttack { get { return ActorC.canAttack; } }
     private float forward;
+    private float velocitySpeed;
     void Awake()
     {
         ActorC = GetComponent<IActorController>();
@@ -43,12 +50,14 @@ public class ArtoriasManager : IActorManager
         IsChargeEnd = false;
         IsCharging = false;
         agent.updateRotation = false;
+        agent.updateUpAxis = false;
+        lockDir = true;
+        lockAgent = false;
     }
 
     public override void LockTarget(GameObject target)
     {
         this.target = target;
-        trackTarget = true;
         SetTarget();
     }
 
@@ -57,29 +66,6 @@ public class ArtoriasManager : IActorManager
         if (IsDie())
             return;
 
-        if (target != null)
-        {
-            distance = Vector3.Distance(transform.position, target.transform.position);
-            transform.LookAt(target.transform);
-        }
-
-        if (distance != 0)
-        {
-            if (distance > 7.0f)
-            {
-                SetTarget();
-                agent.speed = 3.0f;
-            }
-
-            else if (distance > 3.0f)
-            {
-                SetTarget();
-                agent.speed = 1.0f;
-            }
-        }
-
-        forward = agent.velocity.magnitude;
-        ActorC.SetAnimatorFloat("forward", forward);
         IsCharging = ActorC.CheckAnimatorStateWithName("charge");
         if (IsCharging)
         {
@@ -92,30 +78,61 @@ public class ArtoriasManager : IActorManager
         }
     }
 
+    private void FixedUpdate()
+    {
+        if (target != null)
+        {
+            distance = Vector3.Distance(transform.position, target.transform.position);
+            dir = (target.transform.position - transform.position).normalized;
+            if (lockDir)
+            {
+                ActorC.model.transform.forward = Vector3.Slerp(ActorC.model.transform.forward, dir, 0.8f);
+               // transform.forward = ActorC.model.transform.forward;
+            }
+        }
+
+        if (distance != 0 && !lockAgent)
+        {
+
+            if (distance > runDistance)
+            {
+                ActorC.canAttack = false;
+                agent.isStopped = false;
+                agent.speed = Mathf.SmoothDamp(agent.speed, runSpeed, ref velocitySpeed, 0.3f);
+                SetTarget();
+            }
+            else if (distance > walkDistance)
+            {
+                ActorC.canAttack = false;
+                agent.isStopped = false;
+                agent.speed = Mathf.SmoothDamp(agent.speed, walkSpeed, ref velocitySpeed, 0.3f);
+                SetTarget();
+            }
+            else
+            {
+                ActorC.canAttack = true;
+                agent.isStopped = true;
+                agent.velocity = Vector3.zero;
+            }
+        }
+        else
+        {
+            ActorC.canAttack = true;
+            agent.isStopped = true;
+            agent.velocity = Vector3.zero;
+        }
+
+        forward = agent.velocity.magnitude;
+        ActorC.SetAnimatorFloat("forward", forward);
+    }
+
     public void SetTarget()
     {
-        if (target == null && !trackTarget)
+        if (target == null)
             return;
         agent.SetDestination(target.transform.position);
     }
 
-    public void StabAttack()
-    {
-        if (ActorC.canAttack)
-            ActorC.IssueTrigger("stab_attack");
-    }
-
-    public void Attack()
-    {
-        if (ActorC.canAttack)
-            ActorC.IssueTrigger("attack");
-    }
-
-    public void JumpAttack()
-    {
-        if (ActorC.canAttack)
-            ActorC.IssueTrigger("jump_attack");
-    }
 
     public void Charge()
     {

@@ -117,6 +117,11 @@ public class ActorManager : IActorManager
         return StateM.state.Vigor > StateM.state.heavyAttackCost;
     }
 
+    public bool TryDoBlcok()
+    {
+        return StateM.state.Vigor > StateM.state.blockCost;
+    }
+
     public override void TryDoDamage(WeaponController targetWC, bool attackVaild, bool counterVaild)
     {
         if (attackVaild)
@@ -133,7 +138,7 @@ public class ActorManager : IActorManager
             {
                 //无敌
             }
-            else if (StateM.isDefense)
+            else if (StateM.isDefense && TryDoBlcok())
             {
                 Blocked();
             }

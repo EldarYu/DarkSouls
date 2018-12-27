@@ -17,8 +17,8 @@ public class PerfabFactory
         }
     }
     public Dictionary<string, GameObject> objDatas;
-    private PerfabFactory() { objDatas = new Dictionary<string, GameObject>(); }
-
+    private PerfabFactory() { ClearDatas(); }
+    public void ClearDatas() { objDatas = new Dictionary<string, GameObject>(); }
     public GameObject GetPerfab(string name, GameObject obj, Transform tgtParent)
     {
         if (objDatas.ContainsKey(name))

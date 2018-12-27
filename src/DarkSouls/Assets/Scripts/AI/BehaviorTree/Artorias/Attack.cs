@@ -7,7 +7,8 @@ using BehaviorDesigner.Runtime;
 
 public class Attack : Action
 {
-    protected ArtoriasManager ArtorM;
+    public string AttackAnimtionName;
+    private ArtoriasManager ArtorM;
     public override void OnStart()
     {
         ArtorM = GetComponent<ArtoriasManager>();
@@ -15,7 +16,7 @@ public class Attack : Action
 
     public override TaskStatus OnUpdate()
     {
-        ArtorM.Attack();
+        ArtorM.ActorC.IssueTrigger(AttackAnimtionName);
         return TaskStatus.Success;
     }
 }

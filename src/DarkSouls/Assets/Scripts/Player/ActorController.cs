@@ -219,6 +219,7 @@ public class ActorController : IActorController, IHearable
         pi.inputEnabled = false;
         planarVec = Vector3.zero;
         lockPlanar = true;
+        am.StateM.CountVigor(-am.StateM.state.rollCost);
     }
 
     void OnJabUpdate()
@@ -251,6 +252,7 @@ public class ActorController : IActorController, IHearable
     void OnBlockedEnter()
     {
         pi.inputEnabled = false;
+        am.StateM.CountVigor(-am.StateM.state.blockCost);
     }
 
     void OnDieEnter()

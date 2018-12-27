@@ -30,25 +30,23 @@ public class ArtoriasController : IActorController
     void OnStunnedEnter()
     {
         am.WeaponM.WeaponDisable();
-        agent.isStopped = true;
-        agent.velocity = Vector3.zero;
         am.ECMOn();
         canAttack = false;
-        agent.isStopped = true;
-        agent.velocity = Vector3.zero;
+        am.lockDir = false;
+        am.lockAgent = true;
     }
 
     void OnStunnedExit()
     {
-        agent.isStopped = false;
         am.ECMOff();
         canAttack = true;
-        agent.isStopped = false;
+        am.lockAgent = false;
     }
 
     void StabAttackEnter()
     {
         canAttack = false;
+        am.lockDir = false;
     }
 
     void StabAttackUpdate()
@@ -59,11 +57,13 @@ public class ArtoriasController : IActorController
     void StabAttackExit()
     {
         canAttack = true;
+        am.lockDir = true;
     }
 
     void JumpAttackEnter()
     {
         canAttack = false;
+        am.lockDir = false;
     }
 
     void JumpAttackUpdate()
@@ -75,51 +75,65 @@ public class ArtoriasController : IActorController
     void JumpAttackExit()
     {
         canAttack = true;
-        am.Attack();
+        am.lockDir = true;
     }
 
     void Attack1Enter()
     {
         canAttack = false;
+        am.lockDir = false;
     }
 
     void Attack1Update()
     {
-        thrushVec = model.transform.forward * anim.GetFloat("attackVelocityForward");
+        thrushVec = model.transform.forward * anim.GetFloat("attack1VelocityForward");
     }
 
     void Attack1Exit()
     {
         canAttack = true;
+        am.lockDir = true;
+    }
+
+    void Attack2Enter()
+    {
+        canAttack = false;
+        am.lockDir = false;
+    }
+
+    void Attack2Update()
+    {
+        thrushVec = model.transform.forward * anim.GetFloat("attack2VelocityForward");
+    }
+
+    void Attack2Exit()
+    {
+        canAttack = true;
+        am.lockDir = true;
     }
 
     void ChargeEnter()
     {
         am.WeaponM.WeaponDisable();
         canAttack = false;
-        agent.isStopped = true;
-        agent.velocity = Vector3.zero;
+        am.lockAgent = true;
     }
 
     void ChargeExit()
     {
         canAttack = true;
         am.IsChargeEnd = true;
-        agent.isStopped = false;
+        am.lockAgent = false;
     }
 
     void LocolMotionEnter()
     {
         am.WeaponM.WeaponDisable();
-        am.trackTarget = true;
-        agent.isStopped = false;
+        am.lockAgent = false;
     }
 
     void LocolMotionExit()
     {
-        am.trackTarget = false;
-        agent.isStopped = true;
-        agent.velocity = Vector3.zero;
+        am.lockAgent = true;
     }
-
 }

@@ -44,7 +44,7 @@ public class StateModifierView : MonoBehaviour, IUpdateSelectedHandler
     {
         if (cur_value > def_value)
         {
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if (Input.GetKey(KeyCode.LeftArrow))
             {
                 OnMinus.Invoke();
             }
@@ -52,7 +52,7 @@ public class StateModifierView : MonoBehaviour, IUpdateSelectedHandler
 
         if (cur_value < 99)
         {
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            if (Input.GetKey(KeyCode.RightArrow))
             {
                 OnAdd.Invoke();
             }

@@ -24,5 +24,6 @@ MonoBehaviour:
   rollCost: 15
   attackCost: 5
   heavyAttackCost: 10
+  blockCost: 20
   vigorAutoRecoverTime: 1.5
   vigorAutoRecoverAmount: 0.5

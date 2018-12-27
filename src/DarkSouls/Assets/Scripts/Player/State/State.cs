@@ -104,6 +104,7 @@ public class State : ScriptableObject
     public float rollCost = 15.0f;
     public float attackCost = 5.0f;
     public float heavyAttackCost = 15.0f;
+    public float blockCost = 20.0f;
 
     public float vigorAutoRecoverTime = 1.0f;
     public float vigorAutoRecoverAmount = 0.3f;

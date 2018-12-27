@@ -82,7 +82,7 @@ public class HudController : MonoBehaviour
             {
                 if (Input.anyKeyDown)
                 {
-                    UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+                    UnityEngine.SceneManagement.SceneManager.LoadScene(1);
                 }
             }
         }

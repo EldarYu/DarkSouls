@@ -20,6 +20,7 @@ public class WeaponManager : MonoBehaviour
     private void Awake()
     {
         am = GetComponentInParent<IActorManager>();
+        PerfabFactory.Instance.ClearDatas();
         if (leftHasWeapon)
         {
             leftWC = gameObject.AddComponentInChildren<WeaponController>("LeftWeaponHandle");

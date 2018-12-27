@@ -10,12 +10,6 @@ public class BoxManager : IActorManager
     {
         anim = GetComponentInChildren<Animator>();
         em = GetComponentInChildren<EventCasterManager>();
-
-    }
-
-    private void Update()
-    {
-        anim.SetBool("active", em.active);
     }
 
     public override void LockUnlockAnimator(bool value = true)
