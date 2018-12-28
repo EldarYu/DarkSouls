@@ -11,6 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 605c29e75ae497e41939ba360915d252, type: 3}
   m_Name: PlayerState
   m_EditorClassIdentifier: 
+  Attack: 5
   strength: 15
   stamina: 15
   intellect: 15
@@ -18,7 +19,6 @@ MonoBehaviour:
   hpIncrement: 5
   vigorIncrement: 3
   mpIncrement: 2
-  attackIncrement: 2
   upgradeSoulAmount: 500
   runCost: 0.3
   rollCost: 15

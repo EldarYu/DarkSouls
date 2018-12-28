@@ -33,7 +33,7 @@ public class StateManager : MonoBehaviour
         am = GetComponent<ActorManager>();
         state = Instantiate(state);
         state.Init();
-        state.souls = 60000;
+        state.souls = 0;
     }
 
     private void Update()

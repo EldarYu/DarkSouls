@@ -18,6 +18,7 @@ public class LeverManager : IActorManager
     public override void LockUnlockAnimator(bool value = true)
     {
         anim.SetBool("lock", value);
+        anim.SetBool("active", em.active);
     }
 
     public override Animator GetAnimator()

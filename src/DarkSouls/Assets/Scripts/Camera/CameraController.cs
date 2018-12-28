@@ -74,7 +74,7 @@ public class CameraController : MonoBehaviour
             if (Vector3.Distance(model.transform.position, lockTarget.target.transform.position) >= maxLockDistance)
                 LockUnlock(null);
 
-            if (lockTarget.am != null && lockTarget.am.IsDie())
+            if (lockTarget.am != null && lockTarget.am.isDead)
                 LockUnlock(null);
         }
         else
@@ -129,7 +129,7 @@ public class CameraController : MonoBehaviour
                 return;
             }
 
-            LockUnlock(temp.gameObject, temp.bounds.extents.y, temp.gameObject.GetComponent<ActorManager>(), true);
+            LockUnlock(temp.gameObject, temp.bounds.extents.y, temp.gameObject.GetComponent<IActorManager>(), true);
         }
     }
 
@@ -140,7 +140,7 @@ public class CameraController : MonoBehaviour
         lockTarget.am = target.GetComponent<IActorManager>();
     }
 
-    private void LockUnlock(GameObject target, float halfHeight = 0, ActorManager am = null, bool lookDotEnable = false)
+    private void LockUnlock(GameObject target, float halfHeight = 0, IActorManager am = null, bool lookDotEnable = false)
     {
         lockTarget.target = target;
         lockTarget.halfHeight = halfHeight;

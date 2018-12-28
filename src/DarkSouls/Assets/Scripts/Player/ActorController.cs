@@ -234,6 +234,7 @@ public class ActorController : IActorController, IHearable
         pi.inputEnabled = true;
         lockPlanar = false;
         trackDirection = false;
+        am.HideItem();
     }
 
     void OnGroundExit()

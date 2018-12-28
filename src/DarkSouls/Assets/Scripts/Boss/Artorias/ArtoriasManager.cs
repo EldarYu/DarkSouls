@@ -27,10 +27,7 @@ public class ArtoriasManager : IActorManager
             bossHp = Mathf.Clamp(value, 0, maxBossHp);
         }
     }
-    public override bool IsDie()
-    {
-        return CurHp <= 0;
-    }
+
     public bool lockAgent;
     public bool lockDir;
     private Vector3 dir;
@@ -40,6 +37,7 @@ public class ArtoriasManager : IActorManager
     public bool CanAttack { get { return ActorC.canAttack; } }
     private float forward;
     private float velocitySpeed;
+    private bool sendedDieTrigger = false;
     void Awake()
     {
         ActorC = GetComponent<IActorController>();
@@ -53,6 +51,7 @@ public class ArtoriasManager : IActorManager
         agent.updateUpAxis = false;
         lockDir = true;
         lockAgent = false;
+        isDead = false;
     }
 
     public override void LockTarget(GameObject target)
@@ -63,8 +62,12 @@ public class ArtoriasManager : IActorManager
 
     void Update()
     {
-        if (IsDie())
+        if (isDead)
+        {
+            if (!sendedDieTrigger)
+                Die();
             return;
+        }
 
         IsCharging = ActorC.CheckAnimatorStateWithName("charge");
         if (IsCharging)
@@ -80,6 +83,14 @@ public class ArtoriasManager : IActorManager
 
     private void FixedUpdate()
     {
+        if (isDead)
+        {
+            ActorC.canAttack = false;
+            agent.isStopped = true;
+            agent.velocity = Vector3.zero;
+            return;
+        }
+
         if (target != null)
         {
             distance = Vector3.Distance(transform.position, target.transform.position);
@@ -87,7 +98,7 @@ public class ArtoriasManager : IActorManager
             if (lockDir)
             {
                 ActorC.model.transform.forward = Vector3.Slerp(ActorC.model.transform.forward, dir, 0.8f);
-               // transform.forward = ActorC.model.transform.forward;
+                transform.forward = ActorC.model.transform.forward;
             }
         }
 
@@ -165,6 +176,7 @@ public class ArtoriasManager : IActorManager
             CurHp -= hitAmount;
             if (bossHp <= 0)
             {
+                isDead = true;
                 Die();
             }
         }
@@ -177,6 +189,7 @@ public class ArtoriasManager : IActorManager
 
     public void Die()
     {
+        sendedDieTrigger = true;
         ActorC.IssueTrigger("die");
     }
 

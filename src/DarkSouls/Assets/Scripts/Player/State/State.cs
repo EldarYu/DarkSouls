@@ -46,7 +46,7 @@ public class State : ScriptableObject
         }
     }
     public float MaxMP { get; private set; }
-    public float Attack { get; private set; }
+    public float Attack;
 
     [Range(0, 99)]
     public int strength;
@@ -93,7 +93,6 @@ public class State : ScriptableObject
     public float hpIncrement;
     public float vigorIncrement;
     public float mpIncrement;
-    public float attackIncrement;
 
     public long upgradeSoulAmount;
 
@@ -122,7 +121,6 @@ public class State : ScriptableObject
         MaxHP = strength * hpIncrement;
         MaxVigor = stamina * vigorIncrement;
         MaxMP = intellect * mpIncrement;
-        Attack = strength * attackIncrement;
         Level = (strength + stamina + intellect) - 45 + 1;
     }
 

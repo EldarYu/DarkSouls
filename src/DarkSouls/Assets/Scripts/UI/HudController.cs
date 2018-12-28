@@ -44,7 +44,7 @@ public class HudController : MonoBehaviour
         {
             if (bossAm != null)
             {
-                if (bossAm.IsDie())
+                if (bossAm.isDead)
                 {
                     hudView.bossStateView.parent.SetActive(false);
                     bossHp = 0;

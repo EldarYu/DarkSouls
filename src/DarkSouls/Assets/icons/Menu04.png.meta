@@ -3,6 +3,7 @@ guid: ee7ae6f0d87cac74db6f26a4ef1c80d7
 TextureImporter:
   fileIDToRecycleName:
     21300000: Menu04_0
+    21300002: Menu04_1
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -87,6 +88,20 @@ TextureImporter:
         y: 33
         width: 393
         height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Menu04_1
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 3
+        width: 565
+        height: 3
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

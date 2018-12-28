@@ -7,10 +7,7 @@ public class ActorManager : IActorManager
     public bool LeftIsShield { get { return WeaponM.LeftIsShield; } }
     public delegate void Dead();
     public event Dead OnDead;
-    public override bool IsDie()
-    {
-        return StateM.isDie;
-    }
+
     private void Awake()
     {
         BattleM = GetComponentInChildren<BattleManager>();
@@ -55,7 +52,7 @@ public class ActorManager : IActorManager
                         AddItem(ecastm.itemData, ecastm.itemCount);
                         break;
                     case EventCasterType.FrontStab:
-                        ecastm.am.HitOrDie((WeaponM.RightWC.Atk + GetAtk()) * 2, false);
+                        ecastm.am.HitOrDie(ecastm.am.maxBossHp * 0.2f, false);
                         break;
                 }
                 //transform.position = ecastm.transform.position + ecastm.am.transform.TransformVector(ecastm.offset);

@@ -26,11 +26,11 @@ public class ItemData : ScriptableObject
                 break;
             case ItemType.Consumable:
                 if (forHp)
-                    state.HP += amount;
+                    state.HP += state.MaxHP * amount;
                 if (forMp)
-                    state.MP += amount;
+                    state.MP += state.MaxMP * amount;
                 if (forVigor)
-                    state.Vigor += amount;
+                    state.Vigor += state.MaxVigor * amount;
                 if (forSoul)
                     state.souls += (long)amount;
                 break;

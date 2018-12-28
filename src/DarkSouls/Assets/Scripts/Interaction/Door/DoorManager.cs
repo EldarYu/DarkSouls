@@ -12,7 +12,7 @@ public class DoorManager : IActorManager
         em = GetComponentInChildren<EventCasterManager>();
 
         //
-        StartCoroutine(TestFunc());
+        //StartCoroutine(TestFunc());
     }
 
     IEnumerator TestFunc()
@@ -23,7 +23,7 @@ public class DoorManager : IActorManager
 
     private void Update()
     {
-        if (bossAm.IsDie())
+        if (bossAm.isDead)
         {
             this.gameObject.SetActive(false);
         }

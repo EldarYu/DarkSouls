@@ -19,8 +19,8 @@ public class IActorManager : MonoBehaviour
     public string bossName;
     public float bossHp;
     public float maxBossHp;
+    public bool isDead;
 
-    public virtual bool IsDie() { return false; }
     public virtual Animator GetAnimator() { return null; }
     public virtual void LockUnlockAnimator(bool value = true) { }
     public virtual void HitOrDie(float hitAmount, bool doHitAnimation = true) { }

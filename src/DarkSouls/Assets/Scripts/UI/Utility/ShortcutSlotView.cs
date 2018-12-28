@@ -82,6 +82,7 @@ public class ShortcutSlotView : MonoBehaviour
         curIndex++;
         if (curIndex > maxCount - 1)
             curIndex = 0;
+        curItemIndex = itemIndex[curIndex];
         curItemData = itemDatas[curIndex];
         curItemCount = itemCounts[curIndex];
 

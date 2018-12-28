@@ -15,7 +15,7 @@ MonoBehaviour:
   itemName: EstusFlask
   description: EstusFlask
   img: {fileID: 21300010, guid: 7ab62f81848debc4daa8c4380846902f, type: 3}
-  amount: 50
+  amount: 0.3
   obj: {fileID: 1143168213224172, guid: a0f498c9d6ecde04c8f8fe7562aff433, type: 2}
   allowOverlay: 1
   forHp: 1
