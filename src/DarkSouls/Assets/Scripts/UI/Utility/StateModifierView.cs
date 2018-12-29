@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class StateModifierView : MonoBehaviour, IUpdateSelectedHandler
 {
+    public AudioSource audioSource;
+    public AudioClip move;
     public Text text;
     public GameObject leftTip;
     public GameObject rightTip;
@@ -45,16 +47,18 @@ public class StateModifierView : MonoBehaviour, IUpdateSelectedHandler
         if (cur_value > def_value)
         {
             if (Input.GetKey(KeyCode.LeftArrow))
-            {      
+            {
                 OnMinus.Invoke();
+                audioSource.PlayOneShot(move);
             }
         }
 
         if (cur_value < 99)
         {
             if (Input.GetKey(KeyCode.RightArrow))
-            { 
+            {
                 OnAdd.Invoke();
+                audioSource.PlayOneShot(move);
             }
         }
     }

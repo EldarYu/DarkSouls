@@ -33,7 +33,7 @@ public class IActorManager : MonoBehaviour, IShaker
     public virtual void UpOrDown() { }
     public virtual void StartBossBattle(GameObject obj) { }
 
-    public void ShakeOne(float magnitude, float roughness, float fadeInTime, float fadeOutTime)
+    public void ShakeOnce(float magnitude, float roughness, float fadeInTime, float fadeOutTime)
     {
         CameraShaker.Instance.ShakeOnce(magnitude, roughness, fadeInTime, fadeOutTime);
     }

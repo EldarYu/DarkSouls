@@ -158,7 +158,7 @@ public class ArtoriasManager : IActorManager
     {
         if (attackVaild)
         {
-            targetWC.wm.am.ShakeOne(0.9f, 0.9f, 0.1f, 0.5f);
+            targetWC.wm.am.ShakeOnce(0.9f, 0.9f, 0.1f, 0.5f);
             HitOrDie(targetWC.Atk + targetWC.wm.am.GetAtk(), false);
         }
     }
