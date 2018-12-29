@@ -402,7 +402,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.3181818
+      - time: 0.2957099
         functionName: PlaySound
         data: 
         objectReferenceParameter: {fileID: 8300000, guid: 51eabc3f0445a42489501a12818b32e2,
@@ -417,7 +417,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.4252244
+      - time: 0.34282738
         functionName: PlaySound
         data: 
         objectReferenceParameter: {fileID: 8300000, guid: d98feb78ff2bcbf4b9f258cf4552fab2,

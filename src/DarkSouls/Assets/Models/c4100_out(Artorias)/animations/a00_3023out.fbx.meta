@@ -384,13 +384,6 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.6085106
-        functionName: WeaponDisable
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
       - time: 0.3181818
         functionName: PlaySound
         data: 
@@ -399,11 +392,18 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.4090909
+      - time: 0.3641471
         functionName: PlaySound
         data: 
         objectReferenceParameter: {fileID: 8300000, guid: 06a8c90563b8e3942bf9e116264a9af4,
           type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.6085106
+        functionName: WeaponDisable
+        data: 
+        objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0

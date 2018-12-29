@@ -370,25 +370,18 @@ ModelImporter:
           postInfinity: 3
           rotationOrder: 0
       events:
+      - time: 0.20707944
+        functionName: PlaySound
+        data: 
+        objectReferenceParameter: {fileID: 8300000, guid: 6f116abee41abf64c9c76a3aa312a557,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.2468085
         functionName: WeaponEnable
         data: 
         objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.7531915
-        functionName: WeaponDisable
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.35314685
-        functionName: PlaySound
-        data: 
-        objectReferenceParameter: {fileID: 8300000, guid: 06a8c90563b8e3942bf9e116264a9af4,
-          type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
@@ -397,6 +390,13 @@ ModelImporter:
         data: 
         objectReferenceParameter: {fileID: 8300000, guid: 44563c4a4791a69438740f445846e78a,
           type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.7531915
+        functionName: WeaponDisable
+        data: 
+        objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
