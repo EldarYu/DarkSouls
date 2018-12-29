@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class SettingsController : MonoBehaviour
 {
@@ -47,7 +48,6 @@ public class SettingsController : MonoBehaviour
         }
     }
     public Controller controller;
-
     private SettingsView menuView;
     void Awake()
     {

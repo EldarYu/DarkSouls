@@ -5,6 +5,9 @@ using UnityEngine.AI;
 
 public class ArtoriasManager : IActorManager
 {
+    public AudioClip hitAudio;
+    private AudioSource audioSource;
+
     public float atk = 5.0f;
     public float chageFinalIncrement = 3.0f;
     public float chageBreakedAmount = 600.0f;
@@ -44,6 +47,7 @@ public class ArtoriasManager : IActorManager
         agent = GetComponent<NavMeshAgent>();
         WeaponM = GetComponentInChildren<WeaponManager>();
         EventCastM = GetComponentInChildren<EventCasterManager>();
+        audioSource = GetComponent<AudioSource>();
         CurHp = maxBossHp;
         IsChargeEnd = false;
         IsCharging = false;
@@ -95,6 +99,7 @@ public class ArtoriasManager : IActorManager
         {
             distance = Vector3.Distance(transform.position, target.transform.position);
             dir = (target.transform.position - transform.position).normalized;
+            dir.y = 0;
             if (lockDir)
             {
                 ActorC.model.transform.forward = Vector3.Slerp(ActorC.model.transform.forward, dir, 0.8f);
@@ -104,7 +109,6 @@ public class ArtoriasManager : IActorManager
 
         if (distance != 0 && !lockAgent)
         {
-
             if (distance > runDistance)
             {
                 ActorC.canAttack = false;
@@ -154,6 +158,7 @@ public class ArtoriasManager : IActorManager
     {
         if (attackVaild)
         {
+            targetWC.wm.am.ShakeOne(0.9f, 0.9f, 0.1f, 0.5f);
             HitOrDie(targetWC.Atk + targetWC.wm.am.GetAtk(), false);
         }
     }
@@ -163,7 +168,7 @@ public class ArtoriasManager : IActorManager
         return IsChargeEnd && !IsChargeBreaked ? atk * chageFinalIncrement : atk;
     }
 
-    public override void HitOrDie(float hitAmount, bool doHitAnimation = true)
+    public override void HitOrDie(float hitAmount, bool doHitAnimation = true, bool doHitAudioClip = true)
     {
         if (CurHp <= 0)
         {
@@ -174,6 +179,8 @@ public class ArtoriasManager : IActorManager
             if (IsCharging)
                 curChargeBreakedAmount += hitAmount;
             CurHp -= hitAmount;
+            if (doHitAudioClip)
+                audioSource.PlayOneShot(hitAudio);
             if (bossHp <= 0)
             {
                 isDead = true;

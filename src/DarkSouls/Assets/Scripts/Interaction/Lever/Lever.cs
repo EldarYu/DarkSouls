@@ -15,8 +15,10 @@ public class Lever : MonoBehaviour
     private bool isLeverLifting = false;
     private bool isTriggerLifting = false;
     private Vector3 leverVelocity;
+    private AudioSource audioSource;
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         curLeverPosIndex = 0;
         curTriggerPosIndex = 0;
         leverManagers[curLeverPosIndex].Init(false);
@@ -29,7 +31,10 @@ public class Lever : MonoBehaviour
         {
             lever.localPosition = Vector3.SmoothDamp(lever.localPosition, leverPos[curLeverPosIndex], ref leverVelocity, 5.0f);
             if (Vector3.Distance(lever.localPosition, leverPos[curLeverPosIndex]) < 0.3f)
+            {
                 isLeverLifting = false;
+                audioSource.Stop();
+            }
         }
 
         if (isTriggerLifting)
@@ -67,12 +72,14 @@ public class Lever : MonoBehaviour
             NextIndex();
             leverManagers[curLeverPosIndex].Init(false);
             isLeverLifting = true;
+            audioSource.Play();
         }
         else
         {
             NextIndex();
             leverManagers[curLeverPosIndex].Init(true);
             isLeverLifting = true;
+            audioSource.Play();
         }
     }
 

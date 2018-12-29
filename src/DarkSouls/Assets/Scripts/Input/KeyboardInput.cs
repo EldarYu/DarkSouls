@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using EZCameraShake;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -74,5 +75,12 @@ public class KeyboardInput : IPlayerInput
         ShortcutDownSelect = itemDownBtn.OnReleased && itemDownBtn.IsDelaying;
 
         ShortcutItemUse = itemUseBtn.OnReleased && itemUseBtn.IsDelaying;
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            CameraShakeInstance c = CameraShaker.Instance.ShakeOnce(0.25f, 0.25f, 0.1f, 0.3f);
+            //c.PositionInfluence = posInf;
+            //c.RotationInfluence = rotInf;
+        }
     }
 }

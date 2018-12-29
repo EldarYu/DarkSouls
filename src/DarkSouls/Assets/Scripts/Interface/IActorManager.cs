@@ -1,10 +1,11 @@
-﻿using System;
+﻿using EZCameraShake;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
 
-public class IActorManager : MonoBehaviour
+public class IActorManager : MonoBehaviour, IShaker
 {
     public IActorController ActorC { get; protected set; }
     public StateManager StateM { get; protected set; }
@@ -23,7 +24,7 @@ public class IActorManager : MonoBehaviour
 
     public virtual Animator GetAnimator() { return null; }
     public virtual void LockUnlockAnimator(bool value = true) { }
-    public virtual void HitOrDie(float hitAmount, bool doHitAnimation = true) { }
+    public virtual void HitOrDie(float hitAmount, bool doHitAnimation = true, bool doHitAudioClip = true) { }
     public virtual void TryDoDamage(WeaponController targetWC, bool attackVaild, bool counterVaild) { }
     public virtual void SetCounterBackEnable(bool enable) { }
     public virtual float GetAtk() { return 0; }
@@ -31,4 +32,9 @@ public class IActorManager : MonoBehaviour
     public virtual void Stunned() { }
     public virtual void UpOrDown() { }
     public virtual void StartBossBattle(GameObject obj) { }
+
+    public void ShakeOne(float magnitude, float roughness, float fadeInTime, float fadeOutTime)
+    {
+        CameraShaker.Instance.ShakeOnce(magnitude, roughness, fadeInTime, fadeOutTime);
+    }
 }

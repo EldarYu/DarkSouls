@@ -394,10 +394,34 @@ ModelImporter:
           postInfinity: 3
           rotationOrder: 0
       events:
+      - time: 0.03146853
+        functionName: PlaySound
+        data: 
+        objectReferenceParameter: {fileID: 8300000, guid: 8d7b617572874f647b3f622e6d716ceb,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.3181818
+        functionName: PlaySound
+        data: 
+        objectReferenceParameter: {fileID: 8300000, guid: 51eabc3f0445a42489501a12818b32e2,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.32765958
         functionName: WeaponEnable
         data: 
         objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.4252244
+        functionName: PlaySound
+        data: 
+        objectReferenceParameter: {fileID: 8300000, guid: d98feb78ff2bcbf4b9f258cf4552fab2,
+          type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0

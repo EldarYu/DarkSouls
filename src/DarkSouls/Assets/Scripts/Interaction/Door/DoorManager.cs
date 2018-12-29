@@ -7,12 +7,14 @@ public class DoorManager : IActorManager
     public IActorManager bossAm;
     public HudController hudController;
     private EventCasterManager em;
+    private AudioSource audioSource;
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         em = GetComponentInChildren<EventCasterManager>();
 
         //
-        //StartCoroutine(TestFunc());
+        // StartCoroutine(TestFunc());
     }
 
     IEnumerator TestFunc()
@@ -25,6 +27,7 @@ public class DoorManager : IActorManager
     {
         if (bossAm.isDead)
         {
+            audioSource.Stop();
             this.gameObject.SetActive(false);
         }
     }
@@ -33,5 +36,6 @@ public class DoorManager : IActorManager
     {
         bossAm.LockTarget(obj);
         hudController.bossStateController.SetBossInfo(bossAm);
+        audioSource.Play();
     }
 }

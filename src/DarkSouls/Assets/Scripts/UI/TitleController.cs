@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class TitleController : MonoBehaviour
 {
@@ -47,13 +48,19 @@ public class TitleController : MonoBehaviour
         }
     }
     public MenuController menuController;
-
+    public GameObject bgm;
+    public AudioClip enterClip;
+    public AudioClip cancelClip;
+    public AudioClip selectClip;
+    private AudioSource audioSource;
+    private GameObject lastSelected;
     private TitleView titleView;
     private bool first = true;
     void Awake()
     {
         titleView = GetComponent<TitleView>();
         menuController.Init(titleView);
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -65,10 +72,24 @@ public class TitleController : MonoBehaviour
             first = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape)&& UIManager.Instance.Count > 1)
+        if (Input.GetKeyDown(KeyCode.Escape) && UIManager.Instance.Count > 1)
         {
             UIManager.Instance.ReturnPrev();
+            audioSource.PlayOneShot(cancelClip);
             return;
+        }
+
+        GameObject obj = EventSystem.current.currentSelectedGameObject;
+        if (lastSelected != obj)
+        {
+            if (obj != null)
+                audioSource.PlayOneShot(selectClip);
+        }
+        lastSelected = obj;
+
+        if (Input.GetKeyDown(KeyCode.Return) && UIManager.Instance.Count > 0)
+        {
+            audioSource.PlayOneShot(enterClip);
         }
     }
 }

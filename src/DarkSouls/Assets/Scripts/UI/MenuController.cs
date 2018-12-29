@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 public class MenuController : MonoBehaviour
 {
     [System.Serializable]
@@ -54,12 +55,17 @@ public class MenuController : MonoBehaviour
         }
     }
     public Controller controller;
-
+    public AudioClip enterClip;
+    public AudioClip cancelClip;
+    public AudioClip selectClip;
+    private AudioSource audioSource;
+    private GameObject lastSelected;
     private MenuView menuView;
     public void Start()
     {
         menuView = GetComponent<MenuView>();
         controller.Init(menuView);
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void Update()
@@ -75,8 +81,21 @@ public class MenuController : MonoBehaviour
             if (UIManager.Instance.Count > 0)
             {
                 UIManager.Instance.ReturnPrev();
+                audioSource.PlayOneShot(cancelClip);
                 return;
             }
+        }
+        GameObject obj = EventSystem.current.currentSelectedGameObject;
+        if (lastSelected != obj)
+        {
+            if (obj != null)
+                audioSource.PlayOneShot(selectClip);
+        }
+        lastSelected = obj;
+
+        if (Input.GetKeyDown(KeyCode.Return) && UIManager.Instance.Count > 0)
+        {
+            audioSource.PlayOneShot(enterClip);
         }
     }
 }

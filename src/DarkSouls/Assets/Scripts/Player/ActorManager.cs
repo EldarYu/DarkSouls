@@ -4,12 +4,20 @@ using UnityEngine;
 
 public class ActorManager : IActorManager
 {
+    public AudioClip openBox;
+    public AudioClip frontStab;
+    public AudioClip leverUp;
+    public AudioClip openDoor;
+
+    private AudioSource audioSource;
+    public AudioClip hitAudio;
     public bool LeftIsShield { get { return WeaponM.LeftIsShield; } }
     public delegate void Dead();
     public event Dead OnDead;
 
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         BattleM = GetComponentInChildren<BattleManager>();
         ActorC = GetComponent<ActorController>();
         WeaponM = GetComponentInChildren<WeaponManager>();
@@ -44,15 +52,19 @@ public class ActorManager : IActorManager
                     case EventCasterType.OpenDoor:
                         transform.position += transform.forward * 3;
                         ecastm.am.StartBossBattle(this.gameObject);
+                        audioSource.PlayOneShot(openDoor);
                         break;
                     case EventCasterType.LeverUp:
                         ecastm.am.UpOrDown();
+                        audioSource.PlayOneShot(leverUp);
                         break;
                     case EventCasterType.OpenBox:
                         AddItem(ecastm.itemData, ecastm.itemCount);
+                        audioSource.PlayOneShot(openBox);
                         break;
                     case EventCasterType.FrontStab:
-                        ecastm.am.HitOrDie(ecastm.am.maxBossHp * 0.2f, false);
+                        ecastm.am.HitOrDie(ecastm.am.maxBossHp * 0.2f, false, false);
+                        audioSource.PlayOneShot(frontStab);
                         break;
                 }
                 //transform.position = ecastm.transform.position + ecastm.am.transform.TransformVector(ecastm.offset);
@@ -166,7 +178,7 @@ public class ActorManager : IActorManager
         return ActorC.GetAnimator();
     }
 
-    public override void HitOrDie(float hitAmount, bool doHitAnimation = true)
+    public override void HitOrDie(float hitAmount, bool doHitAnimation = true, bool doHitAudioClip = true)
     {
         if (StateM.state.HP <= 0)
         {
@@ -179,6 +191,8 @@ public class ActorManager : IActorManager
             {
                 if (doHitAnimation)
                     Hit();
+                if (doHitAudioClip)
+                    audioSource.PlayOneShot(hitAudio);
             }
             else
             {
