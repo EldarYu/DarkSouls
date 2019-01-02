@@ -248,6 +248,12 @@ public class ActorController : IActorController, IHearable
     {
         pi.inputEnabled = false;
         planarVec = Vector3.zero;
+        am.ShakeOnce(0.9f, 0.9f, 0.1f, 0.5f);
+    }
+
+    void OnHitUpdate()
+    {
+        thrushVec = -model.transform.forward * anim.GetFloat("hitVelocity");
     }
 
     void OnBlockedEnter()
@@ -285,8 +291,6 @@ public class ActorController : IActorController, IHearable
         pi.inputEnabled = false;
         planarVec = Vector3.zero;
     }
-
-
 
     //发往WeaponManager
     void OnLockEnter()

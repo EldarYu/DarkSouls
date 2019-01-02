@@ -221,4 +221,13 @@ public class ArtoriasManager : IActorManager
     {
         return ActorC.GetAnimator();
     }
+
+    public override void CamShakeOnce()
+    {
+        if (target == null)
+            return;
+        IShaker shaker = target.GetComponent<IActorManager>();
+        if (shaker != null && distance < 3.0f)
+            shaker.ShakeOnce(2.0f, 2.0f, 0.1f, 1.0f);
+    }
 }

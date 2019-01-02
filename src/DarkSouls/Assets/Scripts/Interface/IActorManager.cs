@@ -32,7 +32,7 @@ public class IActorManager : MonoBehaviour, IShaker
     public virtual void Stunned() { }
     public virtual void UpOrDown() { }
     public virtual void StartBossBattle(GameObject obj) { }
-
+    public virtual void CamShakeOnce() { }
     public void ShakeOnce(float magnitude, float roughness, float fadeInTime, float fadeOutTime)
     {
         CameraShaker.Instance.ShakeOnce(magnitude, roughness, fadeInTime, fadeOutTime);
