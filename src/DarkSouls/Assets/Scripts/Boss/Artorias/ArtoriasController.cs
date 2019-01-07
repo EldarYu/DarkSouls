@@ -46,7 +46,6 @@ public class ArtoriasController : IActorController
     void StabAttackEnter()
     {
         canAttack = false;
-        am.lockDir = false;
     }
 
     void StabAttackUpdate()
@@ -57,13 +56,11 @@ public class ArtoriasController : IActorController
     void StabAttackExit()
     {
         canAttack = true;
-        am.lockDir = true;
     }
 
     void JumpAttackEnter()
     {
         canAttack = false;
-        am.lockDir = false;
     }
 
     void JumpAttackUpdate()
@@ -75,13 +72,11 @@ public class ArtoriasController : IActorController
     void JumpAttackExit()
     {
         canAttack = true;
-        am.lockDir = true;
     }
 
     void Attack1Enter()
     {
         canAttack = false;
-        am.lockDir = false;
     }
 
     void Attack1Update()
@@ -92,13 +87,11 @@ public class ArtoriasController : IActorController
     void Attack1Exit()
     {
         canAttack = true;
-        am.lockDir = true;
     }
 
     void Attack2Enter()
     {
         canAttack = false;
-        am.lockDir = false;
     }
 
     void Attack2Update()
@@ -109,7 +102,6 @@ public class ArtoriasController : IActorController
     void Attack2Exit()
     {
         canAttack = true;
-        am.lockDir = true;
     }
 
     void ChargeEnter()
@@ -117,6 +109,7 @@ public class ArtoriasController : IActorController
         am.WeaponM.WeaponDisable();
         canAttack = false;
         am.lockAgent = true;
+        am.lockDir = true;
     }
 
     void ChargeExit()
@@ -124,16 +117,19 @@ public class ArtoriasController : IActorController
         canAttack = true;
         am.IsChargeEnd = true;
         am.lockAgent = false;
+        am.lockDir = false;
     }
 
     void LocolMotionEnter()
     {
         am.WeaponM.WeaponDisable();
         am.lockAgent = false;
+        am.lockDir = false;
     }
 
     void LocolMotionExit()
     {
         am.lockAgent = true;
+        am.lockDir = true;
     }
 }

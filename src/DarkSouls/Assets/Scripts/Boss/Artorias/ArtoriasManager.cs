@@ -38,6 +38,8 @@ public class ArtoriasManager : IActorManager
     public float distance;
     public NavMeshAgent agent;
     public bool CanAttack { get { return ActorC.canAttack; } }
+    public bool CanSendDieTrigger { get { return !ActorC.CheckAnimatorStateWithName("lock"); } }
+    public bool CanSendChargeTrigger { get { return !ActorC.CheckAnimatorStateWithName("lock") && !ActorC.CheckAnimatorStateWithTag("attack"); } }
     private float forward;
     private float velocitySpeed;
     private bool sendedDieTrigger = false;
@@ -68,7 +70,7 @@ public class ArtoriasManager : IActorManager
     {
         if (isDead)
         {
-            if (!sendedDieTrigger)
+            if (!sendedDieTrigger && CanSendDieTrigger)
                 Die();
             return;
         }
@@ -100,7 +102,7 @@ public class ArtoriasManager : IActorManager
             distance = Vector3.Distance(transform.position, target.transform.position);
             dir = (target.transform.position - transform.position).normalized;
             dir.y = 0;
-            if (lockDir)
+            if (!lockDir)
             {
                 ActorC.model.transform.forward = Vector3.Slerp(ActorC.model.transform.forward, dir, 0.8f);
                 transform.forward = ActorC.model.transform.forward;
